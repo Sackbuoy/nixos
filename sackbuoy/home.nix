@@ -2,6 +2,7 @@
 {
   imports = [
     ./modules/desktop-environments/hyprland.nix
+    ./modules/tmux/tmux.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -38,6 +39,8 @@
     pkgs.gnumake
     pkgs.slack
     pkgs.nodejs
+    pkgs.kubectl
+    pkgs.kubectx
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -99,6 +102,12 @@
     initExtra = ''
       if [ "$TMUX" = "" ]; then tmux; fi
     '';
+
+    shellAliases = {
+      gits = "git status";
+      gitb = "git branch";
+      k = "kubectl";
+    };
   };
 
   programs.starship = {
@@ -122,10 +131,6 @@
     };
   };
 
-  programs.tmux = {
-    enable = true;
-  };
-
   programs.alacritty = {
     enable = true;
     settings = {
@@ -133,23 +138,27 @@
         normal = {
           family =  "FiraCode Nerd Font Mono";
           style = "Medium";
-	};
+	      };
         bold = {
           family = "FiraCode Nerd Font Mono";
           style = "Bold";
-	};
+	      };
         italic = {
           family = "FiraCode Nerd Font Mono";
           style = "Retina";
-	};
+	      };
         bold_italic = {
           family = "FiraCode Nerd Font Mono";
           style = "SemiBold";
-	};
+        };
       
         # Point size
         size = 11.0;
       };
     };
+  };
+
+  programs.git = {
+    enable = true;
   };
 }

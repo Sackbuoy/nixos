@@ -12,5 +12,9 @@
     neo-tree = {
       enable = true;
     };
+
+    tmux-navigator = {
+      enable = true;
+    };
   };
 }
