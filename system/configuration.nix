@@ -8,7 +8,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../modules/desktop-environments/default.nix
-      # ../modules/nixvim/nixvim.nix
+      ../modules/nixvim/nixvim.nix
     ];
 
   # Bootloader.
@@ -105,7 +105,6 @@
     vim
     tmux
     ripgrep
-    neovim
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

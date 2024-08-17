@@ -26,6 +26,7 @@
 
             home-manager.users.sackbuoy = import ./sackbuoy/home.nix;
           }
+	  nixvim.nixosModules.nixvim
         ];
       };
     };
