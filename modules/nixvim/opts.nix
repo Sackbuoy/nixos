@@ -1,4 +1,3 @@
-{ config, pkgs, ... }:
 {
   programs.nixvim.opts = {
     tabstop = 2;

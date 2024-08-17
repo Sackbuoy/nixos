@@ -1,9 +1,9 @@
-{ config, pkgs, ... }:
 {
   imports = [
     ./opts.nix
     ./plugins.nix
     ./keymaps.nix
+    ./language-servers.nix
   ];
 
   programs.nixvim = {
