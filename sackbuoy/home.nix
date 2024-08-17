@@ -3,6 +3,7 @@
   imports = [
     ./modules/desktop-environments/hyprland.nix
     ./modules/tmux/tmux.nix
+    ./modules/git/git.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -101,6 +102,8 @@
     historySubstringSearch.enable = true;
     initExtra = ''
       if [ "$TMUX" = "" ]; then tmux; fi
+      bindkey -v
+      bindkey '^R' history-incremental-search-backward
     '';
 
     shellAliases = {
@@ -156,9 +159,5 @@
         size = 11.0;
       };
     };
-  };
-
-  programs.git = {
-    enable = true;
   };
 }
