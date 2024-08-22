@@ -117,16 +117,7 @@
     enable = true;
     settings = {
       add_newline = false;
-      format = "$shlvl$username$hostname$nix_shell$git_branch$git_commit$git_state$git_status$directory$jobs$cmd_duration$character";
-      shlvl = {
-        disabled = false;
-        symbol = "ﰬ";
-        style = "bright-red bold";
-      };
-      shell = {
-        disabled = false;
-        format = "$indicator";
-      };
+      format = "$username$hostname$nix_shell$git_branch$git_commit$git_state$git_status$directory$jobs$cmd_duration$character";
       username = {
         style_user = "bright-white bold";
         style_root = "bright-red bold";
