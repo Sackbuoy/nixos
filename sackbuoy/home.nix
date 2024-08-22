@@ -109,6 +109,7 @@
     shellAliases = {
       gits = "git status";
       gitb = "git branch";
+      gitl = "git log";
       k = "kubectl";
     };
   };
