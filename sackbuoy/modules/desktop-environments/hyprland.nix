@@ -15,80 +15,80 @@
       "exec-once" = "waybar";
 
       general = { 
-	"gaps_in" = 5;
-	"gaps_out" = 5;
+	      "gaps_in" = 5;
+      	"gaps_out" = 5;
 
-	"border_size" = 2;
+	      "border_size" = 2;
 
-	# https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
-	"col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-	"col.inactive_border" = "rgba(595959aa)";
+	      # https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
+	      "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+	      "col.inactive_border" = "rgba(595959aa)";
 
-	# Set to true enable resizing windows by clicking and dragging on borders and gaps
-	"resize_on_border" = "false";
+	      # Set to true enable resizing windows by clicking and dragging on borders and gaps
+	      "resize_on_border" = "false";
 
-	# Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
-	"allow_tearing" = "false";
+	      # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
+	      "allow_tearing" = "false";
 
-	"layout" = "dwindle";
+	      "layout" = "dwindle";
       };
 
       gestures = {
-	  "workspace_swipe" = "true";
+        "workspace_swipe" = "true";
       };
 
       bind = [
-	# Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-	"$mainMod, Q, exec, $terminal"
-	"$mainMod, C, killactive" 
-	"$mainMod, M, exit" 
-	"$mainMod, E, exec, $fileManager"
-	"$mainMod, V, togglefloating" 
-	"$mainMod, SPACE, exec, $menu"
-	"$mainMod, P, pseudo" # dwindle 
-	"$mainMod, J, togglesplit" # dwindle 
+	      # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
+	      "$mainMod, Q, exec, $terminal"
+	      "$mainMod, C, killactive" 
+	      "$mainMod, M, exit" 
+	      "$mainMod, E, exec, $fileManager"
+	      "$mainMod, V, togglefloating" 
+	      "$mainMod, SPACE, exec, $menu"
+	      "$mainMod, P, pseudo" # dwindle 
+	      "$mainMod, J, togglesplit" # dwindle 
 
-	# Move focus with mainMod + arrow keys
-	"$mainMod, left, movefocus, l"
-	"$mainMod, right, movefocus, r"
-	"$mainMod, up, movefocus, u"
-	"$mainMod, down, movefocus, d"
+	      # Move focus with mainMod + arrow keys
+	      "$mainMod, h, movefocus, l"
+	      "$mainMod, l, movefocus, r"
+	      "$mainMod, k, movefocus, u"
+	      "$mainMod, j, movefocus, d"
 
-	# Switch workspaces with mainMod + [0-9]
-	"$mainMod, 1, workspace, 1"
-	"$mainMod, 2, workspace, 2"
-	"$mainMod, 3, workspace, 3"
-	"$mainMod, 4, workspace, 4"
-	"$mainMod, 5, workspace, 5"
-	"$mainMod, 6, workspace, 6"
-	"$mainMod, 7, workspace, 7"
-	"$mainMod, 8, workspace, 8"
-	"$mainMod, 9, workspace, 9"
-	"$mainMod, 0, workspace, 10"
+	      # Switch workspaces with mainMod + [0-9]
+	      "$mainMod, 1, workspace, 1"
+	      "$mainMod, 2, workspace, 2"
+	      "$mainMod, 3, workspace, 3"
+	      "$mainMod, 4, workspace, 4"
+	      "$mainMod, 5, workspace, 5"
+	      "$mainMod, 6, workspace, 6"
+	      "$mainMod, 7, workspace, 7"
+	      "$mainMod, 8, workspace, 8"
+	      "$mainMod, 9, workspace, 9"
+	      "$mainMod, 0, workspace, 10"
 
-	# Move active window to a workspace with mainMod + SHIFT + [0-9]
-	"$mainMod SHIFT, 1, movetoworkspace, 1"
-	"$mainMod SHIFT, 2, movetoworkspace, 2"
-	"$mainMod SHIFT, 3, movetoworkspace, 3"
-	"$mainMod SHIFT, 4, movetoworkspace, 4"
-	"$mainMod SHIFT, 5, movetoworkspace, 5"
-	"$mainMod SHIFT, 6, movetoworkspace, 6"
-	"$mainMod SHIFT, 7, movetoworkspace, 7"
-	"$mainMod SHIFT, 8, movetoworkspace, 8"
-	"$mainMod SHIFT, 9, movetoworkspace, 9"
-	"$mainMod SHIFT, 0, movetoworkspace, 10"
+	      # Move active window to a workspace with mainMod + SHIFT + [0-9]
+	      "$mainMod SHIFT, 1, movetoworkspace, 1"
+	      "$mainMod SHIFT, 2, movetoworkspace, 2"
+	      "$mainMod SHIFT, 3, movetoworkspace, 3"
+	      "$mainMod SHIFT, 4, movetoworkspace, 4"
+	      "$mainMod SHIFT, 5, movetoworkspace, 5"
+	      "$mainMod SHIFT, 6, movetoworkspace, 6"
+	      "$mainMod SHIFT, 7, movetoworkspace, 7"
+	      "$mainMod SHIFT, 8, movetoworkspace, 8"
+	      "$mainMod SHIFT, 9, movetoworkspace, 9"
+	      "$mainMod SHIFT, 0, movetoworkspace, 10"
       ];
 
       input = {
-	  "kb_layout" = "us";
+	      "kb_layout" = "us";
 
-	  "follow_mouse" = "1";
+	      "follow_mouse" = "1";
 
-	  "sensitivity" = "0"; # -1.0 - 1.0, 0 means no modification.
+	      "sensitivity" = "0"; # -1.0 - 1.0, 0 means no modification.
 
-	  touchpad  = {
-	      "natural_scroll" = "true";
-	  };
+	      touchpad  = {
+	        "natural_scroll" = "true";
+	      };
       };
     };
   };

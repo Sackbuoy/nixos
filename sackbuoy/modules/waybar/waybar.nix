@@ -23,6 +23,8 @@
         ];
 
         "hyprland/workspaces" = {
+          "format" = "{icon}";
+          "separate-outputs" = true;
           "icon-size" = 32;
           "spacing" = 16;
           "on-scroll-up" = "hyprctl dispatch workspace r+1";
