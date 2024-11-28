@@ -15,12 +15,21 @@
         ];
         "modules-right" = [
           "pulseaudio"
+          "bluetooth"
           # "custom/mem"
-          # "backlight"
+          "backlight"
           "network"
           "battery"
-          "tray"
         ];
+
+        "bluetooth" = {
+          "format" = " {status}";
+          "format-disabled" = "";
+          "format-connected" = " {num_connections} connected";
+	        "tooltip-format" = "{controller_alias}\t{controller_address}";
+	        "tooltip-format-connected" = "{controller_alias}\t{controller_address}\n\n{device_enumerate}";
+	        "tooltip-format-enumerate-connected" = "{device_alias}\t{device_address}";
+        };
 
         "hyprland/workspaces" = {
           "format" = "{icon}";
@@ -95,15 +104,11 @@
             "device" = "intel_backlight";
             "format" = "{percent}% {icon}";
             "format-icons" = [
-              ""
-              ""
-              ""
-              ""
-              ""
-              ""
-              ""
+              "🔅"
+              "🔆"
             ];
-            "min-length" = 7;
+            "on-scroll-down" = "brightnessctl s 5+";
+            "on-scroll-up" = "brightnessctl s 5-";
         };
 
         "battery" = {
@@ -128,11 +133,6 @@
               "󰁹"
             ];
             # "on-update" = "$HOME/.config/waybar/scripts/check_battery.sh",
-        };
-
-        "tray" = {
-            "icon-size" = 16;
-            "spacing" = 0;
         };
       };
     };

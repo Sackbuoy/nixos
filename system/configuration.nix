@@ -43,9 +43,14 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+  # fonts.packages = with pkgs; [
+  #   (nerdfonts.override { fonts = [ "FiraCode" ]; })
+  # ];
+  fonts.fontconfig.enable = true;
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    font-awesome
   ];
+
 
   nix = {
     package = pkgs.nixFlakes;
@@ -77,7 +82,7 @@
   users.defaultUserShell = pkgs.zsh;
 
   # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  # services.libinput.enable = true;
   
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sackbuoy = {

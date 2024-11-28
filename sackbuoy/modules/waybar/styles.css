@@ -15,33 +15,43 @@
 }
 
 #clock {
-    margin-right: 8px;
-    padding-left: 16px;
-    padding-right: 16px;
-    border-radius: 10px;
-    transition: none;
-    color: #161320;
-background: #ABE9B3;
+  margin-right: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-radius: 10px;
+  transition: none;
+  color: #161320;
+  background: #ABE9B3;
 }
 
 #network {
-   margin-right: 8px;
-   padding-left: 8px;
-   padding-right: 8px;
-   border-radius: 10px;
-   transition: none;
-   color: #161320;
-background: #bd93f9;
+  margin-right: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 10px;
+  transition: none;
+  color: #161320;
+  background: #bd93f9;
+}
+
+#bluetooth {
+  margin-right: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 10px;
+  transition: none;
+  color: #1A1826;
+  background:  #0082FC;
 }
 
 #pulseaudio {
-   margin-right: 8px;
-   padding-left: 2px;
-   padding-right: 2px;
-   border-radius: 10px;
-   transition: none;
-   color: #1A1826;
-background: #FAE3B0;
+  margin-right: 8px;
+  padding-left: 2px;
+  padding-right: 2px;
+  border-radius: 10px;
+  transition: none;
+  color: #1A1826;
+  background: #FAE3B0;
 }
 
 #pulseaudio.muted {
