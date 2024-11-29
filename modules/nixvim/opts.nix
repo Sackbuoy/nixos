@@ -6,6 +6,8 @@
     expandtab = true;
     smarttab = true;
 
+    mouse = "";
+
     number = true;
     relativenumber = true;
   };
