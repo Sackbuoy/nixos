@@ -57,6 +57,19 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  services.power-profiles-daemon.enable = false;
+  services.auto-cpufreq.enable = true;
+  services.auto-cpufreq.settings = {
+    battery = {
+       governor = "powersave";
+       turbo = "never";
+    };
+    charger = {
+       governor = "performance";
+       turbo = "auto";
+    };
+  };
+
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -85,7 +98,6 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
-  services.touchegg.enable = true;
   
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sackbuoy = {

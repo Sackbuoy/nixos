@@ -32,6 +32,7 @@
     pkgs.tmux
     pkgs.ripgrep
     pkgs.slack
+    pkgs.teams-for-linux
     pkgs.brightnessctl
     pkgs.fzf
     pkgs.zsh-vi-mode
