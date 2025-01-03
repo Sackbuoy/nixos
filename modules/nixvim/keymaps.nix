@@ -50,7 +50,7 @@
     }
     {
       action = "<cmd>Telescope lsp_type_definitions<CR>";
-      key = "gd";
+      key = "gD";
       mode = "n";
       options = {
         noremap = true;
@@ -58,7 +58,7 @@
       };
     }
     {
-      action = "<cmd>Telescope lsp_references<CR>";
+      action = ":lua vim.lsp.buf.references()<CR>";
       key = "gr";
       mode = "n";
       options = {

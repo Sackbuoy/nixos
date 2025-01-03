@@ -9,6 +9,7 @@
 
       gopls = {
         enable = true;
+        autostart = true;
       };
 
       rust-analyzer = {

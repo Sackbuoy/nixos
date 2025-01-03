@@ -18,7 +18,8 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "24.05"; # Please read the comment before changing.
+  # home.stateVersion = "24.05"; # Please read the comment before changing.
+  home.stateVersion = "24.11"; # Please read the comment before changing.
 
   nixpkgs.config.allowUnfree = true;
 
@@ -28,23 +29,26 @@
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     pkgs.alacritty
-    pkgs.httpie
-    pkgs.docker
     pkgs.tmux
-    pkgs.go
-    pkgs.rustup
-    pkgs.python3
-    pkgs.elixir
     pkgs.ripgrep
-    pkgs.gnumake
     pkgs.slack
-    pkgs.nodejs
-    pkgs.kubectl
-    pkgs.kubectx
     pkgs.brightnessctl
-    (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
-    pkgs.neovim
-    pkgs.libgcc
+    pkgs.fzf
+    pkgs.zsh-vi-mode
+    pkgs.kubectl
+
+    # dev env stuff
+    # (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
+    # pkgs.nodejs
+    # pkgs.kubectl
+    # pkgs.kubectx
+    # pkgs.go
+    # pkgs.rustup
+    # pkgs.python3
+    # pkgs.elixir
+    # pkgs.docker
+    # pkgs.httpie
+    # pkgs.gnumake
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -107,6 +111,21 @@
       if [ "$TMUX" = "" ]; then tmux; fi
       bindkey -v
       bindkey '^R' history-incremental-search-backward
+      export PATH=/home/sackbuoy/.bin/:$PATH
+
+      (
+        set -x; cd "''$(mktemp -d)" &&
+        OS="''$(uname | tr '[:upper:]' '[:lower:]')" &&
+        ARCH="''$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64''$/arm64/')" &&
+        KREW="krew-''${OS}_''${ARCH}" &&
+        curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/''${KREW}.tar.gz" &&
+        tar zxvf "''${KREW}.tar.gz" &&
+        ./"''${KREW}" install krew
+      ) &>/dev/null
+
+      export PATH="''${KREW_ROOT:-''$HOME/.krew}/bin:''$PATH"
+
+      source <(kubectl completion ''$(echo ''$SHELL | xargs basename))
     '';
 
     shellAliases = {
@@ -115,6 +134,20 @@
       gitl = "git log";
       k = "kubectl";
     };
+
+    plugins = [
+      {
+        name = "vi-mode";
+        src = pkgs.zsh-vi-mode;
+        file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+      }
+    ];
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true; # see note on other shells below
+    nix-direnv.enable = true;
   };
 
   programs.firefox.enable = true;
