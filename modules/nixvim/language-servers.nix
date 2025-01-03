@@ -3,7 +3,7 @@
     enable = true;
 
     servers = {
-      nil-ls = {
+      nil_ls = {
         enable = true;
       };
 
@@ -12,7 +12,7 @@
         autostart = true;
       };
 
-      rust-analyzer = {
+      rust_analyzer = {
         installCargo = true;
         installRustc = true;
         enable = true;
