@@ -2,7 +2,7 @@
   programs.git = {
     enable = true;
     userName = "Sackbuoy";
-    userEmail = "noremackientz@gmail.com";
+    userEmail = "cameronkientz@proton.me";
     aliases = {
       co = "checkout";
     };
