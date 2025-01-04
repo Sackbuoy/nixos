@@ -8,6 +8,10 @@
       co = "checkout";
     };
     extraConfig = {
+      # Sign all commits using ssh key
+      commit.gpgsign = true;
+      gpg.format = "ssh";
+      user.signingkey = "~/.ssh/id_ed25519.pub";
       url = {
         "ssh://git@github.com" = {
           insteadOf = "https://github.com";
