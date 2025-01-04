@@ -19,6 +19,8 @@ nmcli d wifi connect <WiFiSSID> password <WiFiPassword> iface <WifiInterface>
 # config outside this repo:
 1. create ssh key for git(check git.nix for exact filename) and add to github as ssh key and signing key
 2. install tmux plugin manager, and install plugins(prefix + I)
+    - for tmux2k plugin, i use my own custom scripts for gcloud and kube
+      just add them to the scripts dir of the plugin and update tmux2k.sh to      accomodate them
 3. create ~/.bin/ for custom binaries
 4. create boot partition with label NIXBOOT
 5. create root partition with label NIXROOT
@@ -31,5 +33,6 @@ nmcli d wifi connect <WiFiSSID> password <WiFiPassword> iface <WifiInterface>
 # TODO:
 - build my neovim config as a nix flake and use that instead of nixvim
 - add https://github.com/outfoxxed/hy3 to hyprland
-- find better bar setup than current waybar
+- find better bar setup than current waybar for hyprland
 - fix vpn connection? cant connect to home
+- switch to wezterm? nix pkg seems broken
