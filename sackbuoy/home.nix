@@ -37,6 +37,7 @@
     pkgs.fzf
     pkgs.zsh-vi-mode
     pkgs.kubectl
+    pkgs.gnomeExtensions.proton-vpn-button
 
     # dev env stuff
     # (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
@@ -112,7 +113,7 @@
       if [ "$TMUX" = "" ]; then tmux; fi
       bindkey -v
       bindkey '^R' history-incremental-search-backward
-      export PATH=/home/sackbuoy/.bin/:$PATH
+      export PATH=/home/sackbuoy/.bin:$PATH
 
       (
         set -x; cd "''$(mktemp -d)" &&
