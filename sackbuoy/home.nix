@@ -29,6 +29,7 @@
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     pkgs.alacritty
+    pkgs.wezterm
     pkgs.tmux
     pkgs.ripgrep
     pkgs.slack
@@ -36,21 +37,21 @@
     pkgs.brightnessctl
     pkgs.fzf
     pkgs.zsh-vi-mode
-    pkgs.kubectl
-    pkgs.gnomeExtensions.proton-vpn-button
 
     # dev env stuff
-    # (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
-    # pkgs.nodejs
-    # pkgs.kubectl
-    # pkgs.kubectx
-    # pkgs.go
-    # pkgs.rustup
-    # pkgs.python3
-    # pkgs.elixir
-    # pkgs.docker
-    # pkgs.httpie
-    # pkgs.gnumake
+    (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
+    awscli
+    pkgs.nodejs
+    pkgs.kubectl
+    pkgs.kubectx
+    pkgs.go
+    pkgs.rustup
+    pkgs.python3
+    pkgs.elixir
+    pkgs.docker
+    pkgs.httpie
+    pkgs.gnumake
+    pkgs.gh
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -146,10 +147,11 @@
     ];
   };
 
+  # direnv doesn't seem very good at setting up dev environments
   programs.direnv = {
-    enable = true;
+    enable = false;
     enableZshIntegration = true; # see note on other shells below
-    nix-direnv.enable = true;
+    nix-direnv.enable = false;
   };
 
   programs.firefox.enable = true;
