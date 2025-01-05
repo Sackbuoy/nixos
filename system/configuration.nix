@@ -111,6 +111,8 @@
     enable = true;
   };
 
+  programs.coolercontrol.enable = true;
+
   # Install firefox.
   programs.firefox.enable = true;
 
