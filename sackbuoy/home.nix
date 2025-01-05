@@ -40,7 +40,7 @@
 
     # dev env stuff
     (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
-    pkgs.awscli
+    pkgs.awscli2
     pkgs.nodejs
     pkgs.kubectl
     pkgs.kubectx
@@ -145,10 +145,42 @@
       gitb = "git branch";
       gitl = "git log";
       k = "kubectl";
-      cam-home-creds = ". ~/.bin/set-google-creds-cam-dev";
-      test-creds = ". ~/.bin/set-google-creds-cyderes-test";
-      dev-creds = ". ~/.bin/set-google-creds-cyderes-dev";
-      prod-creds = ". ~/.bin/set-google-creds-cyderes-prod";
+
+      aws-test = "okta-awscli --profile test --force --okta-profile test && \
+        export AWS_DEFAULT_PROFILE=test && \ 
+        kubectx cyderes-eks-test";
+      aws-dev = "okta-awscli --profile dev --force --okta-profile dev && \
+        export AWS_DEFAULT_PROFILE=dev && \
+        kubectx cyderes-eks-dev";
+      aws-prod = "okta-awscli --profile prod --force --okta-profile prod && \ 
+        export AWS_DEFAULT_PROFILE=prod && \
+        kubectx cyderes-eks";
+
+      gke-test = "gcloud config configurations activate cyderes-test && \
+        kubectxgke-cyderes-test && \
+        export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-test.json";
+      gke-dev = "gcloud config configurations activate cyderes-dev && \
+        kubectx gke-cyderes-dev && \
+        export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-dev.json";
+      gke-prod = "gcloud config configurations activate cyderes-prod && \
+        kubectx gke-cyderes-prod && \ 
+        export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json";
+      gke-us-priv-prod = "gcloud config configurations activate cyderes-prod &&
+        kubectx gke-us-priv-prod && \
+        export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json";
+      gke-alphapub-prod = "gcloud config configurations activate cyderes-prod && \
+        kubectx gke-alphapub-prod && \
+        export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json";
+      gke-eu-priv-prod = "gcloud config configurations activate cyderes-prod && \
+        kubectx gke-eu-priv-prod && \
+        export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json";
+      gke-eu-pub-prod = "gcloud config configurations activate cyderes-prod && \
+        kubectx gke-eu-pub-prod && \
+        export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json";
+
+      cam-home = "gcloud config configurations activate cam-dev && \
+        kubectx cam-home && \ 
+        GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cam-dev.json";
     };
 
     plugins = [
