@@ -17,6 +17,28 @@
           insteadOf = "https://github.com";
         };
       };
+
+      push = {
+        autoSetupRemote = true;
+      };
+
+      init = {
+        defaultBranch = "main";
+      };
+
+      delta = {
+        navigate = true;
+        side-by-side = true;
+      };
+
+      merge = {
+        conflictstyle = "diff3";
+      };
+
+      diff = {
+        colorMoved = "default";
+      };
+
     };
   };
 }

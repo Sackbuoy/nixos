@@ -18,7 +18,6 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  # home.stateVersion = "24.05"; # Please read the comment before changing.
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
   nixpkgs.config.allowUnfree = true;
@@ -37,16 +36,17 @@
     pkgs.brightnessctl
     pkgs.fzf
     pkgs.zsh-vi-mode
+    pkgs.signal-desktop
 
     # dev env stuff
     (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
-    awscli
+    pkgs.awscli
     pkgs.nodejs
     pkgs.kubectl
     pkgs.kubectx
     pkgs.go
     pkgs.rustup
-    pkgs.python3
+    pkgs.python313
     pkgs.elixir
     pkgs.docker
     pkgs.httpie
@@ -129,6 +129,10 @@
       export PATH="''${KREW_ROOT:-''$HOME/.krew}/bin:''$PATH"
 
       source <(kubectl completion ''$(echo ''$SHELL | xargs basename))
+
+      # TODO: this doesn't work, need to figure out completion
+      # export CLOUD_SDK_HOME="${pkgs.google-cloud-sdk}"
+      # source "$CLOUD_SDK_HOME/google-cloud-sdk/completion.zsh.inc"
     '';
 
     shellAliases = {
@@ -136,6 +140,10 @@
       gitb = "git branch";
       gitl = "git log";
       k = "kubectl";
+      cam-home-creds = ". ~/.bin/set-google-creds-cam-dev";
+      test-creds = ". ~/.bin/set-google-creds-cyderes-test";
+      dev-creds = ". ~/.bin/set-google-creds-cyderes-dev";
+      prod-creds = ". ~/.bin/set-google-creds-cyderes-prod";
     };
 
     plugins = [
