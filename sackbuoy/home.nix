@@ -107,6 +107,11 @@
   # Let Home Manager install and manage itself.
   # programs.home-manager.enable = true;
 
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.zsh = {
     enable = true;
     historySubstringSearch.enable = true;
