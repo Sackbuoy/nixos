@@ -31,8 +31,8 @@ nmcli d wifi connect <WiFiSSID> password <WiFiPassword> iface <WifiInterface>
    arm64-linux eventually. maybe aarch64-darwin if i start to use asahi
 
 # TODO:
-- build my neovim config as a nix flake and use that instead of nixvim
 - add https://github.com/outfoxxed/hy3 to hyprland
 - find better bar setup than current waybar for hyprland
 - fix vpn connection? cant connect to home
 - switch to wezterm? nix pkg seems broken
+- gcloud completions
