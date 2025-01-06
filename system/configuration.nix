@@ -56,6 +56,8 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  services.flatpak.enable = true;
+
   services.power-profiles-daemon.enable = false;
   services.auto-cpufreq.enable = true;
   services.auto-cpufreq.settings = {

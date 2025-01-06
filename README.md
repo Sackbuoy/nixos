@@ -24,6 +24,7 @@ nmcli d wifi connect <WiFiSSID> password <WiFiPassword> iface <WifiInterface>
 3. create ~/.bin/ for custom binaries
 4. create boot partition with label NIXBOOT
 5. create root partition with label NIXROOT
+6. anything installed via flatpak is managed outside this repo
 
 # notes
 1. don't use direnv to create dev env, just add packages to home.nix
