@@ -5,6 +5,7 @@
     pkgs.dolphin
     pkgs.waybar
     pkgs.kitty
+    pkgs.brightnessctl
   ];
 
   programs.hyprland = {

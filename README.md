@@ -26,6 +26,11 @@ nmcli d wifi connect <WiFiSSID> password <WiFiPassword> iface <WifiInterface>
 5. create root partition with label NIXROOT
 6. anything installed via flatpak is managed outside this repo
 
+# installing profiles:
+`cd` to the directory containing the profile flake.nix
+then run `nix profile install .`
+possibly with a `--priority` and/or `--impure`
+
 # notes
 1. don't use direnv to create dev env, just add packages to home.nix
 2. this config currently only works with x86_64-linux, i hope to add 
