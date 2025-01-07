@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ./modules/desktop-environments/hyprland.nix
+    ./modules/hypr/hyprland.nix
     ./modules/tmux/tmux.nix
     ./modules/git/git.nix
   ];
@@ -83,6 +83,8 @@
 
   # Let Home Manager install and manage itself.
   # programs.home-manager.enable = true;
+
+  programs.wezterm.enable = true;
 
   programs.zoxide = {
     enable = true;

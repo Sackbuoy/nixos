@@ -1,11 +1,16 @@
+{ pkgs, ... }: 
 {
   imports = [
     ../waybar/waybar.nix
     ../wofi/wofi.nix
+    ./hyprpaper.nix
+    ./hypridle.nix
+    ./hyprlock.nix
   ];
 
   wayland.windowManager.hyprland = {
     enable = true;
+    plugins = [ pkgs.hyprlandPlugins.hy3 ];
     settings = {
       "$mainMod" = "SUPER";
       "$terminal" = "alacritty";
@@ -18,21 +23,21 @@
       #   "eDP-1, 1920x1080, 3840x0, 1"
       #   "DP-1, 1920x1080, 3840x0, 1"
       # ];
-      monitor = [
-        "DP-3, 1920x1080, 0x0, 1"
-        "DP-2, 1920x1080, 1920x0, 1"
-        "eDP-1, 1920x1080, 3840x0, 1"
-      ];
+      # monitor = [
+      #   "DP-3, 1920x1080, 0x0, 1"
+      #   "DP-2, 1920x1080, 1920x0, 1"
+      #   "eDP-1, 1920x1080, 3840x0, 1"
+      # ];
 
       "exec-once" = [
         "waybar"
       ];
 
       general = { 
-	      "gaps_in" = 5;
-      	"gaps_out" = 5;
+	      "gaps_in" = 2;
+      	"gaps_out" = 2;
 
-	      "border_size" = 2;
+	      "border_size" = 1;
 
 	      # https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
 	      "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
@@ -53,7 +58,7 @@
 
       bind = [
 	      # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-	      "$mainMod, Q, exec, $terminal"
+	      "$mainMod, RETURN, exec, $terminal"
 	      "$mainMod, C, killactive" 
 	      "$mainMod, M, exit" 
 	      "$mainMod, E, exec, $fileManager"
