@@ -4,6 +4,7 @@
   [
     ./gnome.nix
     ./hyprland.nix
+    ./kde.nix
   ];
   services.greetd = {
     enable = true;
