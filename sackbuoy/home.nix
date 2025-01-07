@@ -117,6 +117,8 @@
       # TODO: this doesn't work, need to figure out completion
       # export CLOUD_SDK_HOME="${pkgs.google-cloud-sdk}"
       # source "$CLOUD_SDK_HOME/google-cloud-sdk/completion.zsh.inc"
+
+      setopt autopushd
     '';
 
     shellAliases = {

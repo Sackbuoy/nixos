@@ -16,6 +16,7 @@
           # Personal
           pkgs.signal-desktop
           pkgs.protonmail-desktop
+          pkgs.spotify
 
           # Work
           pkgs.slack
