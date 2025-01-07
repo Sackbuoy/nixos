@@ -2,7 +2,7 @@
 {
   environment.systemPackages = [
     pkgs.wofi
-    pkgs.dolphin
+    pkgs.nautilus
     pkgs.waybar
     pkgs.kitty
     pkgs.brightnessctl

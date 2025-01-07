@@ -22,7 +22,7 @@
     settings = {
       "$mainMod" = "SUPER";
       "$terminal" = "alacritty";
-      "$fileManager" = "dolphin";
+      "$fileManager" = "nautilus";
       "$menu" = "wofi --show drun";
 
       # monitor = [
@@ -114,6 +114,7 @@
 	      "sensitivity" = "0"; # -1.0 - 1.0, 0 means no modification.
 
 	      touchpad  = {
+          "scroll_factor" = "0.2";
 	        "natural_scroll" = "true";
           "disable_while_typing" = "true";
           "tap-to-click" = "false";
@@ -159,7 +160,7 @@
 	#
 	#    # Set programs that you use
 	#    $terminal = alacritty
-	#    $fileManager = dolphin
+	#    $fileManager = nautilus
 	#    $menu = wofi --show drun
 	#
 	#
