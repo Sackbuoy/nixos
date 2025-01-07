@@ -1,4 +1,11 @@
+{ pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    pkgs.bluetui
+    pkgs.brightnessctl
+    pkgs.blueman
+  ];
+
   programs.waybar = {
     enable = true;
     settings = {
@@ -14,6 +21,7 @@
           "clock"
         ];
         "modules-right" = [
+          # "wireplumber"
           "pulseaudio"
           "bluetooth"
           # "custom/mem"
@@ -29,6 +37,7 @@
 	        "tooltip-format" = "{controller_alias}\t{controller_address}";
 	        "tooltip-format-connected" = "{controller_alias}\t{controller_address}\n\n{device_enumerate}";
 	        "tooltip-format-enumerate-connected" = "{device_alias}\t{device_address}";
+          "on-click" = "blueman-manager";
         };
 
         "hyprland/workspaces" = {
@@ -48,6 +57,7 @@
 
         "network" = {
           "format-wifi" = "{essid}  ";
+          "on-click" = "nmtui";
         };
 
         "pulseaudio" = {
@@ -60,22 +70,31 @@
             # "format-source" = "{volume}% "; 
             # "format-source-muted" = "";
             "format-icons" = {
-          # "headphone" = "";
-          # "hands-free" = "";
-          # "headset" = "";
-          # "phone" = "";
-          # "portable" = "";
-          # "car" = "";
-          "default" = [
-            "󰸈"
-            ""
-            ""
-            ""
-          ];
+              # "headphone" = "";
+              # "hands-free" = "";
+              # "headset" = "";
+              # "phone" = "";
+              # "portable" = "";
+              # "car" = "";
+              "default" = [
+                "󰸈"
+                ""
+                ""
+                ""
+              ];
             };
             "on-click" = "pavucontrol";
             "min-length" = 6;
         };
+
+        # "wireplumber" = {
+        #   "format" = "{volume}% {icon}";
+        #   "format-muted" = "";
+        #   "on-click" = "helvum";
+        #   "format-icons" = ["" "" ""];
+        #   "on-scroll-down" = "wpctl ARG";
+        #   "on-scroll-up" = "wpctl ARG";
+        # };
 
         "custom/mem" = {
             "format" = "{} 󰍛";

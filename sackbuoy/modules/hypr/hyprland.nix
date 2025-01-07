@@ -8,8 +8,16 @@
     ./hyprlock.nix
   ];
 
+  home.packages = with pkgs; [
+    pkgs.hyprlock
+    pkgs.hypridle
+    pkgs.hyprlock
+    pkgs.hyprpaper
+  ];
+
   wayland.windowManager.hyprland = {
     enable = true;
+    # systemd.enable = false; # needed when starting with UWSM
     plugins = [ pkgs.hyprlandPlugins.hy3 ];
     settings = {
       "$mainMod" = "SUPER";
@@ -108,6 +116,7 @@
 	      touchpad  = {
 	        "natural_scroll" = "true";
           "disable_while_typing" = "true";
+          "tap-to-click" = "false";
 	      };
       };
     };

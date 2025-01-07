@@ -44,10 +44,25 @@
   background:  #0082FC;
 }
 
+#wireplumber {
+  margin-right: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 10px;
+  transition: none;
+  color: #1A1826;
+  background: #FAE3B0;
+}
+
+#wireplumber.muted {
+    background-color: #90b1b1;
+    color: #2a5c45;
+}
+
 #pulseaudio {
   margin-right: 8px;
-  padding-left: 2px;
-  padding-right: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
   border-radius: 10px;
   transition: none;
   color: #1A1826;

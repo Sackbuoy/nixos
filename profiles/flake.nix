@@ -45,11 +45,6 @@
           pkgs.gnumake
           pkgs.gh
           pkgs.jq
-
-          # Stuff for hyprland bc idk where to put it rn
-          pkgs.hyprlock
-          pkgs.hyprpaper
-          pkgs.hypridle
         ];
       in
       {
