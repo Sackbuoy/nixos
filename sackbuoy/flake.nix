@@ -30,9 +30,9 @@
             kubectx
             go
             delve
-            python313
             docker
             kubernetes-helm
+            argocd
 
             fzf
             zsh-vi-mode
@@ -43,7 +43,7 @@
             # other dev tools
             nodejs
             rustup
-            python313
+            python313 # no pip bc it will never work, all python needs to use venv
             elixir
             httpie
             gnumake
