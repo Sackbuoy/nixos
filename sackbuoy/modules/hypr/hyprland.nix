@@ -24,15 +24,30 @@
       "$terminal" = "alacritty";
       "$fileManager" = "nautilus";
       "$menu" = "wofi --show drun";
+      "$dellMonitor"= "Dell Inc. DELL P2419HC DMC0L03";
+      "$lgMonitor"="LG Electronics 27EA63 0x01010101";
+      "$frameworkDisplay"="BOE NE135A1M-NY1";
 
+
+      # my setup, left to right
+      # i think this is super picky, like the ID might change if i plug into a
+      # different port -> which is why im using descriptions
       monitor = [
-        "eDP-1, 1920x1080, 3840x0, 1"
-        "DP-3, 1920x1080, 0x0, 1"
-        "DP-2, 1920x1080, 1920x0, 1"
+        "desc:$lgMonitor, 1920x1080, -1920x0, 1" # LG monitor
+        "desc:$dellMonitor, 1920x1080, 0x0, 1" # Dell
+        "desc:$frameworkDisplay, 2880x1920, 1920x0, 2" # built in display(framework)
+      ];
+
+      # does this even work?
+      workspace = [
+        "workspace=1,monitor:desc:$lgMonitor"
+        "workspace=2,monitor:desc:$dellMonitor"
+        "workspace=3,monitor:desc:$frameworkDisplay"
       ];
 
       "exec-once" = [
         "waybar"
+        "clipse -listen"
       ];
 
       general = { 
@@ -58,16 +73,26 @@
         "workspace_swipe" = "true";
       };
 
+      # windowRulev2 = [
+      #   "float, class:(clipse)"
+      #   "size 622 652, class:(clipse)"
+      # ];
+
       bind = [
 	      # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
 	      "$mainMod, RETURN, exec, $terminal"
 	      "$mainMod, C, killactive" 
 	      "$mainMod, M, exit" 
 	      "$mainMod, E, exec, $fileManager"
-	      "$mainMod, V, togglefloating" 
 	      "$mainMod, SPACE, exec, $menu"
-	      "$mainMod, P, pseudo" # dwindle 
 	      "$mainMod, J, togglesplit" # dwindle 
+
+        # screenshots
+	      "$mainMod, P, exec, hyprshot -m region --clipboard-only"
+	      "$mainMod SHIFT, P, exec, hyprshot -m region -o /home/sackbuoy/Pictures/Screenshots"
+
+        # clipboard manager
+        "$mainMod, V, exec, alacritty --class clipse -e clipse"
 
 	      # Move focus with mainMod + arrow keys
 	      "$mainMod, h, movefocus, l"
@@ -105,13 +130,14 @@
 
 	      "follow_mouse" = "1";
 
-	      "sensitivity" = "0"; # -1.0 - 1.0, 0 means no modification.
+	      "sensitivity" = "-0.3"; # -1.0 - 1.0, 0 means no modification.
 
 	      touchpad  = {
           "scroll_factor" = "0.2";
 	        "natural_scroll" = "true";
           "disable_while_typing" = "true";
           "tap-to-click" = "false";
+          "clickfinger_behavior" = "true";
 	      };
       };
     };

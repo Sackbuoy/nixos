@@ -1,9 +1,11 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    pkgs.bluetui
-    pkgs.brightnessctl
-    pkgs.blueman
+    pkgs.bluetui # for bluetui
+    pkgs.brightnessctl # brightness
+    pkgs.clipse # clipboard history
+    pkgs.pavucontrol # for pavucontrol
+    pkgs.networkmanager # for nmtui
   ];
 
   programs.waybar = {
@@ -37,7 +39,7 @@
 	        "tooltip-format" = "{controller_alias}\t{controller_address}";
 	        "tooltip-format-connected" = "{controller_alias}\t{controller_address}\n\n{device_enumerate}";
 	        "tooltip-format-enumerate-connected" = "{device_alias}\t{device_address}";
-          "on-click" = "blueman-manager";
+          "on-click" = "alacritty -e bluetui";
         };
 
         "hyprland/workspaces" = {
@@ -57,7 +59,9 @@
 
         "network" = {
           "format-wifi" = "{essid}  ";
-          "on-click" = "nmtui";
+          "format-ethernet" = "Wired";
+          "format-disconnected" = "";
+          "on-click" = "alacritty -e nmtui";
         };
 
         "pulseaudio" = {
