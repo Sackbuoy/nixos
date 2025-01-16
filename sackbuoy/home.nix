@@ -120,8 +120,6 @@
       # source "$CLOUD_SDK_HOME/google-cloud-sdk/completion.zsh.inc"
 
       setopt autopushd
-
-      export LD_PRELOAD="${pkgs.stderred}/lib/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
     '';
 
     shellAliases = {
