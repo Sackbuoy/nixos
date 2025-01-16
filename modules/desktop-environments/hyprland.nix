@@ -6,6 +6,7 @@
     pkgs.waybar
     pkgs.kitty
     pkgs.brightnessctl
+    pkgs.hyprshot
   ];
 
   programs.hyprland = {
