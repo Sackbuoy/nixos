@@ -41,7 +41,6 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-    pkgs.stderred
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -85,7 +84,9 @@
   # Let Home Manager install and manage itself.
   # programs.home-manager.enable = true;
 
-  programs.wezterm.enable = true;
+  programs.wezterm.enable = false; # if i can ever get this working...
+
+  services.dunst.enable = true;
 
   programs.zoxide = {
     enable = true;

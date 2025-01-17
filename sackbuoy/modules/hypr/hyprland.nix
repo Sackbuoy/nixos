@@ -29,25 +29,32 @@
       "$frameworkDisplay"="BOE NE135A1M-NY1";
 
 
-      # my setup, left to right
       # i think this is super picky, like the ID might change if i plug into a
       # different port -> which is why im using descriptions
+      # I use the built in display as 0x0, 
       monitor = [
-        "desc:$lgMonitor, 1920x1080, -1920x0, 1" # LG monitor
-        "desc:$dellMonitor, 1920x1080, 0x0, 1" # Dell
-        "desc:$frameworkDisplay, 2880x1920, 1920x0, 2" # built in display(framework)
+        "desc:$frameworkDisplay, 2880x1920@60, 0x0, 2" # built in display(framework)
+        "desc:$dellMonitor, 1920x1080, -1920x0, 1" # Dell
+        "desc:$lgMonitor, 1920x1080, -3840x0, 1" # LG monitor
+        # "workmonitor1, preferred,auto, 1",
+        # "workmonitor2, preferred,auto, 1",
+        ", preferred, auto, 1" # automatically puts new monitors plugged in to the right
       ];
 
       # does this even work?
       workspace = [
-        "workspace=1,monitor:desc:$lgMonitor"
-        "workspace=2,monitor:desc:$dellMonitor"
-        "workspace=3,monitor:desc:$frameworkDisplay"
+        "1,monitor:desc:$lgMonitor"
+        "2,monitor:desc:$dellMonitor"
+        "3,monitor:desc:$frameworkDisplay"
       ];
 
       "exec-once" = [
         "waybar"
         "clipse -listen"
+        "dunst"
+        "hypridle"
+        "systemctl --user start hyprpolkitagent"
+        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       ];
 
       general = { 
@@ -123,6 +130,10 @@
 	      "$mainMod SHIFT, 8, movetoworkspace, 8"
 	      "$mainMod SHIFT, 9, movetoworkspace, 9"
 	      "$mainMod SHIFT, 0, movetoworkspace, 10"
+      ];
+
+      bindl = [
+        ", switch:Lid Switch, exec, systemctl suspend"
       ];
 
       input = {
