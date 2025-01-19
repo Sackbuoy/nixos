@@ -26,8 +26,8 @@
           # "wireplumber"
           "pulseaudio"
           "bluetooth"
-          # "custom/mem"
-          "backlight"
+          "custom/mem"
+          # "backlight"
           "network"
           "battery"
         ];
@@ -39,7 +39,7 @@
 	        "tooltip-format" = "{controller_alias}\t{controller_address}";
 	        "tooltip-format-connected" = "{controller_alias}\t{controller_address}\n\n{device_enumerate}";
 	        "tooltip-format-enumerate-connected" = "{device_alias}\t{device_address}";
-          "on-click" = "alacritty -e bluetui";
+          "on-click" = "alacritty --class toolbarApp -e bluetui";
         };
 
         "hyprland/workspaces" = {
@@ -61,9 +61,10 @@
           "format-wifi" = "{essid}  ";
           "format-ethernet" = "Wired";
           "format-disconnected" = "";
-          "on-click" = "alacritty -e nmtui";
+          "on-click" = "alacritty --class toolbarApp -e nmtui";
         };
 
+        # would love to use wireplumber instead: https://github.com/dyegoaurelio/simple-wireplumber-gui
         "pulseaudio" = {
             # // "scroll-step" = 1; // %, can be a float
             "reverse-scrolling" = 1;
@@ -91,6 +92,7 @@
             "min-length" = 6;
         };
 
+        # would love to use this: https://github.com/dyegoaurelio/simple-wireplumber-gui
         # "wireplumber" = {
         #   "format" = "{volume}% {icon}";
         #   "format-muted" = "";

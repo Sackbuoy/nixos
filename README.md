@@ -28,8 +28,8 @@ nmcli d wifi connect <WiFiSSID> password <WiFiPassword> iface <WifiInterface>
 
 # installing profiles:
 `cd` to the directory containing the profile flake.nix
-then run `nix profile install .`
-possibly with a `--priority` and/or `--impure`
+then run `nix profile install --impure  .`
+then when packages are added/removed, run `nix profile upgrade sackbuoy --impure`
 
 # notes
 1. don't use direnv to create dev env, just add packages to home.nix

@@ -48,6 +48,10 @@
   services.printing.enable = true;
 
   services.flatpak.enable = true;
+  # Zen browser
+  # Spotify
+  # Simple Wireplumber GUI
+  # Wezterm
 
   services.power-profiles-daemon.enable = false;
   services.auto-cpufreq.enable = true;

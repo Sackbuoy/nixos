@@ -17,7 +17,8 @@
           paths = with pkgs; [
             signal-desktop
             protonmail-desktop
-            spotify
+            # spotify -> use flathub, can't log in on this one :(
+            spotify-player
             discord
 
             # Work
@@ -42,6 +43,7 @@
 
             # other dev tools
             nodejs
+            bun # WAY better than node
             rustup
             python313 # no pip bc it will never work, all python needs to use venv
             elixir

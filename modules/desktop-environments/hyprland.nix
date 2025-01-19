@@ -8,7 +8,8 @@
     pkgs.brightnessctl
     pkgs.hyprshot
     pkgs.hyprpolkitagent
-    pkgs.libsForQt5.qt5.qtwayland
+    pkgs.libsForQt5.qt5.qtwayland # needed for some apps to load right
+    pkgs.playerctl
   ];
 
   # hyprland "must haves"

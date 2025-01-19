@@ -4,6 +4,8 @@
     ./modules/hypr/hyprland.nix
     ./modules/tmux/tmux.nix
     ./modules/git/git.nix
+    ./modules/dunst/dunst.nix
+    # ./modules/wezterm/wezterm.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -83,10 +85,6 @@
 
   # Let Home Manager install and manage itself.
   # programs.home-manager.enable = true;
-
-  programs.wezterm.enable = false; # if i can ever get this working...
-
-  services.dunst.enable = true;
 
   programs.zoxide = {
     enable = true;
