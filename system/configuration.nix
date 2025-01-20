@@ -111,13 +111,13 @@
   programs.coolercontrol.enable = true;
 
   # Install firefox.
-  # programs.firefox.enable = true;
+  programs.firefox.enable = true;
 
   # enable blueman gui
   services.blueman.enable = true;
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfree = false; # install with flatpak
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

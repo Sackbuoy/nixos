@@ -17,13 +17,12 @@
           paths = with pkgs; [
             signal-desktop
             protonmail-desktop
-            # spotify -> use flathub, can't log in on this one :(
             spotify-player
-            discord
+            # discord # unfree, use flatpak
 
             # Work
-            slack
-            teams-for-linux
+            # slack # unfree, use flatpak
+            # teams-for-linux # unfree, use flatpak
             (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
             awscli2
             nodejs
@@ -63,7 +62,7 @@
             gcc11
             pylyzer
             black
-            terraform
+            # terraform # unfree, use nix flake
             terraform-ls
             typescript-language-server
             angular-language-server
