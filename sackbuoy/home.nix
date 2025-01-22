@@ -44,46 +44,24 @@
 
   home.file = {
     ".aliases".text = ''
-      alias gits="git status";
-      alias gitb="git branch";
-      alias gitl="git log";
-      alias k="kubectl";
+      alias gits="git status"
+      alias gitb="git branch"
+      alias gitl="git log"
+      alias k="kubectl"
 
-      alias aws-test="okta-awscli --profile test --force --okta-profile test && \
-        export AWS_DEFAULT_PROFILE=test && \ 
-        kubectx cyderes-eks-test";
-      alias aws-dev="okta-awscli --profile dev --force --okta-profile dev && \
-        export AWS_DEFAULT_PROFILE=dev && \
-        kubectx cyderes-eks-dev";
-      alias aws-prod="okta-awscli --profile prod --force --okta-profile prod && \ 
-        export AWS_DEFAULT_PROFILE=prod && \
-        kubectx cyderes-eks";
+      alias aws-test="okta-awscli --profile test --force --okta-profile test && export AWS_DEFAULT_PROFILE=test && kubectx cyderes-eks-test"
+      alias aws-dev="okta-awscli --profile dev --force --okta-profile dev && export AWS_DEFAULT_PROFILE=dev && kubectx cyderes-eks-dev"
+      alias aws-prod="okta-awscli --profile prod --force --okta-profile prod && export AWS_DEFAULT_PROFILE=prod && kubectx cyderes-eks"
 
-      alias gke-test="gcloud config configurations activate cyderes-test && \
-        kubectx gke-cyderes-test && \
-        export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-test.json";
-      alias gke-dev="gcloud config configurations activate cyderes-dev && \
-        kubectx gke-cyderes-dev && \
-        export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-dev.json";
-      alias gke-prod="gcloud config configurations activate cyderes-prod && \
-        kubectx gke-cyderes-prod && \ 
-        export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json";
-      alias gke-us-priv-prod="gcloud config configurations activate cyderes-prod &&
-        kubectx gke-us-priv-prod && \
-        export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json";
-      alias gke-alphapub-prod="gcloud config configurations activate cyderes-prod && \
-        kubectx gke-alphapub-prod && \
-        export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json";
-      alias gke-eu-priv-prod="gcloud config configurations activate cyderes-prod && \
-        kubectx gke-eu-priv-prod && \
-        export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json";
-      alias gke-eu-pub-prod="gcloud config configurations activate cyderes-prod && \
-        kubectx gke-eu-pub-prod && \
-        export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json";
+      alias gke-test="gcloud config configurations activate cyderes-test && kubectx gke-cyderes-test && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-test.json"
+      alias gke-dev="gcloud config configurations activate cyderes-dev && kubectx gke-cyderes-dev && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-dev.json"
+      alias gke-prod="gcloud config configurations activate cyderes-prod && kubectx gke-cyderes-prod && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json"
+      alias gke-us-priv-prod="gcloud config configurations activate cyderes-prod && kubectx gke-us-priv-prod && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json"
+      alias gke-alphapub-prod="gcloud config configurations activate cyderes-prod && kubectx gke-alphapub-prod && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json"
+      alias gke-eu-priv-prod="gcloud config configurations activate cyderes-prod && kubectx gke-eu-priv-prod && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json"
+      alias gke-eu-pub-prod="gcloud config configurations activate cyderes-prod && kubectx gke-eu-pub-prod && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json"
 
-      alias cam-home="gcloud config configurations activate cam-dev && \
-        kubectx cam-home && \ 
-        GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cam-dev.json";
+      alias cam-home="gcloud config configurations activate cam-dev && kubectx cam-home && GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cam-dev.json"
     '';
   };
 
