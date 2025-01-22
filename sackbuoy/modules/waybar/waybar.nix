@@ -172,7 +172,7 @@
               "󰂂"
               "󰁹"
             ];
-            # "on-update" = "$HOME/.config/waybar/scripts/check_battery.sh",
+            "on-click" = "systemctl suspend";
         };
       };
     };

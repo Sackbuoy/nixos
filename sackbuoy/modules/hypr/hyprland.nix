@@ -31,6 +31,8 @@
       "$dellMonitor"= "Dell Inc. DELL P2419HC DMC0L03";
       "$lgMonitor"="LG Electronics 27EA63 0x01010101";
       "$frameworkDisplay"="BOE NE135A1M-NY1";
+      "$workMonLeft"="LG Electronics LG HDR 4K 0x0006F9D7";
+      "$workMonRight"="LG Electronics LG HDR 4K 0x000609CB";
 
 
       # i think this is super picky, like the ID might change if i plug into a
@@ -40,8 +42,9 @@
         "desc:$frameworkDisplay, 2880x1920@60, 0x0, 2" # built in display(framework)
         "desc:$dellMonitor, 1920x1080, -1920x0, 1" # Dell
         "desc:$lgMonitor, 1920x1080, -3840x0, 1" # LG monitor
-        # "workmonitor1, preferred,auto, 1",
-        # "workmonitor2, preferred,auto, 1",
+
+        "desc:$workMonRight, 1920x1080, -1920x0, 1"
+        "desc:$workMonLeft, 1920x1080, -3840x0, 1"
         ", preferred, auto, 1" # automatically puts new monitors plugged in to the right
       ];
 
@@ -59,11 +62,16 @@
         };
       };
 
-      # does this even work?
+
       workspace = [
         "1,monitor:desc:$lgMonitor"
         "2,monitor:desc:$dellMonitor"
+
+        "1,monitor:desc:$workMonRight"
+        "2,monitor:desc:$workMonLeft"
+
         "3,monitor:desc:$frameworkDisplay"
+
       ];
 
       "exec-once" = [
