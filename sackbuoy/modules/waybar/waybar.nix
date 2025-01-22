@@ -24,9 +24,11 @@
         ];
         "modules-right" = [
           # "wireplumber"
+          "temperature"
+          "cpu"
+          "memory"
           "pulseaudio"
           "bluetooth"
-          "custom/mem"
           # "backlight"
           "network"
           "battery"
@@ -55,6 +57,19 @@
             "timezone" = "America/Chicago";
             "max-length" = 50;
             "format" = "{:%I:%M %p}";
+            "format-alt" = "{:%A, %B %d, %Y (%I:%M %p)}";
+        };
+
+        "cpu" = {
+          "interval" = 10;
+          "format" = "| {} ";
+          "max-length" = 10;
+        };
+
+        "memory" = {
+          "interval" = 30;
+          "format" = "| {}% ";
+          "max-length" = 10;
         };
 
         "network" = {

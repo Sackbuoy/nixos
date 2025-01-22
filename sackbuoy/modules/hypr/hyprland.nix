@@ -11,8 +11,9 @@
   home.packages = with pkgs; [
     pkgs.hyprlock
     pkgs.hypridle
-    pkgs.hyprlock
     pkgs.hyprpaper
+    pkgs.hyprsunset
+    pkgs.hyprpicker
   ];
 
   wayland.windowManager.hyprland = {
@@ -70,6 +71,7 @@
         "clipse -listen"
         "dunst"
         "hypridle"
+        "hyprsunset --temperature 5000"
         "systemctl --user start hyprpolkitagent"
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       ];
@@ -97,7 +99,12 @@
         "workspace_swipe" = "true";
       };
 
+      decoration = {
+        "rounding" = 10;
+      };
+
       windowrulev2 = [
+        # rules for the popups from toolbar
         "float, class:(toolbarApp)"
         "size 622 652, class:(toolbarApp)"
 
@@ -114,6 +121,8 @@
 	      "$mainMod, E, exec, $fileManager"
 	      "$mainMod, SPACE, exec, $menu"
 	      "$mainMod, J, togglesplit" # dwindle 
+
+        "$mainMod, F, togglefloating"
 
         # screenshots
 	      "$mainMod, P, exec, hyprshot -m region --clipboard-only"
@@ -133,6 +142,13 @@
 	      "$mainMod, l, movefocus, r"
 	      "$mainMod, k, movefocus, u"
 	      "$mainMod, j, movefocus, d"
+
+        # move window with mainMod + shift + hjkl
+	      "$mainMod SHIFT, h, movewindow, l"
+	      "$mainMod SHIFT, l, movewindow, r"
+	      "$mainMod SHIFT, k, movewindow, u"
+	      "$mainMod SHIFT, j, movewindow, d"
+
 
 	      # Switch workspaces with mainMod + [0-9]
 	      "ALT, 1, workspace, 1"
@@ -178,6 +194,11 @@
         ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
         ", XF86MonBrightnessUp, exec, brightnessctl s 5%+"
         ", XF86MonBrightnessDown, exec, brightnessctl s 5%-"
+      ];
+
+      # mouse binds
+      bindm = [
+        "$mainMod, mouse:272, moveWindow"
       ];
 
       input = {
