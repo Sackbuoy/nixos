@@ -21,7 +21,6 @@
     # systemd.enable = false; # needed when starting with UWSM
     plugins = [ 
       pkgs.hyprlandPlugins.hy3
-      pkgs.hyprlandPlugins.hyprexpo
     ];
     settings = {
       "$mainMod" = "SUPER";
@@ -47,21 +46,6 @@
         "desc:$workMonLeft, 1920x1080, -3840x0, 1"
         ", preferred, auto, 1" # automatically puts new monitors plugged in to the right
       ];
-
-      plugin = {
-        hyprexpo = {
-          columns = 3;
-          gap_size = 5;
-          bg_col = "rgb(111111)";
-          workspace_method = "center current"; # [center/first] [workspace] e.g. first 1 or center m+1
-
-          enable_gesture = "true"; # laptop touchpad
-          gesture_fingers = 3;  # 3 or 4
-          gesture_distance = 300; # how far is the "max"
-          gesture_positive = "false"; # positive = swipe down. Negative = swipe up.
-        };
-      };
-
 
       workspace = [
         "1,monitor:desc:$lgMonitor"
