@@ -174,7 +174,8 @@
       ];
 
       bindl = [
-        ", switch:Lid Switch, exec, systemctl suspend"
+        ", switch:closed:Lid Switch, exec, systemctl suspend"
+        ", switch:open:Lid Switch, exec, hyprctl dispatch dpms on"
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ", XF86AudioPlay, exec, playerctl play-pause # the stupid key is called play , but it toggles "
         ", XF86AudioNext, exec, playerctl next"
