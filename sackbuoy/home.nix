@@ -110,6 +110,7 @@
   programs.zsh = {
     enable = true;
     historySubstringSearch.enable = true;
+    enableCompletion = true;
     initExtra = ''
       if [ "$TMUX" = "" ]; then tmux; fi
       bindkey -v

@@ -52,12 +52,15 @@
             jq
             yq
             stern
+            act
+            texliveFull
 
             neovim
             gopls
             golangci-lint-langserver
             gci
             gotools
+            goreleaser
             golangci-lint
             gcc11
             pylyzer
