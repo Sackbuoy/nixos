@@ -110,8 +110,6 @@
     enable = true;
   };
 
-  programs.coolercontrol.enable = true;
-
   # Install firefox.
   programs.firefox.enable = true;
 
@@ -149,8 +147,8 @@
   # garbage collection. Deletes builds older than 30d
   nix.gc = {
     automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
+    dates = "daily";
+    options = "--delete-older-than 7d";
   };
 
   # This value determines the NixOS release from which the default
