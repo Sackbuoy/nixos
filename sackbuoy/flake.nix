@@ -37,6 +37,8 @@
             fzf
             zsh-vi-mode
             alacritty
+            ghostty
+            brave
             tmux
             ripgrep
 
