@@ -59,6 +59,7 @@
       ];
 
       "exec-once" = [
+        "hyprpaper"
         "waybar"
         "clipse -listen"
         "dunst"

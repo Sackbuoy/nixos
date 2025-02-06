@@ -6,11 +6,12 @@
       splash = false;
       splash_offset = 2.0;
 
-      preload =
-        [ "~/.config/nixos/sackbuoy/wallpapers/pretty.jpg" ];
+      preload = [ 
+        "~/.config/nixos/sackbuoy/wallpapers/pretty.jpg"
+      ];
 
       wallpaper = [
-        ", ~/.config/nixos/sackbuoy/wallpapers/pretty.jpg"
+        ",~/.config/nixos/sackbuoy/wallpapers/pretty.jpg"
       ];
     };
   };

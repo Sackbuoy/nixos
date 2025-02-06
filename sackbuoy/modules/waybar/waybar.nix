@@ -159,7 +159,6 @@
             "format" = "{capacity}% {icon}";
             "format-charging" = "{capacity}% 󰂄";
             "format-plugged" = "{capacity}% ";
-            "format-alt" = "{time} {icon}";
             "format-icons" = [
               "󰁺"
               "󰁻"
@@ -172,7 +171,7 @@
               "󰂂"
               "󰁹"
             ];
-            "on-click" = "systemctl suspend";
+            "on-click" = "hyprlock";
         };
       };
     };
