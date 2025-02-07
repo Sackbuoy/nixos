@@ -32,7 +32,7 @@
   # for framework laptop
   # to register: fprintd-enroll <user>
   # place your finger on the sensor over and over until it says it worked
-  services.fprintd.enable = true;
+  services.fprintd.enable = false;
   services.fprintd.tod.enable = false;
   # behavior:
   # sudo will now ask for fingerprint, if it fails 6 times it will fall back to 
