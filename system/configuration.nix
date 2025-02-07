@@ -47,7 +47,7 @@
   };
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing.enable = false;
 
   services.flatpak.enable = true;
   # Zen browser
