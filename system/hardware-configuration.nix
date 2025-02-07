@@ -29,6 +29,25 @@
     size = 32 * 1024; # 32GB
    }];
 
+  # for framework laptop
+  # to register: fprintd-enroll <user>
+  # place your finger on the sensor over and over until it says it worked
+  services.fprintd.enable = true;
+  services.fprintd.tod.enable = false;
+  # behavior:
+  # sudo will now ask for fingerprint, if it fails 6 times it will fall back to 
+  # password
+  # using with ly:
+  # out of the box it works to log in if you enter a wrong password first
+
+  # fingerprint sensor driver is nonfree so i need this predicate
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "libfprint-2-tod1-goodix" # framework sensor driver
+  ];
+
+  # to find driver for device: idk, google it
+  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix; # framework
+
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
