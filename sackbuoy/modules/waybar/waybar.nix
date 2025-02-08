@@ -14,7 +14,14 @@
       mainBar = {
         layer = "top";
         position = "top";
-        height = 15;
+
+        # waybar is dumb and seems to set the "full width" of the 
+        # screen to 1440px, setting % doesn't work, opacity doesnt
+        # work, and these are known issues. 
+        # switching to hyprpanel asap bc i've decided this project is dumb
+        width = 1425;
+
+        height = 23; # minimum for my modules at time of writing
         # // Choose the order of the modules
         "modules-left" = [
           "hyprland/workspaces"
@@ -35,9 +42,9 @@
         ];
 
         "bluetooth" = {
-          "format" = " {status}";
+          "format" = " {status} |";
           "format-disabled" = "";
-          "format-connected" = " {num_connections} connected";
+          "format-connected" = " {num_connections} connected|";
 	        "tooltip-format" = "{controller_alias}\t{controller_address}";
 	        "tooltip-format-connected" = "{controller_alias}\t{controller_address}\n\n{device_enumerate}";
 	        "tooltip-format-enumerate-connected" = "{device_alias}\t{device_address}";
@@ -73,8 +80,8 @@
         };
 
         "network" = {
-          "format-wifi" = "{essid}  ";
-          "format-ethernet" = "Wired";
+          "format-wifi" = "{essid}   |";
+          "format-ethernet" = "Wired |";
           "format-disconnected" = "";
           "on-click" = "alacritty --class toolbarApp -e nmtui";
         };
@@ -83,7 +90,7 @@
         "pulseaudio" = {
             # // "scroll-step" = 1; // %, can be a float
             "reverse-scrolling" = 1;
-            "format" = "{volume}% {icon}";
+            "format" = "{volume}% {icon} |";
             # "format-bluetooth" = "{volume}% {icon} {format_source}";
             # "format-bluetooth-muted" = "󰂲 {icon} {format_source}";
             # "format-muted" = "󰝟 {format_source}";
