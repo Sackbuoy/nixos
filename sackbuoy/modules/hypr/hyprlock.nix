@@ -10,17 +10,29 @@
 
       background = [
         {
-          path = "screenshot";
+          path = "~/.config/nixos/sackbuoy/wallpapers/pretty.jpg";
           blur_passes = 3;
           blur_size = 8;
         }
       ];
 
+      label = {
+        monitor = "";
+        text = "$TIME12";
+        color = "rgb(c3c3c3)";
+        font_size = 96;
+        font_family = "SF Pro Display";
+        position = "32, 80";
+        halign = "center";
+        valign = "center";
+      };
+
       input-field = [
         {
-          size = "200, 50";
+          size = "280, 70";
           position = "0, -80";
           monitor = "";
+          rounding = "15";
           dots_center = true;
           fade_on_empty = false;
           font_color = "rgb(202, 211, 245)";
