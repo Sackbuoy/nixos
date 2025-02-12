@@ -49,11 +49,9 @@
   # Enable CUPS to print documents.
   services.printing.enable = false;
 
-  services.flatpak.enable = true;
-  # Zen browser
-  # Spotify
-  # Simple Wireplumber GUI
-  # Wezterm
+  # anything in flatpak i want should be available
+  # in unstable, and it will run better
+  services.flatpak.enable = false;
 
   services.power-profiles-daemon.enable = false;
   services.auto-cpufreq.enable = true;
