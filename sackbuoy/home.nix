@@ -58,6 +58,7 @@
       alias gke-dev="gcloud config configurations activate cyderes-dev && kubectx gke-cyderes-dev && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-dev.json"
       alias gke-prod="gcloud config configurations activate cyderes-prod && kubectx gke-cyderes-prod && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json"
       alias gke-us-priv-prod="gcloud config configurations activate cyderes-prod && kubectx gke-us-priv-prod && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json"
+      alias gke-us-priv-dev="gcloud config configurations activate cyderes-dev && kubectx gke-us-priv-dev && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-dev.json"
       alias gke-alphapub-prod="gcloud config configurations activate cyderes-prod && kubectx gke-alphapub-prod && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json"
       alias gke-eu-priv-prod="gcloud config configurations activate cyderes-prod && kubectx gke-eu-priv-prod && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json"
       alias gke-eu-pub-prod="gcloud config configurations activate cyderes-prod && kubectx gke-eu-pub-prod && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json"
