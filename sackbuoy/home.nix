@@ -5,6 +5,7 @@
     ./modules/tmux/tmux.nix
     ./modules/git/git.nix
     ./modules/dunst/dunst.nix
+    ./modules/wezterm/wezterm.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should

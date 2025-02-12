@@ -31,7 +31,7 @@
         {
           size = "280, 70";
           position = "0, -80";
-          monitor = "";
+          monitor = "eDP-1"; # framework main display
           rounding = "15";
           dots_center = true;
           fade_on_empty = false;

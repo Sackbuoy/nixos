@@ -9,7 +9,15 @@
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = import nixpkgs {
+          inherit system; 
+          config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
+            "slack"
+            "teams-for-linux"
+            "discord"
+            "spotify"
+          ];
+        };
       in
       {
         packages.default = pkgs.buildEnv {
@@ -23,6 +31,10 @@
             # Work
             # slack # unfree, use flatpak
             # teams-for-linux # unfree, use flatpak
+            slack
+            teams-for-linux
+            discord
+            spotify
             (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
             awscli2
             nodejs
@@ -36,7 +48,6 @@
 
             fzf
             zsh-vi-mode
-            alacritty
             ghostty
             brave
             tmux
