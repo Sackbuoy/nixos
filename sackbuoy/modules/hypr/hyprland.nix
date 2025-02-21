@@ -122,6 +122,9 @@
 	      "$mainMod, P, exec, hyprshot -m region --clipboard-only"
 	      "$mainMod SHIFT, P, exec, hyprshot -m region -o /home/sackbuoy/Pictures/Screenshots"
 
+        # screen recording
+        "$mainMod, R, exec, /home/sackbuoy/.bin/screenrecord"
+
         # need to add the --class in the toolbar launcher config 
         # to make these adhere to the windowrules
         # clipboard manager

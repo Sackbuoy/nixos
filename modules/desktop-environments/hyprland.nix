@@ -10,6 +10,8 @@
     pkgs.hyprpolkitagent
     pkgs.libsForQt5.qt5.qtwayland # needed for some apps to load right
     pkgs.playerctl
+    pkgs.wf-recorder
+    pkgs.slurp
   ];
 
   # hyprland "must haves"

@@ -65,6 +65,19 @@
 
       alias cam-home="gcloud config configurations activate cam-dev && kubectx cam-home && GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cam-dev.json"
     '';
+    ".bin/screenrecord".executable = true;
+    ".bin/screenrecord".text = ''
+      #!/usr/bin/env bash
+      output=$(pgrep wf-recorder)
+      if [[ -z "$output" ]]; then
+        # start recording 
+        wf-recorder -g \"$(slurp)\" -f /home/sackbuoy/Videos/ScreenRecordings/$(date +%Y-%m-%d_%H-%m-%s).mp4
+      else
+        # recording already in progress
+        pkill wf-recorder
+        notify-send "Recording Saved"
+      fi
+    '';
   };
 
   # Home Manager can also manage your environment variables through
@@ -112,7 +125,7 @@
   programs.zsh = {
     enable = true;
     historySubstringSearch.enable = true;
-    enableCompletion = true;
+    enableCompletion = false; # doing this myself so i can ensure compinit is after fpath edits
     initExtra = ''
       if [ "$TMUX" = "" ]; then tmux; fi
       bindkey -v
@@ -142,6 +155,12 @@
       # source "$CLOUD_SDK_HOME/google-cloud-sdk/completion.zsh.inc"
 
       setopt autopushd
+
+      # place all custom completion functions here
+      fpath=(~/.bin/completions $fpath)
+
+      # this needs to be _after_ all fpath edits
+      autoload -U compinit && compinit
 
       # set in home.file.".aliases"
       if [ -f ~/.aliases ]; then
