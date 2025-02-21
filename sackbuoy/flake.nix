@@ -77,6 +77,7 @@
             golangci-lint
             gcc11
             pylyzer
+            pyright
             black
             # terraform # unfree, use nix flake
             terraform-ls

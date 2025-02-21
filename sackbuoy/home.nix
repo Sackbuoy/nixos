@@ -131,7 +131,11 @@
 
       export PATH="''${KREW_ROOT:-''$HOME/.krew}/bin:''$PATH"
 
-      source <(kubectl completion ''$(echo ''$SHELL | xargs basename))
+      # this is annoying 
+      export MYSHELL=zsh
+      alias nix-shell='nix-shell --command zsh'
+
+      source <(kubectl completion $MYSHELL)
 
       # TODO: this doesn't work, need to figure out completion
       # export CLOUD_SDK_HOME="${pkgs.google-cloud-sdk}"

@@ -128,6 +128,9 @@
     ripgrep
     libgcc
     tailscale
+    hyprpanel # this doesn't belong here but its the only place it works
+    libnotify
+    glib
   ];
 
   services.tailscale.enable = true;

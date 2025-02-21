@@ -60,9 +60,9 @@
 
       "exec-once" = [
         "hyprpaper"
-        "waybar"
+        "hyprpanel"
         "clipse -listen"
-        "dunst"
+        # "dunst" # hyprpanel does notifications now
         "hypridle"
         "hyprsunset --temperature 5000"
         "systemctl --user start hyprpolkitagent"

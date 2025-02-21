@@ -7,13 +7,22 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }: {
+  outputs = inputs@{ nixpkgs, home-manager, hyprpanel, ... }:
+    let
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        overlays = [
+          inputs.hyprpanel.overlay
+        ];
+      };
+    in {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         modules = [
+          {nixpkgs.overlays = [inputs.hyprpanel.overlay];}
           ./system/configuration.nix
           home-manager.nixosModules.home-manager
           {
