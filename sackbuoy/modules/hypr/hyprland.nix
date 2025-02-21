@@ -115,7 +115,8 @@
 	      "$mainMod, SPACE, exec, $menu"
 	      "$mainMod, J, togglesplit" # dwindle 
 
-        "$mainMod, F, togglefloating"
+        "$mainMod, z, togglefloating"
+        "$mainMod, f, fullscreen"
 
         # screenshots
 	      "$mainMod, P, exec, hyprshot -m region --clipboard-only"

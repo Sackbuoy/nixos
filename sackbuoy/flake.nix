@@ -29,8 +29,6 @@
             # discord # unfree, use flatpak
 
             # Work
-            # slack # unfree, use flatpak
-            # teams-for-linux # unfree, use flatpak
             slack
             teams-for-linux
             discord
