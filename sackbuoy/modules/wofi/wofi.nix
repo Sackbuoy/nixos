@@ -1,6 +1,6 @@
 {
   programs.wofi = {
     enable = true;
-    style = (builtins.readFile ./styles.css);
+    style = builtins.readFile ./styles.css;
   };
 }

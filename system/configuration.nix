@@ -1,15 +1,13 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ pkgs, ... }:
-{
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../modules/desktop-environments/default.nix
-      ./networking.nix
-    ];
+{pkgs, ...}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../modules/desktop-environments/default.nix
+    ./networking.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -57,12 +55,12 @@
   services.auto-cpufreq.enable = true;
   services.auto-cpufreq.settings = {
     battery = {
-       governor = "powersave";
-       turbo = "never";
+      governor = "powersave";
+      turbo = "never";
     };
     charger = {
-       governor = "performance";
-       turbo = "auto";
+      governor = "performance";
+      turbo = "auto";
     };
   };
 
@@ -82,10 +80,15 @@
     #media-session.enable = true;
     wireplumber.extraConfig.bluetoothEnhancements = {
       "monitor.bluez.properties" = {
-          "bluez5.enable-sbc-xq" = true;
-          "bluez5.enable-msbc" = true;
-          "bluez5.enable-hw-volume" = true;
-          "bluez5.roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
+        "bluez5.enable-sbc-xq" = true;
+        "bluez5.enable-msbc" = true;
+        "bluez5.enable-hw-volume" = true;
+        "bluez5.roles" = [
+          "hsp_hs"
+          "hsp_ag"
+          "hfp_hf"
+          "hfp_ag"
+        ];
       };
     };
   };
@@ -96,14 +99,18 @@
   services.libinput.enable = true;
 
   virtualisation.docker.enable = true;
-  
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sackbuoy = {
     isNormalUser = true;
     description = "cameron";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
   };
-	
+
   programs.zsh = {
     enable = true;
   };
@@ -120,8 +127,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  	vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  	wget
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    wget
     git
     vim
     tmux
@@ -131,6 +138,9 @@
     hyprpanel # this doesn't belong here but its the only place it works
     libnotify
     glib
+
+    # formatting
+    alejandra
   ];
 
   services.tailscale.enable = true;

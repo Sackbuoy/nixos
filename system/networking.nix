@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   networking = {
     hostName = "nixos"; # Define your hostname.
 

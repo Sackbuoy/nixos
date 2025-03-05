@@ -6,7 +6,7 @@
       splash = false;
       splash_offset = 2.0;
 
-      preload = [ 
+      preload = [
         "~/.config/nixos/sackbuoy/wallpapers/pretty.jpg"
       ];
 

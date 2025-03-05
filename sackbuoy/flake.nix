@@ -6,20 +6,24 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
+  outputs = {
+    self,
+    nixpkgs,
+    flake-utils,
+  }:
+    flake-utils.lib.eachDefaultSystem (
+      system: let
         pkgs = import nixpkgs {
-          inherit system; 
-          config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
-            "slack"
-            "teams-for-linux"
-            "discord"
-            "spotify"
-          ];
+          inherit system;
+          config.allowUnfreePredicate = pkg:
+            builtins.elem (nixpkgs.lib.getName pkg) [
+              "slack"
+              "teams-for-linux"
+              "discord"
+              "spotify"
+            ];
         };
-      in
-      {
+      in {
         packages.default = pkgs.buildEnv {
           name = "dev-tools";
           paths = with pkgs; [
@@ -90,4 +94,3 @@
       }
     );
 }
-

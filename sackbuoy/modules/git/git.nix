@@ -38,7 +38,6 @@
       diff = {
         colorMoved = "default";
       };
-
     };
   };
 }

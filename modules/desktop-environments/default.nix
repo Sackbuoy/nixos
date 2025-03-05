@@ -1,7 +1,5 @@
-{ pkgs, ...}:
-{
-  imports = 
-  [
+{pkgs, ...}: {
+  imports = [
     ./gnome.nix
     ./hyprland.nix
     ./kde.nix

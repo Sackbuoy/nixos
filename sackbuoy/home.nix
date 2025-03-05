@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   imports = [
     ./modules/hypr/hyprland.nix
     ./modules/tmux/tmux.nix
@@ -70,7 +69,7 @@
       #!/usr/bin/env bash
       output=$(pgrep wf-recorder)
       if [[ -z "$output" ]]; then
-        # start recording 
+        # start recording
         wf-recorder -g \"$(slurp)\" -f /home/sackbuoy/Videos/ScreenRecordings/$(date +%Y-%m-%d_%H-%m-%s).mp4
       else
         # recording already in progress
@@ -100,7 +99,7 @@
     VISUAL = "nvim";
     EDITOR = "nvim";
     NIXOS_OZONE_WL = "1";
-    NIXPKGS_ALLOW_UNFREE= "0";
+    NIXPKGS_ALLOW_UNFREE = "0";
   };
 
   # Let Home Manager install and manage itself.
@@ -113,13 +112,13 @@
 
   # to retain aliases in nix-shell
   programs.bash = {
-      enable = true;
-      initExtra = ''
-        # set in home.file.".aliases"
-        if [ -f ~/.aliases ]; then
-          . ~/.aliases
-        fi
-      '';
+    enable = true;
+    initExtra = ''
+      # set in home.file.".aliases"
+      if [ -f ~/.aliases ]; then
+        . ~/.aliases
+      fi
+    '';
   };
 
   programs.zsh = {
@@ -144,7 +143,7 @@
 
       export PATH="''${KREW_ROOT:-''$HOME/.krew}/bin:''$PATH"
 
-      # this is annoying 
+      # this is annoying
       export MYSHELL=zsh
       alias nix-shell='nix-shell --command zsh'
 
@@ -203,22 +202,22 @@
     settings = {
       font = {
         normal = {
-          family =  "FiraCode Nerd Font Mono";
+          family = "FiraCode Nerd Font Mono";
           style = "Medium";
-	      };
+        };
         bold = {
           family = "FiraCode Nerd Font Mono";
           style = "Bold";
-	      };
+        };
         italic = {
           family = "FiraCode Nerd Font Mono";
           style = "Retina";
-	      };
+        };
         bold_italic = {
           family = "FiraCode Nerd Font Mono";
           style = "SemiBold";
         };
-      
+
         # Point size
         size = 11.0;
       };
