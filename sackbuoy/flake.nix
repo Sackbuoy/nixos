@@ -49,6 +49,7 @@
             argocd
 
             fzf
+            fd
             zsh-vi-mode
             ghostty
             brave
@@ -89,6 +90,17 @@
             lua-language-server
             helm-ls
             ripgrep
+
+            alejandra
+            nixd
+
+            ansible
+            ansible-navigator
+            ansible-builder
+            ansible-language-server
+            ansible-lint
+
+            cilium-cli
           ];
         };
       }

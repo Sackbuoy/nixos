@@ -13,18 +13,11 @@
   outputs = inputs @ {
     nixpkgs,
     home-manager,
-    hyprpanel,
     ...
-  }: let
-    pkgs = import nixpkgs {
-      system = "x86_64-linux";
-      overlays = [
-        inputs.hyprpanel.overlay
-      ];
-    };
-  in {
+  }: {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
         modules = [
           {nixpkgs.overlays = [inputs.hyprpanel.overlay];}
           ./system/configuration.nix

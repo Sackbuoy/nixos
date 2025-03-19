@@ -187,4 +187,22 @@
       };
     };
   };
+
+  virtualisation.multipass.enable = true;
+
+  services.rpcbind.enable = true;
+
+  # Mount the NFS share
+  fileSystems = {
+    "/var/lib/plexmediaserver/disk1" = {
+      device = "homelab:/var/lib/plexmediaserver/disk1";
+      fsType = "nfs";
+      options = ["noatime" "rw" "bg"];
+    };
+    "/var/lib/plexmediaserver/disk2" = {
+      device = "homelab:/var/lib/plexmediaserver/disk2";
+      fsType = "nfs";
+      options = ["noatime" "rw" "bg"];
+    };
+  };
 }

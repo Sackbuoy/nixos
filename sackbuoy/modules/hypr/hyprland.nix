@@ -29,8 +29,8 @@
       "$dellMonitor" = "Dell Inc. DELL P2419HC DMC0L03";
       "$lgMonitor" = "LG Electronics 27EA63 0x01010101";
       "$frameworkDisplay" = "BOE NE135A1M-NY1";
-      "$workMonLeft" = "LG Electronics LG HDR 4K 0x0006F9D7";
-      "$workMonRight" = "LG Electronics LG HDR 4K 0x000609CB";
+      "$workMonLeft" = "LG Electronics LG HDR 4K 0x00060A6B";
+      "$workMonRight" = "LG Electronics LG HDR 4K 0x000609C5";
 
       # i think this is super picky, like the ID might change if i plug into a
       # different port -> which is why im using descriptions
@@ -42,15 +42,15 @@
 
         "desc:$workMonRight, 1920x1080, -1920x0, 1"
         "desc:$workMonLeft, 1920x1080, -3840x0, 1"
-        ", preferred, auto, 1" # automatically puts new monitors plugged in to the right
+        ", preferred, auto-left, 1" # automatically puts new monitors plugged in to the right
       ];
 
       workspace = [
         "1,monitor:desc:$lgMonitor"
         "2,monitor:desc:$dellMonitor"
 
-        "1,monitor:desc:$workMonRight"
-        "2,monitor:desc:$workMonLeft"
+        "1,monitor:desc:$workMonLeft"
+        "2,monitor:desc:$workMonRight"
 
         "3,monitor:desc:$frameworkDisplay"
       ];
