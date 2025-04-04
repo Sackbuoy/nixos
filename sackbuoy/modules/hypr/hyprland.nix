@@ -59,8 +59,7 @@
         "hyprpaper"
         "hyprpanel"
         "clipse -listen"
-        # "dunst" # hyprpanel does notifications now
-        "hypridle"
+        "hypridle" # this gets run by hyprpanel
         "hyprsunset --temperature 5000"
         "systemctl --user start hyprpolkitagent"
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
@@ -111,6 +110,8 @@
         "$mainMod, E, exec, $fileManager"
         "$mainMod, SPACE, exec, $menu"
         "$mainMod, J, togglesplit" # dwindle
+
+        "CTRL ALT, l, exec, hyprlock"
 
         "$mainMod, z, togglefloating"
         "$mainMod, f, fullscreen"

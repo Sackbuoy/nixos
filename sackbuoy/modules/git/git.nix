@@ -18,6 +18,8 @@
         };
       };
 
+      http.postBuffer = 524288000; # 500MB in bytes
+
       push = {
         autoSetupRemote = true;
       };

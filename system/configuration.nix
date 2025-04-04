@@ -111,6 +111,10 @@
     ];
   };
 
+  programs.fish = {
+    enable = true;
+  };
+
   programs.zsh = {
     enable = true;
   };
@@ -138,6 +142,7 @@
     hyprpanel # this doesn't belong here but its the only place it works
     libnotify
     glib
+    libcap
 
     # formatting
     alejandra

@@ -4,25 +4,31 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
   };
 
   outputs = {
     self,
     nixpkgs,
     flake-utils,
+    zen-browser,
   }:
     flake-utils.lib.eachDefaultSystem (
       system: let
         pkgs = import nixpkgs {
           inherit system;
-          config.allowUnfreePredicate = pkg:
-            builtins.elem (nixpkgs.lib.getName pkg) [
-              "slack"
-              "teams-for-linux"
-              "discord"
-              "spotify"
-            ];
+          config = {
+            hardeningDisable = ["fortify"];
+            allowUnfreePredicate = pkg:
+              builtins.elem (nixpkgs.lib.getName pkg) [
+                "slack"
+                "teams-for-linux"
+                "discord"
+                "spotify"
+              ];
+          };
         };
+        zen = zen-browser.packages."${system}".twilight-official;
       in {
         packages.default = pkgs.buildEnv {
           name = "dev-tools";
@@ -31,6 +37,7 @@
             protonmail-desktop
             spotify-player
             # discord # unfree, use flatpak
+            zen
 
             # Work
             slack
@@ -47,6 +54,7 @@
             docker
             kubernetes-helm
             argocd
+            rancher
 
             fzf
             fd
@@ -70,6 +78,7 @@
             stern
             act
             texliveFull
+            pv
 
             neovim
             gopls
@@ -77,6 +86,7 @@
             gci
             gotools
             goreleaser
+            gotestsum
             golangci-lint
             gcc11
             pylyzer
@@ -90,6 +100,8 @@
             lua-language-server
             helm-ls
             ripgrep
+            elixir-ls
+            next-ls
 
             alejandra
             nixd
@@ -101,6 +113,8 @@
             ansible-lint
 
             cilium-cli
+
+            flutter
           ];
         };
       }

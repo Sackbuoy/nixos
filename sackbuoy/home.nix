@@ -62,6 +62,10 @@
       alias gke-eu-priv-prod="gcloud config configurations activate cyderes-prod && kubectx gke-eu-priv-prod && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json"
       alias gke-eu-pub-prod="gcloud config configurations activate cyderes-prod && kubectx gke-eu-pub-prod && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json"
 
+      alias rancher-prod='export RANCHER_URL=https://rancher.cyderes.cloud && export RANCHER_TOKEN=$(cat ~/.ssh/rancher-prod)
+      alias rancher-dev='export RANCHER_URL=https://rancher.dev-cyderes.cloud && export RANCHER_TOKEN=$(cat ~/.ssh/rancher-dev)
+      alias rk='rancher kubectl'
+
       alias cam-home="gcloud config configurations activate cam-dev && kubectx cam-home && GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cam-dev.json"
     '';
     ".bin/screenrecord".executable = true;
@@ -112,12 +116,20 @@
 
   # to retain aliases in nix-shell
   programs.bash = {
-    enable = true;
+    enable = false;
     initExtra = ''
       # set in home.file.".aliases"
       if [ -f ~/.aliases ]; then
         . ~/.aliases
       fi
+    '';
+  };
+
+  programs.fish = {
+    enable = true;
+    loginShellInit = ''
+      # set in home.file.".aliases"
+      . ~/.aliases
     '';
   };
 
