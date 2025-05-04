@@ -202,12 +202,12 @@
     "/var/lib/plexmediaserver/disk1" = {
       device = "homelab:/var/lib/plexmediaserver/disk1";
       fsType = "nfs";
-      options = ["noatime" "rw" "bg"];
+      options = ["noatime" "rw" "bg" "_netdev" "nofail"];
     };
     "/var/lib/plexmediaserver/disk2" = {
       device = "homelab:/var/lib/plexmediaserver/disk2";
       fsType = "nfs";
-      options = ["noatime" "rw" "bg"];
+      options = ["noatime" "rw" "bg" "_netdev" "nofail"];
     };
   };
 }

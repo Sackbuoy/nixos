@@ -1,4 +1,10 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+    assignWorkspacesScript = pkgs.writeShellApplication {
+      name = "hyprland-assign-workspaces";
+      runtimeInputs = [ pkgs.jq pkgs.coreutils ]; # Dependencies
+      text = builtins.readFile ./scripts/assign_workspaces.sh; # Reads the updated script
+    };
+in {
   imports = [
     ../waybar/waybar.nix
     ../wofi/wofi.nix
@@ -25,7 +31,7 @@
       "$mainMod" = "SUPER";
       "$terminal" = "alacritty";
       "$fileManager" = "nautilus";
-      "$menu" = "wofi --show drun";
+      "$menu" = "wofi --show run,drun";
       "$dellMonitor" = "Dell Inc. DELL P2419HC DMC0L03";
       "$lgMonitor" = "LG Electronics 27EA63 0x01010101";
       "$frameworkDisplay" = "BOE NE135A1M-NY1";
@@ -42,17 +48,13 @@
 
         "desc:$workMonRight, 1920x1080, -1920x0, 1"
         "desc:$workMonLeft, 1920x1080, -3840x0, 1"
-        ", preferred, auto-left, 1" # automatically puts new monitors plugged in to the right
+        ", preferred, auto-left, 1" # automatically puts new monitors plugged in to the left
       ];
 
       workspace = [
-        "1,monitor:desc:$lgMonitor"
-        "2,monitor:desc:$dellMonitor"
-
-        "1,monitor:desc:$workMonLeft"
-        "2,monitor:desc:$workMonRight"
-
-        "3,monitor:desc:$frameworkDisplay"
+        "1, persistent:true"
+        "2, persistent:true"
+        "3, persistent:true"
       ];
 
       "exec-once" = [
@@ -63,6 +65,10 @@
         "hyprsunset --temperature 5000"
         "systemctl --user start hyprpolkitagent"
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        "${assignWorkspacesScript}/bin/hyprland-assign-workspaces"
+        "hyprctl dispatch workspace 3; sleep 1"
+        "hyprctl dispatch workspace 2; sleep 1"
+        "hyprctl dispatch workspace 1; sleep 1"
       ];
 
       general = {
@@ -103,6 +109,10 @@
       ];
 
       bind = [
+        # workspace arranging
+        ", monitoradded, exec, ${assignWorkspacesScript}/bin/hyprland-assign-workspaces"
+        ", monitorremoved, exec, ${assignWorkspacesScript}/bin/hyprland-assign-workspaces"
+
         # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
         "$mainMod, RETURN, exec, $terminal"
         "$mainMod, C, killactive"
