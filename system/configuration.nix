@@ -1,7 +1,11 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{pkgs, ...}: {
+{pkgs, lib, ...}: 
+let
+  disk1 = "/var/lib/plexmediaserver/disk1";
+  disk2 = "/var/lib/plexmediaserver/disk2";
+in {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -199,15 +203,17 @@
 
   # Mount the NFS share
   fileSystems = {
-    "/var/lib/plexmediaserver/disk1" = {
-      device = "homelab:/var/lib/plexmediaserver/disk1";
+    "${disk1}"= {
+      device = "homelab:${disk1}";
       fsType = "nfs";
-      options = ["noatime" "rw" "bg" "_netdev" "nofail"];
+      options = ["x-systemd.requires=tailscaled.service" "x-systemd.automount" "noauto" "noatime" "rw" "bg" "_netdev" "nofail"];
+      depends = [ "tailscaled.service" ];
     };
-    "/var/lib/plexmediaserver/disk2" = {
-      device = "homelab:/var/lib/plexmediaserver/disk2";
+    "${disk2}"= {
+      device = "homelab:${disk2}";
       fsType = "nfs";
-      options = ["noatime" "rw" "bg" "_netdev" "nofail"];
+      options = ["x-systemd.requires=tailscaled.service" "x-systemd.automount" "noauto" "noatime" "rw" "bg" "_netdev" "nofail"];
+      depends = [ "tailscaled.service" ];
     };
   };
 }
