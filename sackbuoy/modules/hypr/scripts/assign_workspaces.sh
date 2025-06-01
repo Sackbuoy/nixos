@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-# monitor configurations:
-home=("LG Electronics 27EA63 0x01010101" "Dell Inc. DELL P2419HC DMC0L03" "BOE NE135A1M-NY1")
-work=("LG Electronics LG HDR 4K 0x00060A6B" "LG Electronics LG HDR 4K 0x000609C5" "BOE NE135A1M-NY1")
-
-dellMonitor="Dell Inc. DELL P2419HC DMC0L03"
-lgMonitor="LG Electronics 27EA63 0x01010101"
+homeMonRight="Dell Inc. DELL P2419HC DMC0L03"
+homeMonLeft="Dell Inc. DELL P2419HC 6C9ZJ73"
 builtin="BOE NE135A1M-NY1"
 workMonLeft="LG Electronics LG HDR 4K 0x00060A6B"
 workMonRight="LG Electronics LG HDR 4K 0x000609C5"
+
+# monitor configurations:
+home=("${homeMonLeft}" "${homeMonRight}" "${builtin}")
+work=("${workMonLeft}" "${workMonRight}" "${builtin}")
 
 MONITOR_DESCS=()
 MONITOR_DESCS_STR=""
@@ -28,8 +28,8 @@ done < <(hyprctl workspaces -j | jq -r '.[] | .id')
 
 declare -A homeMappings
 function setup_home() {
-  homeMappings[$lgMonitor]+="1"
-  homeMappings[$dellMonitor]+="2"
+  homeMappings[$homeMonLeft]+="1"
+  homeMappings[$homeMonRight]+="2"
   homeMappings[$builtin]+="3"
 }
 setup_home

@@ -32,8 +32,8 @@ in {
       "$terminal" = "alacritty";
       "$fileManager" = "nautilus";
       "$menu" = "wofi --show run,drun";
-      "$dellMonitor" = "Dell Inc. DELL P2419HC DMC0L03";
-      "$lgMonitor" = "LG Electronics 27EA63 0x01010101";
+      "$homeMonRight" = "Dell Inc. DELL P2419HC DMC0L03";
+      "$homeMonLeft" = "Dell Inc. DELL P2419HC 6C9ZJ73";
       "$frameworkDisplay" = "BOE NE135A1M-NY1";
       "$workMonLeft" = "LG Electronics LG HDR 4K 0x00060A6B";
       "$workMonRight" = "LG Electronics LG HDR 4K 0x000609C5";
@@ -43,8 +43,8 @@ in {
       # I use the built in display as 0x0,
       monitor = [
         "desc:$frameworkDisplay, 2880x1920@60, 0x0, 2" # built in display(framework)
-        "desc:$dellMonitor, 1920x1080, -1920x0, 1" # Dell
-        "desc:$lgMonitor, 1920x1080, -3840x0, 1" # LG monitor
+        "desc:$homeMonRight, 1920x1080, -1920x0, 1" # Right
+        "desc:$homeMonLeft, 1920x1080, -3840x0, 1" # Left
 
         "desc:$workMonRight, 1920x1080, -1920x0, 1"
         "desc:$workMonLeft, 1920x1080, -3840x0, 1"
@@ -88,6 +88,11 @@ in {
         "allow_tearing" = "false";
 
         "layout" = "dwindle";
+
+      };
+
+      debug = {
+        "disable_logs" = "false";
       };
 
       gestures = {

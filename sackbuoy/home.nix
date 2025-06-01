@@ -67,6 +67,8 @@
       alias rk='rancher kubectl'
 
       alias cam-home="gcloud config configurations activate cam-dev && kubectx cam-home && GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cam-dev.json"
+
+      alias np="nix develop path:$PWD"
     '';
     ".bin/screenrecord".executable = true;
     ".bin/screenrecord".text = ''
@@ -116,8 +118,10 @@
 
   # to retain aliases in nix-shell
   programs.bash = {
-    enable = false;
+    enable = true;
     initExtra = ''
+      export MYSHELL=bash
+      source <(kubectl completion $MYSHELL)
       # set in home.file.".aliases"
       if [ -f ~/.aliases ]; then
         . ~/.aliases
@@ -177,6 +181,8 @@
       if [ -f ~/.aliases ]; then
         . ~/.aliases
       fi
+
+      export NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz:$NIX_PATH
     '';
 
     plugins = [

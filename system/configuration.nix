@@ -108,6 +108,7 @@ in {
   users.users.sackbuoy = {
     isNormalUser = true;
     description = "cameron";
+    shell = pkgs.zsh;
     extraGroups = [
       "networkmanager"
       "wheel"
@@ -147,9 +148,11 @@ in {
     libnotify
     glib
     libcap
+    lsof
 
     # formatting
     alejandra
+    prismlauncher
   ];
 
   services.tailscale.enable = true;
