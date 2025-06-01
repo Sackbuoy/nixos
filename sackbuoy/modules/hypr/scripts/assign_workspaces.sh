@@ -81,3 +81,5 @@ else
   done
 fi
 
+hyprctl reload
+
