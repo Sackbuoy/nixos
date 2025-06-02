@@ -1,22 +1,35 @@
 {
-  description = "A collection of binaries for my neovim install";
+  description = "A collection of tools for my development environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    kraken-desktop.url = "github:Sackbuoy/kraken-desktop-flake";
   };
 
   outputs = {
     self,
     nixpkgs,
     flake-utils,
-    zen-browser,
+    kraken-desktop,
   }:
     flake-utils.lib.eachDefaultSystem (
       system: let
+        overlay = final: prev: {
+          # examplepkg = prev.examplepkg.overrideAttrs (oldAttrs: {
+          #   version = "1.0";
+          #   src = pkgs.fetchFromGitHub {
+          #     owner = "Owner";
+          #     repo = "Repo";
+          #     rev = "Tag"; # Use the exact tag/commit 
+          #     sha256 = ""; # You'll need to replace this with the correct hash
+          #   };
+          # });
+        };
+
         pkgs = import nixpkgs {
           inherit system;
+          overlays = [ overlay ];
           config = {
             hardeningDisable = ["fortify"];
             allowUnfreePredicate = pkg:
@@ -25,10 +38,11 @@
                 "teams-for-linux"
                 "discord"
                 "spotify"
+                "zoom"
               ];
           };
         };
-        zen = zen-browser.packages."${system}".twilight-official;
+
       in {
         packages.default = pkgs.buildEnv {
           name = "dev-tools";
@@ -36,13 +50,14 @@
             signal-desktop
             protonmail-desktop
             spotify-player
-            # discord # unfree, use flatpak
-            zen
+            discord
+            zoom-us
+            kraken-desktop.packages.x86_64-linux.default
+            telegram-desktop
 
             # Work
             slack
             teams-for-linux
-            discord
             spotify
             (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
             awscli2
@@ -77,7 +92,6 @@
             yq
             stern
             act
-            texliveFull
             pv
 
             neovim
@@ -111,10 +125,6 @@
             ansible-builder
             ansible-language-server
             ansible-lint
-
-            cilium-cli
-
-            flutter
           ];
         };
       }
