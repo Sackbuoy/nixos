@@ -1,9 +1,5 @@
 {pkgs, ...}: let
-    assignWorkspacesScript = pkgs.writeShellApplication {
-      name = "hyprland-assign-workspaces";
-      runtimeInputs = [ pkgs.jq pkgs.coreutils ]; # Dependencies
-      text = builtins.readFile ./scripts/assign_workspaces.sh; # Reads the updated script
-    };
+    assignWorkspacesScript = import ./scripts/assign-workspaces.nix {inherit pkgs;};
 in {
   imports = [
     ../waybar/waybar.nix
@@ -65,7 +61,7 @@ in {
         "hyprsunset --temperature 5000"
         "systemctl --user start hyprpolkitagent"
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "${assignWorkspacesScript}/bin/hyprland-assign-workspaces"
+        "${assignWorkspacesScript}/bin/assign-workspaces"
         "hyprctl dispatch workspace 3; sleep 1"
         "hyprctl dispatch workspace 2; sleep 1"
         "hyprctl dispatch workspace 1; sleep 1"
@@ -115,8 +111,8 @@ in {
 
       bind = [
         # workspace arranging
-        ", monitoradded, exec, ${assignWorkspacesScript}/bin/hyprland-assign-workspaces"
-        ", monitorremoved, exec, ${assignWorkspacesScript}/bin/hyprland-assign-workspaces"
+        ", monitoradded, exec, ${assignWorkspacesScript}/bin/assign-workspaces"
+        ", monitorremoved, exec, ${assignWorkspacesScript}/bin/assign-workspaces"
 
         # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
         "$mainMod, RETURN, exec, $terminal"
@@ -126,7 +122,7 @@ in {
         "$mainMod, SPACE, exec, $menu"
         "$mainMod, J, togglesplit" # dwindle
 
-        "CTRL ALT, l, exec, hyprlock"
+        "CTRL ALT, l, exec, hyprlock && ${assignWorkspacesScript}/bin/assign-workspaces"
 
         "$mainMod, z, togglefloating"
         "$mainMod, f, fullscreen"
