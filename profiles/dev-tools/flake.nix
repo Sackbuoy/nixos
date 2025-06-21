@@ -209,6 +209,8 @@
             bash-language-server
             lua-language-server
             elixir-ls
+
+            inkscape
           ];
         };
       }
