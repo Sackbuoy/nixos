@@ -14,7 +14,10 @@
   ];
 
   # hyprland "must haves"
-  security.polkit.enable = true;
+  security = {
+    polkit.enable = true;
+    pam.services.hyprlock = {};
+  };
 
   programs.hyprland = {
     enable = true;
