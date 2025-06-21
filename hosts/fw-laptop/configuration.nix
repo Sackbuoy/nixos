@@ -35,6 +35,8 @@ in {
   # Optional: Set as default
   services.displayManager.defaultSession = "hyprland";
 
+  services.upower.enable = true;
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
