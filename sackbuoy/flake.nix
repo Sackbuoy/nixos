@@ -27,6 +27,8 @@
           # });
         };
 
+        kraken = kraken-desktop.packages.x86_64-linux.default;
+
         pkgs = import nixpkgs {
           inherit system;
           overlays = [ overlay ];
@@ -43,6 +45,27 @@
           };
         };
 
+        # combined to avoid collisions between binaries that are in multiple
+        # packages
+        go-dev-tools = (pkgs.symlinkJoin {
+          name = "go-dev-tools";
+          paths = with pkgs; [ 
+            gopls 
+            golangci-lint-langserver
+            golangci-lint
+            gci
+            gotools 
+            goreleaser
+            gotestsum
+          ];
+          postBuild = ''
+            # Remove gofix from gopls to avoid collision
+            rm -f $out/bin/gofix
+            # Symlink gofix from gotools
+            ln -s ${pkgs.gotools}/bin/gofix $out/bin/gofix
+          '';
+        });
+
       in {
         packages.default = pkgs.buildEnv {
           name = "dev-tools";
@@ -52,7 +75,7 @@
             spotify-player
             discord
             zoom-us
-            kraken-desktop.packages.x86_64-linux.default
+            kraken
             telegram-desktop
 
             # Work
@@ -95,13 +118,9 @@
             pv
 
             neovim
-            gopls
-            golangci-lint-langserver
-            gci
-            gotools
-            goreleaser
-            gotestsum
-            golangci-lint
+
+            go-dev-tools
+
             gcc11
             pylyzer
             pyright
