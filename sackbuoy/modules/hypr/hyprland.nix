@@ -27,7 +27,7 @@ in {
       "$mainMod" = "SUPER";
       "$terminal" = "alacritty";
       "$fileManager" = "nautilus";
-      "$menu" = "wofi --show run,drun";
+      "$menu" = "wofi --show drun";
       "$homeMonRight" = "Dell Inc. DELL P2419HC DMC0L03";
       "$homeMonLeft" = "Dell Inc. DELL P2419HC 6C9ZJ73";
       "$frameworkDisplay" = "BOE NE135A1M-NY1";
