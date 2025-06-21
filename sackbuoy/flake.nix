@@ -64,81 +64,151 @@
           '';
         });
 
-      in {
-        packages.default = pkgs.buildEnv {
-          name = "dev-tools";
-          paths = with pkgs; [
+        desktop-apps = (pkgs.symlinkJoin {
+          name = "desktop-apps";
+          paths = with pkgs; [ 
             signal-desktop
             protonmail-desktop
             spotify-player
             discord
             zoom-us
             telegram-desktop
-
-            # Work
             slack
             teams-for-linux
             spotify
-            (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
-            awscli2
-            nodejs
+            brave
+          ];
+          postBuild = ''
+
+          '';
+        });
+
+        kube-dev = (pkgs.symlinkJoin {
+          name = "kube-dev";
+          paths = with pkgs; [ 
             kubectl
             kubectx
             docker
             kubernetes-helm
             argocd
             rancher
+            stern
+            helm-ls
+          ];
+          postBuild = ''
 
-            fzf
-            fd
-            zsh-vi-mode
-            ghostty
-            brave
-            tmux
-            ripgrep
+          '';
+        });
 
-            # other dev tools
+        web-dev = (pkgs.symlinkJoin {
+          name = "web-dev";
+          paths = with pkgs; [ 
             nodejs
             bun # WAY better than node
-            rustup
-            python313 # no pip bc it will never work, all python needs to use venv
-            elixir
+            typescript-language-server
+            angular-language-server
+            next-ls
+          ];
+          postBuild = ''
+
+          '';
+        });
+
+        cli-tools = (pkgs.symlinkJoin {
+          name = "cli-tools";
+          paths = with pkgs; [ 
+            (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
+            awscli2
+            fzf
+            fd
+            ripgrep
             httpie
             gnumake
             gh
             jq
             yq
-            stern
             act
             pv
+            gcc11
+          ];
+          postBuild = ''
 
+          '';
+        });
+
+        dev-workflow = (pkgs.symlinkJoin {
+          name = "dev-workflow";
+          paths = with pkgs; [ 
+            zsh-vi-mode
+            tmux
             neovim
 
-            go-dev-tools
+          ];
+          postBuild = ''
 
-            gcc11
+          '';
+        });
+
+        python-dev = (pkgs.symlinkJoin {
+          name = "python-dev";
+          paths = with pkgs; [ 
+            python313 # no pip bc it will never work, all python needs to use venv
             pylyzer
             pyright
             black
-            # terraform # unfree, use nix flake
-            terraform-ls
-            typescript-language-server
-            angular-language-server
-            bash-language-server
-            lua-language-server
-            helm-ls
-            ripgrep
-            elixir-ls
-            next-ls
 
-            alejandra
-            nixd
+          ];
+          postBuild = ''
 
+          '';
+        });
+
+        ansible-dev = (pkgs.symlinkJoin {
+          name = "ansible-dev";
+          paths = with pkgs; [ 
             ansible
             ansible-navigator
             ansible-builder
             ansible-language-server
             ansible-lint
+          ];
+          postBuild = ''
+
+          '';
+        });
+
+        nix-dev = (pkgs.symlinkJoin {
+          name = "nix-dev";
+          paths = with pkgs; [ 
+            alejandra
+            nixd
+          ];
+          postBuild = ''
+
+          '';
+        });
+      in {
+        packages.default = pkgs.buildEnv {
+          name = "dev-tools";
+          paths = with pkgs; [
+            desktop-apps
+            go-dev-tools
+            kube-dev
+            web-dev
+            cli-tools
+            dev-workflow
+            python-dev
+            ansible-dev
+            nix-dev
+
+            # other dev tools
+            rustup
+            elixir
+            # terraform # unfree, use nix flake
+            terraform-ls
+            bash-language-server
+            lua-language-server
+            elixir-ls
           ];
         };
       }
