@@ -13,6 +13,20 @@ in {
     ./networking.nix
   ];
 
+  # hyprland "must haves"
+  security = {
+    polkit.enable = true;
+    pam.services.hyprlock = {};
+  };
+
+  programs.hyprland = {
+    enable = true;
+    # withUWSM  = true; # "recommended" but breaks hypr utilities
+  };
+
+  # Optional: Set as default
+  services.displayManager.defaultSession = "hyprland";
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

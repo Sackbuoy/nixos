@@ -8,12 +8,25 @@ in {
     ./hyprlock.nix
   ];
 
+  programs.kitty.enable = true;
+
   home.packages = with pkgs; [
-    pkgs.hyprlock
-    pkgs.hypridle
-    pkgs.hyprpaper
-    pkgs.hyprsunset
-    pkgs.hyprpicker
+    hyprlock
+    hypridle
+    hyprpaper
+    hyprsunset
+    hyprpicker
+    wofi
+    nautilus
+    waybar
+    kitty
+    brightnessctl
+    hyprshot
+    hyprpolkitagent
+    libsForQt5.qt5.qtwayland # needed for some apps to load right
+    playerctl
+    wf-recorder
+    slurp
   ];
 
   wayland.windowManager.hyprland = {
