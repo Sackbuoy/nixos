@@ -14,20 +14,36 @@
     nixpkgs,
     home-manager,
     ...
-  }: {
+  }: let
+      # system = "x86_64-linux";
+      # 
+      # # Define which users exist on which hosts
+      # hostUsers = {
+      #   desktop = [ "sackbuoy" "alice" ];
+      #   laptop = [ "sackbuoy" ];
+      #   server = [ "sackbuoy" "bob" ];
+      # };
+      #
+      # # Helper function to generate home-manager users for a host
+      # mkHomeUsers = hostName: 
+      #   builtins.listToAttrs (map (user: {
+      #     name = user;
+      #     value = import ./users/${user};
+      #   }) hostUsers.${hostName});
+    in {
     nixosConfigurations = {
-      nixos = nixpkgs.lib.nixosSystem {
+      fw-laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         modules = [
           {nixpkgs.overlays = [inputs.hyprpanel.overlay];}
-          ./system/configuration.nix
+          ./hosts/fw-laptop/configuration.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "hm-backup";
 
-            home-manager.users.sackbuoy = import ./sackbuoy/home.nix;
+            home-manager.users.sackbuoy = import ./hosts/fw-laptop/sackbuoy;
           }
         ];
       };

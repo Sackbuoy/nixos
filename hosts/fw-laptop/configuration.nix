@@ -9,7 +9,7 @@ in {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../modules/desktop-environments/default.nix
+    ../../modules/system/ly.nix
     ./networking.nix
   ];
 

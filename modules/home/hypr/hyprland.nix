@@ -2,7 +2,6 @@
     assignWorkspacesScript = import ./scripts/assign-workspaces.nix {inherit pkgs;};
 in {
   imports = [
-    ../waybar/waybar.nix
     ../wofi/wofi.nix
     ./hyprpaper.nix
     ./hypridle.nix

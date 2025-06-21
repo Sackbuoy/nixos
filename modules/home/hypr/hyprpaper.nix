@@ -8,10 +8,12 @@
 
       preload = [
         "~/.config/nixos/sackbuoy/wallpapers/pretty.jpg"
+        "~/.config/nixos/wallpapers/pretty.jpg"
       ];
 
       wallpaper = [
         ",~/.config/nixos/sackbuoy/wallpapers/pretty.jpg"
+        "~/.config/nixos/wallpapers/pretty.jpg"
       ];
     };
   };

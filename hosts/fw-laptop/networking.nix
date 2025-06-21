@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   networking = {
-    hostName = "nixos"; # Define your hostname.
+    hostName = "fw-laptop"; # Define your hostname.
 
     # Configure network proxy if necessary
     # proxy.default = "http://user:password@proxy:port/";

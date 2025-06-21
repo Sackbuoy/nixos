@@ -1,10 +1,8 @@
 {pkgs, ...}: {
   imports = [
-    ./modules/hypr/hyprland.nix
-    ./modules/tmux/tmux.nix
-    ./modules/git/git.nix
-    ./modules/dunst/dunst.nix
-    ./modules/wezterm/wezterm.nix
+    ../../../modules/home/hypr/hyprland.nix
+    ../../../modules/home/tmux/tmux.nix
+    ../../../modules/home/git/git.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -142,7 +140,7 @@
     enable = true;
     historySubstringSearch.enable = true;
     enableCompletion = false; # doing this myself so i can ensure compinit is after fpath edits
-    initExtra = ''
+    initContent = ''
       if [ "$TMUX" = "" ]; then tmux; fi
       bindkey -v
       bindkey '^R' history-incremental-search-backward

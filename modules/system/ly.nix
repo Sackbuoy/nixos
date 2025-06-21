@@ -1,10 +1,4 @@
 {pkgs, ...}: {
-  imports = [
-    ./gnome.nix
-    ./hyprland.nix
-    ./kde.nix
-  ];
-
   services.displayManager.ly = {
     enable = true;
     settings = {
