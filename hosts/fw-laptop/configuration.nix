@@ -19,6 +19,14 @@ in {
     pam.services.hyprlock = {};
   };
 
+  services.xserver.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-hyprland
+    ];
+  };
+
   programs.hyprland = {
     enable = true;
     # withUWSM  = true; # "recommended" but breaks hypr utilities

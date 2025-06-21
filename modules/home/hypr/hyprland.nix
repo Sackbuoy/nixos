@@ -27,6 +27,7 @@ in {
     playerctl
     wf-recorder
     slurp
+    wl-clipboard
   ];
 
   wayland.windowManager.hyprland = {
