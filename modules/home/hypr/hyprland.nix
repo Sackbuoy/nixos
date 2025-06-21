@@ -28,6 +28,7 @@ in {
     wf-recorder
     slurp
     wl-clipboard
+    bluetui
   ];
 
   wayland.windowManager.hyprland = {

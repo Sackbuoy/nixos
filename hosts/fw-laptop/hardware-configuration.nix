@@ -21,7 +21,7 @@
     "sd_mod"
   ];
   boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-amd"];
+  boot.kernelModules = ["kvm-amd" "battery" "acpi_battery"];
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
@@ -77,4 +77,9 @@
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   hardware.enableRedistributableFirmware = true;
+
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
 }
