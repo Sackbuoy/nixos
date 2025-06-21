@@ -4,14 +4,12 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    kraken-desktop.url = "github:Sackbuoy/kraken-desktop-flake";
   };
 
   outputs = {
     self,
     nixpkgs,
     flake-utils,
-    kraken-desktop,
   }:
     flake-utils.lib.eachDefaultSystem (
       system: let
@@ -26,8 +24,6 @@
           #   };
           # });
         };
-
-        kraken = kraken-desktop.packages.x86_64-linux.default;
 
         pkgs = import nixpkgs {
           inherit system;
@@ -50,6 +46,8 @@
         go-dev-tools = (pkgs.symlinkJoin {
           name = "go-dev-tools";
           paths = with pkgs; [ 
+            go
+            delve
             gopls 
             golangci-lint-langserver
             golangci-lint
@@ -75,7 +73,6 @@
             spotify-player
             discord
             zoom-us
-            kraken
             telegram-desktop
 
             # Work
@@ -87,8 +84,6 @@
             nodejs
             kubectl
             kubectx
-            go
-            delve
             docker
             kubernetes-helm
             argocd

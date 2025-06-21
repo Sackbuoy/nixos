@@ -18,41 +18,7 @@
         "type": "github"
       }
     },
-    "kraken-desktop": {
-      "inputs": {
-        "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "lastModified": 1750262005,
-        "narHash": "sha256-lmQ8iEw29LJyy3SGFY/VuQWcUQl/dzRUDSAGIF7BGdY=",
-        "owner": "Sackbuoy",
-        "repo": "kraken-desktop-flake",
-        "rev": "d125241e9f8b1593ed8bd377e1eacc43ae3d151c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Sackbuoy",
-        "repo": "kraken-desktop-flake",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
-      "locked": {
-        "lastModified": 1749285348,
-        "narHash": "sha256-frdhQvPbmDYaScPFiCnfdh3B/Vh81Uuoo0w5TkWmmjU=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "3e3afe5174c561dee0df6f2c2b2236990146329f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
       "locked": {
         "lastModified": 1750134718,
         "narHash": "sha256-v263g4GbxXv87hMXMCpjkIxd/viIF7p3JpJrwgKdNiI=",
@@ -71,8 +37,7 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "kraken-desktop": "kraken-desktop",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs"
       }
     },
     "systems": {
