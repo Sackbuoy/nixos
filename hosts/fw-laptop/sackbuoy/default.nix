@@ -1,8 +1,9 @@
 {pkgs, ...}: {
   imports = [
-    ../../../modules/home/hypr/hyprland.nix
-    ../../../modules/home/tmux/tmux.nix
-    ../../../modules/home/git/git.nix
+    ./hypr
+    ./tmux
+    ./git
+    ./wofi
   ];
 
   # Home Manager needs a bit of information about you and the paths it should

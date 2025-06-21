@@ -1,13 +1,6 @@
 {pkgs, ...}: let
     assignWorkspacesScript = import ./scripts/assign-workspaces.nix {inherit pkgs;};
 in {
-  imports = [
-    ../wofi/wofi.nix
-    ./hyprpaper.nix
-    ./hypridle.nix
-    ./hyprlock.nix
-  ];
-
   programs.kitty.enable = true;
 
   home.packages = with pkgs; [
