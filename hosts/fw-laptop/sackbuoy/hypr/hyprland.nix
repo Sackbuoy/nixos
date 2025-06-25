@@ -22,6 +22,7 @@ in {
     slurp
     wl-clipboard
     bluetui
+    clipse
   ];
 
   wayland.windowManager.hyprland = {

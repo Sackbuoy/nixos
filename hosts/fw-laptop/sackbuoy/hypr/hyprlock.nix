@@ -10,7 +10,7 @@
 
       background = [
         {
-          path = "~/.config/nixos/sackbuoy/wallpapers/pretty.jpg";
+          path = "~/.config/nixos/wallpapers/pretty.jpg";
           blur_passes = 3;
           blur_size = 8;
         }
