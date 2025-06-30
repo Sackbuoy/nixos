@@ -37,6 +37,7 @@
                 "discord"
                 "spotify"
                 "zoom"
+                "ticktick"
               ];
           };
         };
@@ -69,6 +70,7 @@
           paths = with pkgs; [ 
             signal-desktop
             protonmail-desktop
+            electron-mail
             spotify-player
             discord
             zoom-us
@@ -77,6 +79,7 @@
             teams-for-linux
             spotify
             brave
+            ticktick
           ];
           postBuild = ''
 
@@ -211,6 +214,9 @@
             elixir-ls
 
             inkscape
+
+            socat
+            htop
           ];
         };
       }
