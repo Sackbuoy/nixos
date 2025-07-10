@@ -62,7 +62,7 @@ in {
   };
 
   fonts.packages = [
-    pkgs.nerd-fonts.fira-code
+    pkgs.maple-mono.NF
   ];
 
   nix = {

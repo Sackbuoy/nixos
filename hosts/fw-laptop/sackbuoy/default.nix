@@ -228,19 +228,19 @@
     settings = {
       font = {
         normal = {
-          family = "FiraCode Nerd Font Mono";
+          family = "Maple Mono NF";
           style = "Medium";
         };
         bold = {
-          family = "FiraCode Nerd Font Mono";
+          family = "Maple Mono NF";
           style = "Bold";
         };
         italic = {
-          family = "FiraCode Nerd Font Mono";
+          family = "Maple Mono NF";
           style = "Retina";
         };
         bold_italic = {
-          family = "FiraCode Nerd Font Mono";
+          family = "Maple Mono NF";
           style = "SemiBold";
         };
 
