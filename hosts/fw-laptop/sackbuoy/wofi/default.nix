@@ -1,6 +1,5 @@
-{ pkgs, ... }:
-let
-# Define a custom script package
+{pkgs, ...}: let
+  # Define a custom script package
   lock = pkgs.writeShellScriptBin "lock" ''
     #!/usr/bin/env bash
     ${pkgs.hyprlock}/bin/hyprlock

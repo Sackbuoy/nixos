@@ -1,5 +1,5 @@
-{ pkgs, ...}: let
-    assignWorkspacesScript = import ./scripts/assign-workspaces.nix {inherit pkgs;};
+{pkgs, ...}: let
+  assignWorkspacesScript = import ./scripts/assign-workspaces.nix {inherit pkgs;};
 in {
   services.hypridle = {
     enable = true;

@@ -24,10 +24,6 @@
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
 
-  powerManagement.resumeCommands = ''
-    ${pkgs.systemd}/bin/systemctl restart NetworkManager
-  '';
-
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXROOT";
     fsType = "ext4";

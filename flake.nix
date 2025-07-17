@@ -14,38 +14,39 @@
     home-manager,
     ...
   }: let
-      # system = "x86_64-linux";
-      # 
-      # # Define which users exist on which hosts
-      # hostUsers = {
-      #   desktop = [ "sackbuoy" "alice" ];
-      #   laptop = [ "sackbuoy" ];
-      #   server = [ "sackbuoy" "bob" ];
-      # };
-      #
-      # # Helper function to generate home-manager users for a host
-      # mkHomeUsers = hostName: 
-      #   builtins.listToAttrs (map (user: {
-      #     name = user;
-      #     value = import ./users/${user};
-      #   }) hostUsers.${hostName});
-    in {
-    nixosConfigurations = {
-      fw-laptop = nixpkgs.lib.nixosSystem {
+    hostUsers = {
+      gaming-desktop = ["sackbuoy"];
+      fw-laptop = ["sackbuoy"];
+    };
+
+    # Helper function to generate home-manager users for a host
+    mkHomeUsers = hostName:
+      builtins.listToAttrs (map (user: {
+          name = user;
+          value = import ./hosts/${hostName}/${user};
+        })
+        hostUsers.${hostName});
+
+    mkHost = hostName:
+      nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         modules = [
-          ./hosts/fw-laptop/configuration.nix
+          ./hosts/${hostName}/configuration.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "hm-backup";
-            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.extraSpecialArgs = {inherit inputs;};
 
-            home-manager.users.sackbuoy = import ./hosts/fw-laptop/sackbuoy;
+            home-manager.users = mkHomeUsers hostName;
           }
         ];
       };
-    };
+  in {
+    nixosConfigurations = builtins.listToAttrs (map (hostName: {
+      name = hostName;
+      value = mkHost hostName;
+    }) (builtins.attrNames hostUsers));
   };
 }

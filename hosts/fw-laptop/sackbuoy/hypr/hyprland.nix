@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-    assignWorkspacesScript = import ./scripts/assign-workspaces.nix {inherit pkgs;};
+  assignWorkspacesScript = import ./scripts/assign-workspaces.nix {inherit pkgs;};
 in {
   programs.kitty.enable = true;
 
@@ -92,7 +92,6 @@ in {
         "allow_tearing" = "false";
 
         "layout" = "dwindle";
-
       };
 
       debug = {
@@ -131,6 +130,7 @@ in {
         "$mainMod, J, togglesplit" # dwindle
 
         "CTRL ALT, l, exec, hyprlock && ${assignWorkspacesScript}/bin/assign-workspaces"
+        "$mainMod, A, exec, ${assignWorkspacesScript}/bin/assign-workspaces"
 
         "$mainMod, z, togglefloating"
         "$mainMod, f, fullscreen"

@@ -19,7 +19,7 @@
           #   src = pkgs.fetchFromGitHub {
           #     owner = "Owner";
           #     repo = "Repo";
-          #     rev = "Tag"; # Use the exact tag/commit 
+          #     rev = "Tag"; # Use the exact tag/commit
           #     sha256 = ""; # You'll need to replace this with the correct hash
           #   };
           # });
@@ -27,7 +27,7 @@
 
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [ overlay ];
+          overlays = [overlay];
           config = {
             hardeningDisable = ["fortify"];
             allowUnfreePredicate = pkg:
@@ -44,16 +44,16 @@
 
         # combined to avoid collisions between binaries that are in multiple
         # packages
-        go-dev-tools = (pkgs.symlinkJoin {
+        go-dev-tools = pkgs.symlinkJoin {
           name = "go-dev-tools";
-          paths = with pkgs; [ 
+          paths = with pkgs; [
             go
             delve
-            gopls 
+            gopls
             golangci-lint-langserver
             golangci-lint
             gci
-            gotools 
+            gotools
             goreleaser
             gotestsum
           ];
@@ -63,11 +63,11 @@
             # Symlink gofix from gotools
             ln -s ${pkgs.gotools}/bin/gofix $out/bin/gofix
           '';
-        });
+        };
 
-        desktop-apps = (pkgs.symlinkJoin {
+        desktop-apps = pkgs.symlinkJoin {
           name = "desktop-apps";
-          paths = with pkgs; [ 
+          paths = with pkgs; [
             signal-desktop
             protonmail-desktop
             electron-mail
@@ -84,11 +84,11 @@
           postBuild = ''
 
           '';
-        });
+        };
 
-        kube-dev = (pkgs.symlinkJoin {
+        kube-dev = pkgs.symlinkJoin {
           name = "kube-dev";
-          paths = with pkgs; [ 
+          paths = with pkgs; [
             kubectl
             kubectx
             docker
@@ -101,11 +101,11 @@
           postBuild = ''
 
           '';
-        });
+        };
 
-        web-dev = (pkgs.symlinkJoin {
+        web-dev = pkgs.symlinkJoin {
           name = "web-dev";
-          paths = with pkgs; [ 
+          paths = with pkgs; [
             nodejs
             bun # WAY better than node
             typescript-language-server
@@ -115,11 +115,11 @@
           postBuild = ''
 
           '';
-        });
+        };
 
-        cli-tools = (pkgs.symlinkJoin {
+        cli-tools = pkgs.symlinkJoin {
           name = "cli-tools";
-          paths = with pkgs; [ 
+          paths = with pkgs; [
             (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
             awscli2
             fzf
@@ -137,38 +137,36 @@
           postBuild = ''
 
           '';
-        });
+        };
 
-        dev-workflow = (pkgs.symlinkJoin {
+        dev-workflow = pkgs.symlinkJoin {
           name = "dev-workflow";
-          paths = with pkgs; [ 
+          paths = with pkgs; [
             zsh-vi-mode
             tmux
             neovim
-
           ];
           postBuild = ''
 
           '';
-        });
+        };
 
-        python-dev = (pkgs.symlinkJoin {
+        python-dev = pkgs.symlinkJoin {
           name = "python-dev";
-          paths = with pkgs; [ 
+          paths = with pkgs; [
             python313 # no pip bc it will never work, all python needs to use venv
             pylyzer
             pyright
             black
-
           ];
           postBuild = ''
 
           '';
-        });
+        };
 
-        ansible-dev = (pkgs.symlinkJoin {
+        ansible-dev = pkgs.symlinkJoin {
           name = "ansible-dev";
-          paths = with pkgs; [ 
+          paths = with pkgs; [
             ansible
             ansible-navigator
             ansible-builder
@@ -178,18 +176,18 @@
           postBuild = ''
 
           '';
-        });
+        };
 
-        nix-dev = (pkgs.symlinkJoin {
+        nix-dev = pkgs.symlinkJoin {
           name = "nix-dev";
-          paths = with pkgs; [ 
+          paths = with pkgs; [
             alejandra
             nixd
           ];
           postBuild = ''
 
           '';
-        });
+        };
       in {
         packages.default = pkgs.buildEnv {
           name = "dev-tools";
