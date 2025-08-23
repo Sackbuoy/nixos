@@ -5,8 +5,10 @@ in {
     enable = true;
     settings = {
       general = {
-        lock_cmd = "pidof hyprlock || hyprlock"; # avoid starting multiple hyprlock instances.
-        unlock_cmd = "${assignWorkspacesScript}/bin/assign-workspaces";
+        lock_cmd = "pidof hyprlock || hyprlock";
+        unlock_cmd = "${assignWorkspacesScript}/bin/assign-workspaces && systemctl --user start hyprpanel";
+        on_lock_cmd = "systemctl --user stop hyprpanel";
+        on_unlock_cmd = "systemctl --user start hyprpanel";
       };
 
       listener = [
@@ -25,7 +27,7 @@ in {
 
         {
           timeout = 300; # 5min
-          on-timeout = "hyprlock"; # lock screen when timeout has passed
+          on-timeout = "pidof hyprlock || hyprlock"; # lock screen when timeout has passed
         }
 
         {

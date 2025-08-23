@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-homeMonRight="Dell Inc. DELL P2419HC DMC0L03"
+homeMonRight="Dell Inc. DELL P2425H BJX1B64";
 homeMonLeft="Dell Inc. DELL P2419HC 6C9ZJ73"
 builtin="BOE NE135A1M-NY1"
 workMonLeft="LG Electronics LG HDR 4K 0x00060A6B"

@@ -36,7 +36,7 @@ in {
       "$terminal" = "alacritty";
       "$fileManager" = "nautilus";
       "$menu" = "wofi --show drun";
-      "$homeMonRight" = "Dell Inc. DELL P2419HC DMC0L03";
+      "$homeMonRight" = "Dell Inc. DELL P2425H BJX1B64";
       "$homeMonLeft" = "Dell Inc. DELL P2419HC 6C9ZJ73";
       "$frameworkDisplay" = "BOE NE135A1M-NY1";
       "$workMonLeft" = "LG Electronics LG HDR 4K 0x00060A6B";
@@ -62,13 +62,14 @@ in {
       ];
 
       "exec-once" = [
+        "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        "systemctl start --user hyprpanel"
+        "systemctl start --user hypridle"
         "hyprpaper"
-        "hyprpanel"
         "clipse -listen"
-        "hypridle" # this gets run by hyprpanel
         "hyprsunset --temperature 5000"
         "systemctl --user start hyprpolkitagent"
-        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "${assignWorkspacesScript}/bin/assign-workspaces"
         "hyprctl dispatch workspace 3; sleep 1"
         "hyprctl dispatch workspace 2; sleep 1"
@@ -129,7 +130,7 @@ in {
         "$mainMod, SPACE, exec, $menu"
         "$mainMod, J, togglesplit" # dwindle
 
-        "CTRL ALT, l, exec, hyprlock && ${assignWorkspacesScript}/bin/assign-workspaces"
+        "CTRL ALT, l, exec, (pidof hyprlock || hyprlock) && ${assignWorkspacesScript}/bin/assign-workspaces"
         "$mainMod, A, exec, ${assignWorkspacesScript}/bin/assign-workspaces"
 
         "$mainMod, z, togglefloating"
@@ -195,10 +196,10 @@ in {
       ];
 
       bindl = [
-        ", switch:closed:Lid Switch, exec, systemctl suspend"
-        ", switch:open:Lid Switch, exec, hyprctl dispatch dpms on"
+        ", switch:on:Lid Switch, exec, hyprctl dispatch dpms off && (pidof hyprlock || hyprlock)"
+        ", switch:off:Lid Switch, exec, hyprctl dispatch dpms on"
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        ", XF86AudioPlay, exec, playerctl play-pause # the stupid key is called play , but it toggles "
+        ", XF86AudioPlay, exec, playerctl play-pause"
         ", XF86AudioNext, exec, playerctl next"
         ", XF86AudioPrev, exec, playerctl previous"
       ];
