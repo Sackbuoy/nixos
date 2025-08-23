@@ -38,6 +38,8 @@
                 "spotify"
                 "zoom"
                 "ticktick"
+                "terraform"
+                "claude-code"
               ];
           };
         };
@@ -60,6 +62,7 @@
           postBuild = ''
             # Remove gofix from gopls to avoid collision
             rm -f $out/bin/gofix
+            rm -f $out/bin/internal
             # Symlink gofix from gotools
             ln -s ${pkgs.gotools}/bin/gofix $out/bin/gofix
           '';
@@ -155,7 +158,7 @@
           name = "python-dev";
           paths = with pkgs; [
             python313 # no pip bc it will never work, all python needs to use venv
-            pylyzer
+            ty
             pyright
             black
           ];
@@ -188,6 +191,17 @@
 
           '';
         };
+
+        terraform-dev = pkgs.symlinkJoin {
+          name = "terraform-dev";
+          paths = with pkgs; [
+            # terraform
+            terraform-ls
+          ];
+          postBuild = ''
+
+          '';
+        };
       in {
         packages.default = pkgs.buildEnv {
           name = "dev-tools";
@@ -201,15 +215,15 @@
             python-dev
             ansible-dev
             nix-dev
+            terraform-dev
 
             # other dev tools
             rustup
             elixir
-            # terraform # unfree, use nix flake
-            terraform-ls
             bash-language-server
             lua-language-server
             elixir-ls
+            claude-code
 
             inkscape
 
