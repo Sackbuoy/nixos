@@ -1,5 +1,6 @@
 {pkgs, ...}: let
   assignWorkspacesScript = import ./scripts/assign-workspaces.nix {inherit pkgs;};
+  focusMonitorScript = import ./scripts/focus-monitor.nix {inherit pkgs;};
 in {
   programs.kitty.enable = true;
 
@@ -130,6 +131,9 @@ in {
         "$mainMod, SPACE, exec, $menu"
         "$mainMod, J, togglesplit" # dwindle
 
+        "CTRL SHIFT, l, exec, ${focusMonitorScript}/bin/focus-monitor right"
+        "CTRL SHIFT, h, exec, ${focusMonitorScript}/bin/focus-monitor left"
+
         "CTRL ALT, l, exec, (pidof hyprlock || hyprlock) && ${assignWorkspacesScript}/bin/assign-workspaces"
         "$mainMod, A, exec, ${assignWorkspacesScript}/bin/assign-workspaces"
 
@@ -196,7 +200,7 @@ in {
       ];
 
       bindl = [
-        ", switch:on:Lid Switch, exec, hyprctl dispatch dpms off && (pidof hyprlock || hyprlock)"
+        ", switch:on:Lid Switch, exec, pidof hyprlock || hyprlock"
         ", switch:off:Lid Switch, exec, hyprctl dispatch dpms on"
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ", XF86AudioPlay, exec, playerctl play-pause"
