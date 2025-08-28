@@ -1,6 +1,7 @@
 {pkgs, ...}: let
   assignWorkspacesScript = import ./scripts/assign-workspaces.nix {inherit pkgs;};
   focusMonitorScript = import ./scripts/focus-monitor.nix {inherit pkgs;};
+  focusWsOnCurrentMonScript = import ./scripts/focus-workspace-on-current-monitor.nix {inherit pkgs;};
 in {
   programs.kitty.enable = true;
 
@@ -180,8 +181,8 @@ in {
         "ALT, 9, workspace, 9"
         "ALT, 0, workspace, 10"
 
-        "ALT, h, workspace, -1"
-        "ALT, l, workspace, +1"
+        "ALT, l, exec, ${focusWsOnCurrentMonScript}/bin/fwcm right"
+        "ALT, h, exec, ${focusWsOnCurrentMonScript}/bin/fwcm left"
 
         # Move active window to a workspace with mainMod + SHIFT + [0-9]
         "ALT SHIFT, 1, movetoworkspace, 1"
