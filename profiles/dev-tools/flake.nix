@@ -4,12 +4,14 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs-23-11.url = "github:NixOS/nixpkgs/nixos-23.11";
   };
 
   outputs = {
     self,
     nixpkgs,
     flake-utils,
+    nixpkgs-23-11,
   }:
     flake-utils.lib.eachDefaultSystem (
       system: let
@@ -40,8 +42,25 @@
                 "ticktick"
                 "terraform"
                 "claude-code"
+                "tradingview"
               ];
           };
+        };
+
+        pkgs-23-11 = import nixpkgs-23-11 {inherit system;};
+
+        gci-pinned = pkgs.buildGoModule.override {go = pkgs-23-11.go_1_21;} rec {
+          pname = "gci";
+          version = "0.13.7";
+
+          src = pkgs.fetchFromGitHub {
+            owner = "daixiang0";
+            repo = pname;
+            rev = "v${version}";
+            hash = "sha256-BlR7lQnp9WMjSN5IJOK2HIKXIAkn5Pemf8qbMm83+/w=";
+          };
+
+          vendorHash = "sha256-/8fggERlHySyimrGOHkDERbCPZJWqojycaifNPF6MjE=";
         };
 
         # combined to avoid collisions between binaries that are in multiple
@@ -54,7 +73,7 @@
             gopls
             golangci-lint-langserver
             golangci-lint
-            gci
+            gci-pinned
             gotools
             goreleaser
             gotestsum
@@ -135,7 +154,7 @@
             yq
             act
             pv
-            gcc11
+            gcc15
           ];
           postBuild = ''
 
@@ -222,10 +241,14 @@
             elixir
             bash-language-server
             lua-language-server
+            helm-ls
+            yaml-language-server
             elixir-ls
             claude-code
 
             inkscape
+            tradingview
+            prismlauncher
 
             socat
             htop
