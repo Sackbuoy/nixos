@@ -3,11 +3,11 @@
     enable = true;
     lfs.enable = true;
     delta.enable = true;
-    userName = "Sackbuoy";
-    userEmail = "cameronkientz@proton.me";
     aliases = {
       co = "checkout";
     };
+    userName = "Sackbuoy";
+    userEmail = "cameronkientz@proton.me";
     extraConfig = {
       url = {
         "ssh://git@github.com" = {
@@ -44,15 +44,16 @@
 
     includes = [
       {
-        condition = "hasconfig:remote.*.url:git@gitlab.com:*/**";
+        condition = "gitdir:~/Dev/workin/realm/";
         contents = {
           user = {
+            name = "Cameron Kientz";
             email = "cameron@realm.security";
           };
         };
       }
       {
-        condition = "hasconfig:remote.*.url:git@github.com:*/**";
+        condition = "gitdir:~/Dev/goofin/";
         contents = {
           commit.gpgsign = true;
           gpg.format = "ssh";

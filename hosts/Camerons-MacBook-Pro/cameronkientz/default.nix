@@ -26,7 +26,7 @@
       alias gitl="git log"
       alias k="kubectl"
       alias cam-home="gcloud config configurations activate cam-dev && kubectx cam-home && GOOGLE_APPLICATION_CREDENTIALS=/home/cameronkientz/.google_creds/cam-dev.json"
-      alias kns="k get ns | fzf | awk '{print $1}' | xargs -I {} kubectl config set-context --current --namespace='{}'"
+      alias kns="k get ns | fzf | awk \"{print \$1}\" | xargs -I {} kubectl config set-context --current --namespace=\"{}\""
     '';
   };
 
