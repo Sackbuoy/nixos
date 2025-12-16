@@ -30,6 +30,7 @@
       settings = {
         experimental = true;
         cargo_binstall = true;
+        idiomatic_version_file_enable_tools = ["python"];
       };
     };
   };

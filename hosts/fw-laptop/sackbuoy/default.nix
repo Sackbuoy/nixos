@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   imports = [
     ./hypr
     ./tmux
@@ -9,7 +13,7 @@
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "sackbuoy";
-  home.homeDirectory = "/home/sackbuoy";
+  home.homeDirectory = "${config.home.homeDirectory}";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -23,7 +27,7 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   # Moved these to a profile flake
-  home.packages = with pkgs; [
+  home.packages = [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
 
@@ -50,47 +54,50 @@
   };
 
   home.file = {
-    ".aliases".text = ''
-      alias gits="git status"
-      alias gitb="git branch"
-      alias gitl="git log"
-      alias k="kubectl"
+    "${config.home.homeDirectory}/.aliases" = {
+      text = ''
+        alias gits="git status"
+        alias gitb="git branch"
+        alias gitl="git log"
+        alias k="kubectl"
 
-      alias aws-test="okta-awscli --profile test --force --okta-profile test && export AWS_DEFAULT_PROFILE=test && kubectx cyderes-eks-test"
-      alias aws-dev="okta-awscli --profile dev --force --okta-profile dev && export AWS_DEFAULT_PROFILE=dev && kubectx cyderes-eks-dev"
-      alias aws-prod="okta-awscli --profile prod --force --okta-profile prod && export AWS_DEFAULT_PROFILE=prod && kubectx cyderes-eks"
+        alias cam-home="gcloud config configurations activate cam-dev && kubectx cam-home && GOOGLE_APPLICATION_CREDENTIALS=${config.home.homeDirectory}/.google_creds/cam-dev.json"
 
-      alias gke-test="gcloud config configurations activate cyderes-test && kubectx gke-cyderes-test && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-test.json"
-      alias gke-dev="gcloud config configurations activate cyderes-dev && kubectx gke-cyderes-dev && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-dev.json"
-      alias gke-prod="gcloud config configurations activate cyderes-prod && kubectx gke-cyderes-prod && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json"
-      alias gke-us-priv-prod="gcloud config configurations activate cyderes-prod && kubectx gke-us-priv-prod && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json"
-      alias gke-us-priv-dev="gcloud config configurations activate cyderes-dev && kubectx gke-us-priv-dev && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-dev.json"
-      alias gke-alphapub-prod="gcloud config configurations activate cyderes-prod && kubectx gke-alphapub-prod && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json"
-      alias gke-alphapub-dev="gcloud config configurations activate cyderes-dev && kubectx gke-alphapub-dev && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-dev.json"
-      alias gke-eu-priv-prod="gcloud config configurations activate cyderes-prod && kubectx gke-eu-priv-prod && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json"
-      alias gke-eu-pub-prod="gcloud config configurations activate cyderes-prod && kubectx gke-eu-pub-prod && export GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cyderes-prod.json"
-
-      alias rancher-prod='export RANCHER_URL=https://rancher.cyderes.cloud && export RANCHER_TOKEN=$(cat ~/.ssh/rancher-prod)
-      alias rancher-dev='export RANCHER_URL=https://rancher.dev-cyderes.cloud && export RANCHER_TOKEN=$(cat ~/.ssh/rancher-dev)
-      alias rk='rancher kubectl'
-
-      alias cam-home="gcloud config configurations activate cam-dev && kubectx cam-home && GOOGLE_APPLICATION_CREDENTIALS=/home/sackbuoy/.google_creds/cam-dev.json"
-
-      alias np="nix develop path:$PWD"
-    '';
-    ".bin/screenrecord".executable = true;
-    ".bin/screenrecord".text = ''
-      #!/usr/bin/env bash
-      output=$(pgrep wf-recorder)
-      if [[ -z "$output" ]]; then
-        # start recording
-        wf-recorder -g \"$(slurp)\" -f /home/sackbuoy/Videos/ScreenRecordings/$(date +%Y-%m-%d_%H-%m-%s).mp4
-      else
-        # recording already in progress
-        pkill wf-recorder
-        notify-send "Recording Saved"
-      fi
-    '';
+        alias np="nix develop path:$PWD"
+      '';
+    };
+    "${config.home.homeDirectory}/.bin/screenrecord" = {
+      text = ''
+        #!/usr/bin/env bash
+        output=$(pgrep wf-recorder)
+        if [[ -z "$output" ]]; then
+          # start recording
+          wf-recorder -g \"$(slurp)\" -f ${config.home.homeDirectory}/Videos/ScreenRecordings/$(date +%Y-%m-%d_%H-%m-%s).mp4
+        else
+          # recording already in progress
+          pkill wf-recorder
+          notify-send "Recording Saved"
+        fi
+      '';
+      executable = true;
+    };
+    "${config.home.homeDirectory}/.bin/kns" = {
+      text = ''
+        #!/usr/bin/env bash
+        if [ -n "$1" ]; then
+          if kubectl get namespace "$1" &>/dev/null; then
+            kubectl config set-context --current --namespace="$1"
+          else
+            selected=$(kubectl get namespaces -o jsonpath='{.items[*].metadata.name}' | tr ' ' '\n' | fzf --query="$1")
+            [ -n "$selected" ] && kubectl config set-context --current --namespace="$selected"
+          fi
+        else
+          selected=$(kubectl get namespaces -o jsonpath='{.items[*].metadata.name}' | tr ' ' '\n' | fzf)
+          [ -n "$selected" ] && kubectl config set-context --current --namespace="$selected"
+        fi
+      '';
+      executable = true;
+    };
   };
 
   # Home Manager can also manage your environment variables through
@@ -153,7 +160,7 @@
       if [ "$TMUX" = "" ]; then tmux; fi
       bindkey -v
       bindkey '^R' history-incremental-search-backward
-      export PATH=/home/sackbuoy/.bin:$PATH
+      export PATH=${config.home.homeDirectory}/.bin:$PATH
 
       ((
         set -x; cd "''$(mktemp -d)" &&

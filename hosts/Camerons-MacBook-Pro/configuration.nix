@@ -2,7 +2,10 @@
   # determinate installation manages the daemon itself so this isn't needed
   nix.enable = false;
 
-  nix.settings.experimental-features = "nix-command flakes";
+  nix.settings = {
+    experimental-features = "nix-command flakes";
+    trusted-users = ["@admin" "cameronkientz"];
+  };
 
   nixpkgs.hostPlatform = "aarch64-darwin"; # or "x86_64-darwin" for Intel
 
@@ -40,7 +43,7 @@
       autoUpdate = false;
     };
 
-    casks = ["meetingbar" "flycut"];
+    casks = ["meetingbar" "flycut" "multipass"];
   };
 
   services.aerospace = {

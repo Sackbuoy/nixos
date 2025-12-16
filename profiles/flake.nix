@@ -84,6 +84,8 @@
           black
           ruff
           pylyzer
+          uv
+          basedpyright
         ];
 
         web-dev = with pkgs; [
@@ -171,6 +173,12 @@
           buf
           localstack
           mise
+          crossplane-cli
+          protobuf-language-server
+          clang-tools
+          vector
+          protobuf_33
+          gemini-cli
         ];
 
         # Desktop applications (Linux only)
