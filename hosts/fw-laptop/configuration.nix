@@ -40,6 +40,8 @@ in {
 
   services.upower.enable = true;
 
+  services.fwupd.enable = true;
+
   # In your configuration.nix
   systemd.services.fix-network-after-suspend = {
     description = "Fix network after suspend";
@@ -143,7 +145,13 @@ in {
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
-  virtualisation.docker.enable = true;
+  virtualisation = {
+    docker.enable = false; # use podman
+    podman = {
+      enable = true;
+      dockerCompat = true;
+    };
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sackbuoy = {
@@ -156,6 +164,8 @@ in {
       "docker"
     ];
   };
+
+  nix.settings.trusted-users = ["root" "sackbuoy"];
 
   programs.fish = {
     enable = true;
@@ -242,23 +252,21 @@ in {
     };
   };
 
-  virtualisation.multipass.enable = true;
-
   services.rpcbind.enable = true;
 
   # Mount the NFS share
-  fileSystems = {
-    "${disk1}" = {
-      device = "homelab:${disk1}";
-      fsType = "nfs";
-      options = ["x-systemd.requires=tailscaled.service" "x-systemd.automount" "noauto" "noatime" "rw" "bg" "_netdev" "nofail"];
-      depends = ["tailscaled.service"];
-    };
-    "${disk2}" = {
-      device = "homelab:${disk2}";
-      fsType = "nfs";
-      options = ["x-systemd.requires=tailscaled.service" "x-systemd.automount" "noauto" "noatime" "rw" "bg" "_netdev" "nofail"];
-      depends = ["tailscaled.service"];
-    };
-  };
+  # fileSystems = {
+  #   "${disk1}" = {
+  #     device = "homelab:${disk1}";
+  #     fsType = "nfs";
+  #     options = ["x-systemd.requires=tailscaled.service" "x-systemd.automount" "noauto" "noatime" "rw" "bg" "_netdev" "nofail"];
+  #     depends = ["tailscaled.service"];
+  #   };
+  #   "${disk2}" = {
+  #     device = "homelab:${disk2}";
+  #     fsType = "nfs";
+  #     options = ["x-systemd.requires=tailscaled.service" "x-systemd.automount" "noauto" "noatime" "rw" "bg" "_netdev" "nofail"];
+  #     depends = ["tailscaled.service"];
+  #   };
+  # };
 }
