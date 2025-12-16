@@ -190,13 +190,9 @@
             spotify-player
             discord
             zoom-us
-            telegram-desktop
             slack
-            teams-for-linux
             spotify
             brave
-            ticktick
-            inkscape
             prismlauncher
           ];
       };
@@ -217,6 +213,7 @@
         personal =
           go-dev
           ++ python-dev
+          ++ kube-dev
           ++ web-dev
           ++ cli-tools
           ++ dev-workflow
