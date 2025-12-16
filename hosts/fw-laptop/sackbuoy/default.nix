@@ -147,14 +147,6 @@
     '';
   };
 
-  programs.fish = {
-    enable = true;
-    loginShellInit = ''
-      # set in home.file.".aliases"
-      . ~/.aliases
-    '';
-  };
-
   programs.zsh = {
     enable = true;
     historySubstringSearch.enable = true;

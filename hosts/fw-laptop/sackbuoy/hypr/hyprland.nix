@@ -101,9 +101,9 @@ in {
         "disable_logs" = "false";
       };
 
-      gestures = {
-        "workspace_swipe" = "true";
-      };
+      gesture = [
+        "3, horizontal, workspace"
+      ];
 
       decoration = {
         "rounding" = 10;
