@@ -1,85 +1,25 @@
 #!/usr/bin/env bash
 
-homeMonRight="Dell Inc. DELL P2425H BJX1B64";
-homeMonLeft="Dell Inc. DELL P2419HC 6C9ZJ73"
-builtin="BOE NE135A1M-NY1"
-workMonLeft="LG Electronics LG HDR 4K 0x00060A6B"
-workMonRight="LG Electronics LG HDR 4K 0x000609C5"
+mapfile -t monitors < <(hyprctl monitors all -j | jq -r 'sort_by(.x) | .[].description' 2>/dev/null)
 
-# monitor configurations:
-home=("${homeMonLeft}" "${homeMonRight}" "${builtin}")
-work=("${workMonLeft}" "${workMonRight}" "${builtin}")
+last_mon=$(( $(hyprctl monitors -j | jq 'map(.id) | max') ))
 
-MONITOR_DESCS=()
-MONITOR_DESCS_STR=""
-WORKSPACE_IDS=()
-WORKSPACE_IDS_STR=""
-
-while IFS= read -r line; do
-  MONITOR_DESCS+=("$line")
-  MONITOR_DESCS_STR+="$line"
-done < <(hyprctl monitors -j | jq -r '.[] | .description')
-
-while IFS= read -r line; do
-  WORKSPACE_IDS+=("$line")
-  WORKSPACE_IDS_STR+="$line"
-done < <(hyprctl workspaces -j | jq -r '.[] | .id')
-
-
-declare -A homeMappings
-function setup_home() {
-  homeMappings[$homeMonLeft]+="1"
-  homeMappings[$homeMonRight]+="2"
-  homeMappings[$builtin]+="3"
-}
-setup_home
-
-declare -A workMappings
-function setup_work() {
-  workMappings[$workMonLeft]+="1"
-  workMappings[$workMonRight]+="2"
-  workMappings[$builtin]+="3"
-}
-setup_work
-
-function is_home() {
-  result=0 # true
-  for desc in "${home[@]}"; do
-    if [[ "${MONITOR_DESCS_STR}" != *"$desc"* ]]; then
-      result=1 # false
-    fi
-  done
-  return $result
+current_monitor=0
+function increment_current_monitor {
+  if [ $current_monitor -eq $last_mon ]; then
+    current_monitor=0
+  else
+    ((++current_monitor))
+  fi
 }
 
-function is_work() {
-  result=0 # true
-  for desc in "${work[@]}"; do
-    if [[ "${MONITOR_DESCS_STR}" != *"$desc"* ]]; then
-      result=1 # false
-      break
-    fi
-  done
-  return $result
-}
+current_ws=1
+last_ws=$(( $(hyprctl workspaces -j | jq 'map(.id) | max') ))
 
-if is_home; then
-  for desc in "${!homeMappings[@]}"; do
-    for ws in ${homeMappings[$desc]}; do
-      hyprctl dispatch moveworkspacetomonitor "${ws}" "desc:${desc}"
-    done
-  done
-elif is_work; then
-  for desc in "${!workMappings[@]}"; do
-    for ws in ${workMappings[$desc]}; do
-      hyprctl dispatch moveworkspacetomonitor "${ws}" "desc:${desc}"
-    done
-  done
-else
-  for ws in "${WORKSPACE_IDS[@]}"; do
-    hyprctl dispatch moveworkspacetomonitor "${ws}" "desc:${builtin}"
-  done
-fi
+while [ $current_ws -le $last_ws ]; do
+  desc="${monitors[$current_monitor]}"
+  hyprctl dispatch moveworkspacetomonitor "${current_ws}" desc:"${desc}"
 
-hyprctl reload
-
+  increment_current_monitor
+  ((++current_ws))
+done
