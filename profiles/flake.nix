@@ -86,6 +86,7 @@
           pylyzer
           uv
           basedpyright
+          python3Packages.ipdb
         ];
 
         web-dev = with pkgs; [
@@ -179,6 +180,9 @@
           vector
           protobuf_33
           gemini-cli
+          typioca
+          pacvim
+          opencode
         ];
 
         # Desktop applications (Linux only)
