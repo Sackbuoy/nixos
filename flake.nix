@@ -9,12 +9,17 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
     nixpkgs,
     nix-darwin,
     home-manager,
+    nix-index-database,
     ...
   }: let
     hostUsers = {
@@ -47,12 +52,13 @@
           }
         ];
       };
-    
+
     mkDarwinHost = hostName:
       nix-darwin.lib.darwinSystem {
         specialArgs = {inherit inputs;};
         modules = [
           ./hosts/${hostName}/configuration.nix
+          nix-index-database.darwinModules.default
           home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -69,7 +75,7 @@
       gaming-desktop = mkHost "gaming-desktop";
       fw-laptop = mkHost "fw-laptop";
     };
-    
+
     darwinConfigurations = {
       Camerons-MacBook-Pro = mkDarwinHost "Camerons-MacBook-Pro";
     };

@@ -173,16 +173,22 @@
           claude-code
           buf
           localstack
-          mise
           crossplane-cli
           protobuf-language-server
           clang-tools
           vector
+          opentelemetry-collector
           protobuf_33
           gemini-cli
           typioca
           pacvim
           opencode
+          mermaid-cli
+          wget
+          yazi
+          typos-lsp
+          insomnia
+          helix
         ];
 
         # Desktop applications (Linux only)

@@ -6,7 +6,7 @@
   imports = [
     ./tmux
     ./git
-    ./mise
+    # ./mise
   ];
 
   home.stateVersion = "24.05";
@@ -92,6 +92,19 @@
       fi
 
       GOPRIVATE=gitlab.com/realm-security,buf.build/gen/go
+
+      # for UV development, particularly in the e2e tests
+      UV_ENV_FILE=.env
+
+      # for mise
+      eval "$(/Users/cameronkientz/.local/bin/mise activate zsh)"
+      export PATH="$HOME/.local/share/mise/shims:$PATH"
+
+      # claude code!
+      source ~/.creds/claude
+
+      # Tree sitter broke itself so now i need it myself ig
+      export PATH="$PATH:${config.home.homeDirectory}/.cargo/bin"
     '';
 
     plugins = [
