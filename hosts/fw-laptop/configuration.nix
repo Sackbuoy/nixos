@@ -27,7 +27,12 @@ in {
     enable = true;
     extraPortals = with pkgs; [
       xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gtk
     ];
+    config.common = {
+      default = "hyprland";
+      "org.freedesktop.impl.portal.FileChooser" = "gtk";
+    };
   };
 
   programs.hyprland = {
@@ -182,7 +187,7 @@ in {
   services.blueman.enable = true;
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = false; # install with flatpak
+  nixpkgs.config.allowUnfree = true; # install with flatpak
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -253,6 +258,18 @@ in {
   };
 
   services.rpcbind.enable = true;
+
+  services.open-webui = {
+    enable = true;
+    package = pkgs.open-webui; # Use stable version (e.g., from nixos-24.11 or later)
+    environment = {
+      ANONYMIZED_TELEMETRY = "False";
+      DO_NOT_TRACK = "True";
+      SCARF_NO_ANALYTICS = "True";
+      OLLAMA_API_BASE_URL = "http://10.0.0.55:11434/api";
+      OLLAMA_BASE_URL = "http://10.0.0.55:11434";
+    };
+  };
 
   # Mount the NFS share
   # fileSystems = {

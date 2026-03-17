@@ -79,6 +79,8 @@
 
         python-dev = with pkgs; [
           python313
+          python313Packages.proxmoxer
+          python313Packages.requests
           ty
           pyright
           black
@@ -143,6 +145,8 @@
             socat
             htop
             gnupg
+            iw
+            yazi
           ]
           ++ pkgs.lib.optionals pkgs.stdenv.hostPlatform.isLinux [
             gcc15
@@ -206,6 +210,10 @@
             spotify
             brave
             prismlauncher
+            element-desktop
+            kdePackages.okular
+            openssl
+            nssTools
           ];
       };
 
