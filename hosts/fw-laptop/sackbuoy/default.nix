@@ -26,7 +26,7 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   # Moved these to a profile flake
-  home.packages = [
+  home.packages = with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
 
@@ -42,6 +42,8 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+    bat
+    eza
   ];
 
   home.pointerCursor = {
@@ -63,6 +65,8 @@
         alias cam-home="gcloud config configurations activate cam-dev && kubectx cam-home && GOOGLE_APPLICATION_CREDENTIALS=${config.home.homeDirectory}/.google_creds/cam-dev.json"
 
         alias np="nix develop path:$PWD"
+        alias ls=eza
+        alias cat=bat
       '';
     };
     "${config.home.homeDirectory}/.bin/screenrecord" = {

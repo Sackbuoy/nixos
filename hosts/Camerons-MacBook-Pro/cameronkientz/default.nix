@@ -14,6 +14,8 @@
   home.packages = with pkgs; [
     maple-mono.NF
     git-lfs
+    bat
+    eza
   ];
 
   home.sessionVariables = {
@@ -31,6 +33,8 @@
         alias gitl="git log"
         alias k="kubectl"
         alias cam-home="gcloud config configurations activate cam-dev && kubectx cam-home && GOOGLE_APPLICATION_CREDENTIALS=${config.home.homeDirectory}/.google_creds/cam-dev.json"
+        alias ls=eza
+        alias cat=bat
       '';
     };
     "${config.home.homeDirectory}/.bin/kns" = {

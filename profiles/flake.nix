@@ -189,6 +189,8 @@
           typos-lsp
           insomnia
           helix
+          postgresql
+          lazysql
         ];
 
         # Desktop applications (Linux only)
