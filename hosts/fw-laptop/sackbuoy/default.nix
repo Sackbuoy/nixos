@@ -5,9 +5,11 @@
 }: {
   imports = [
     ./hypr
+    ./niri
     ./tmux
     ./git
     ./wofi
+    ./waybar
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -224,6 +226,8 @@
       };
     };
   };
+
+  programs.ghostty.enable = true;
 
   programs.alacritty = {
     enable = true;

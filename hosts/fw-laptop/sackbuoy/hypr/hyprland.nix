@@ -25,6 +25,7 @@ in {
     wl-clipboard
     bluetui
     clipse
+    wiremix
   ];
 
   wayland.windowManager.hyprland = {
@@ -113,10 +114,6 @@ in {
         # rules for the popups from toolbar
         "float, class:(toolbarApp)"
         "size 622 652, class:(toolbarApp)"
-
-        # special bc pavucontrol is a GUI
-        "float, title:^(Volume Control)$"
-        "size 622 652, title:^(Volume Control)$"
       ];
 
       bind = [
@@ -155,7 +152,7 @@ in {
 
         "$mainMod, B, exec, alacritty --class toolbarApp -e bluetui"
         "$mainMod, N, exec, alacritty --class toolbarApp -e nmtui"
-        "$mainMod, A, exec, pavucontrol"
+        "$mainMod, A, exec, alacritty --class toolbarApp -e wiremix"
 
         # Move focus with mainMod + arrow keys
         "$mainMod, h, movefocus, l"
