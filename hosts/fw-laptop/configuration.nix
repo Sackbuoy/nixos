@@ -27,10 +27,11 @@ in {
     enable = true;
     extraPortals = with pkgs; [
       xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gnome
       xdg-desktop-portal-gtk
     ];
     config.common = {
-      default = "hyprland";
+      default = "gnome";
       "org.freedesktop.impl.portal.FileChooser" = "gtk";
     };
   };
@@ -40,8 +41,11 @@ in {
     # withUWSM  = true; # "recommended" but breaks hypr utilities
   };
 
-  # Optional: Set as default
-  services.displayManager.defaultSession = "hyprland";
+  services.displayManager.sessionPackages = [pkgs.niri];
+  programs.niri.enable = true;
+  programs.niri.package = pkgs.niri;
+
+  services.displayManager.defaultSession = "niri";
 
   services.upower.enable = true;
 
@@ -87,6 +91,7 @@ in {
 
   fonts.packages = [
     pkgs.maple-mono.NF
+    pkgs.nerd-fonts.symbols-only
   ];
 
   nix = {

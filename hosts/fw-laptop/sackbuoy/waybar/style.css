@@ -1,0 +1,128 @@
+/* ── Global ────────────────────────────────────────────────────── */
+* {
+    font-family: "Maple Mono NF", "Symbols Nerd Font Mono", sans-serif;
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: rgba(40, 42, 54, 0.85);
+    color: #f8f8f2;
+}
+
+/* ── Tooltip ──────────────────────────────────────────────────── */
+tooltip {
+    background-color: #282a36;
+    border: 1px solid #33ccff;
+    border-radius: 8px;
+    color: #f8f8f2;
+}
+
+/* ── Module pill styling ──────────────────────────────────────── */
+#custom-launcher,
+#custom-workspace,
+#clock,
+#pulseaudio,
+#network,
+#bluetooth,
+#battery,
+#tray {
+    background-color: #44475a;
+    border-radius: 12px;
+    padding: 0 12px;
+    margin: 4px 3px;
+    transition: background-color 0.2s ease;
+}
+
+/* ── Hover state ──────────────────────────────────────────────── */
+#custom-launcher:hover,
+#pulseaudio:hover,
+#network:hover,
+#bluetooth:hover,
+#battery:hover {
+    background-color: #566078;
+}
+
+/* ── Launcher ─────────────────────────────────────────────────── */
+#custom-launcher {
+    color: #33ccff;
+    font-size: 16px;
+    padding: 0 14px;
+}
+
+/* ── Workspace indicator ──────────────────────────────────────── */
+#custom-workspace {
+    color: #33ccff;
+    font-weight: bold;
+}
+
+/* ── Clock ────────────────────────────────────────────────────── */
+#clock {
+    color: #f8f8f2;
+    font-weight: bold;
+}
+
+/* ── Pulseaudio ───────────────────────────────────────────────── */
+#pulseaudio {
+    color: #bd93f9;
+}
+
+#pulseaudio.muted {
+    color: #6272a4;
+}
+
+/* ── Network ──────────────────────────────────────────────────── */
+#network {
+    color: #50fa7b;
+}
+
+#network.disconnected {
+    color: #ff5555;
+}
+
+/* ── Bluetooth ────────────────────────────────────────────────── */
+#bluetooth {
+    color: #8be9fd;
+}
+
+#bluetooth.disabled {
+    color: #6272a4;
+}
+
+/* ── Battery ──────────────────────────────────────────────────── */
+#battery {
+    color: #f1fa8c;
+}
+
+#battery.charging,
+#battery.plugged {
+    color: #50fa7b;
+}
+
+#battery.warning:not(.charging) {
+    color: #ffb86c;
+}
+
+#battery.critical:not(.charging) {
+    color: #ff5555;
+    animation: blink 1s steps(2) infinite;
+}
+
+@keyframes blink {
+    to {
+        color: #f8f8f2;
+    }
+}
+
+/* ── Tray ─────────────────────────────────────────────────────── */
+#tray {
+    padding: 0 8px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}

@@ -200,6 +200,7 @@
         # Desktop applications (Linux only)
         desktop-apps = with pkgs;
           pkgs.lib.optionals pkgs.stdenv.hostPlatform.isLinux [
+            brave
             signal-desktop
             protonmail-desktop
             electron-mail
@@ -208,7 +209,6 @@
             zoom-us
             slack
             spotify
-            brave
             prismlauncher
             element-desktop
             kdePackages.okular
