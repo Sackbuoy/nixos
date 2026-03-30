@@ -5,10 +5,10 @@
 }: {
   home.packages = with pkgs; [
     # Replacements for hyprland-specific tools
-    swaybg # wallpaper (replaces hyprpaper)
-    swayidle # idle management (replaces hypridle)
-    swaylock # lock screen (replaces hyprlock)
-    wlsunset # color temperature (replaces hyprsunset)
+    # swaybg # wallpaper (replaces hyprpaper)
+    # swayidle # idle management (replaces hypridle)
+    # swaylock # lock screen (replaces hyprlock)
+    # wlsunset # color temperature (replaces hyprsunset)
     grim # screenshot tool (replaces hyprshot, used alongside niri built-in)
     wiremix # TUI audio mixer for PipeWire
   ];
@@ -98,17 +98,15 @@
     spawn-at-startup "waybar"
     spawn-at-startup "clipse" "-listen"
     spawn-at-startup "systemctl" "--user" "start" "hyprpolkitagent"
-    spawn-at-startup "wlsunset" "-t" "5000"
-    // TODO: set wallpaper — uncomment and set your wallpaper path:
-    spawn-at-startup "swaybg" "-i" "${config.home.homeDirectory}/.config/nixos/wallpapers/pretty.jpg" "-m" "fill"
-    // TODO: configure idle/lock — uncomment and adjust timeouts:
-    spawn-at-startup "swayidle" "-w" "timeout" "300" "swaylock -f" "before-sleep" "swaylock -f"
+    spawn-at-startup "hyprsunset"
+    spawn-at-startup "hyprpaper"
+    spawn-at-startup "systemctl" "start" "--user" "hypridle"
 
     // ── Keybinds ─────────────────────────────────────────────────
     binds {
         // ── Application launchers ────────────────────────────────
         Mod+Return { spawn "ghostty"; }
-        Mod+Space  { spawn "wofi" "--show" "drun"; }
+        Mod+Space  { spawn "fuzzel"; }
         Mod+E      { spawn "nautilus"; }
 
         // TUI popups (float via window rules above)

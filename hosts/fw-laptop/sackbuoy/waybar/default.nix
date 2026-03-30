@@ -13,7 +13,7 @@
 
         "custom/launcher" = {
           format = "";
-          on-click = "wofi --show drun";
+          on-click = "fuzzel";
           tooltip = false;
         };
 
@@ -25,7 +25,7 @@
         };
 
         clock = {
-          format = "  {:%a %b %d   %h:%M}";
+          format = "  {:%a %b %d   %I:%M}";
           tooltip-format = "<tt>{calendar}</tt>";
         };
 
