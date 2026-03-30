@@ -4,6 +4,7 @@
 {
   pkgs,
   lib,
+  inputs,
   ...
 }: let
   disk1 = "/var/lib/plexmediaserver/disk1";
@@ -23,16 +24,25 @@ in {
   };
 
   services.xserver.enable = true;
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-hyprland
-      xdg-desktop-portal-gnome
-      xdg-desktop-portal-gtk
-    ];
-    config.common = {
-      default = "gnome";
-      "org.freedesktop.impl.portal.FileChooser" = "gtk";
+  xdg = {
+    mime.defaultApplications = {
+      "text/html" = "zen.desktop";
+      "x-scheme-handler/http" = "zen.desktop";
+      "x-scheme-handler/https" = "zen.desktop";
+      "x-scheme-handler/about" = "zen.desktop";
+      "x-scheme-handler/unknown" = "zen.desktop";
+    };
+    portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-hyprland
+        xdg-desktop-portal-gnome
+        xdg-desktop-portal-gtk
+      ];
+      config.common = {
+        default = "gnome";
+        "org.freedesktop.impl.portal.FileChooser" = "gtk";
+      };
     };
   };
 
@@ -50,6 +60,8 @@ in {
   services.upower.enable = true;
 
   services.fwupd.enable = true;
+
+  programs.nix-index-database.comma.enable = true;
 
   # In your configuration.nix
   systemd.services.fix-network-after-suspend = {
@@ -191,6 +203,9 @@ in {
   # enable blueman gui
   services.blueman.enable = true;
 
+  # Secret storage for Chromium-based browsers (Brave, etc.)
+  environment.sessionVariables.KWALLET_PAM_LOGIN = "1";
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true; # install with flatpak
 
@@ -213,6 +228,11 @@ in {
 
     # formatting
     alejandra
+
+    # kwallet
+    kdePackages.kwallet
+    kdePackages.kwalletmanager
+    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   services.tailscale.enable = true;

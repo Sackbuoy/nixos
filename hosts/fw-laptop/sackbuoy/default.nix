@@ -9,6 +9,7 @@
     ./tmux
     ./git
     ./wofi
+    ./fuzzel
     ./waybar
   ];
 
@@ -57,6 +58,22 @@
   };
 
   home.file = {
+    # Proton Mail expects this desktop file to exist; without it the app segfaults on Wayland.
+    # See: https://github.com/NixOS/nixpkgs/issues/365156
+    "${config.home.homeDirectory}/.local/share/applications/proton-mail.desktop" = {
+      text = ''
+        [Desktop Entry]
+        Name=Proton Mail
+        Comment=Proton official desktop application for Proton Mail and Proton Calendar
+        GenericName=Proton Mail
+        Exec=proton-mail %U
+        Icon=proton-mail
+        Type=Application
+        StartupNotify=true
+        Categories=Network;Email;
+        MimeType=x-scheme-handler/mailto;
+      '';
+    };
     "${config.home.homeDirectory}/.aliases" = {
       text = ''
         alias gits="git status"
