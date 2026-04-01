@@ -203,6 +203,9 @@ in {
 
   system.stateVersion = "24.11";
 
+  # Boot menu label (shows in GRUB/systemd-boot)
+  system.nixos.label = "flake-parts";
+
   # ============================================================================
   # NFS Mounts (commented out)
   # ============================================================================
