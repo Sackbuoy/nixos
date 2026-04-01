@@ -143,6 +143,8 @@
     EDITOR = "nvim";
     NIXOS_OZONE_WL = "1";
     NIXPKGS_ALLOW_UNFREE = "0";
+    # XWayland display for Steam and other X11 apps (set by xwayland-satellite)
+    DISPLAY = ":0";
   };
 
   # Let Home Manager install and manage itself.

@@ -11,6 +11,7 @@
     # wlsunset # color temperature (replaces hyprsunset)
     grim # screenshot tool (replaces hyprshot, used alongside niri built-in)
     wiremix # TUI audio mixer for PipeWire
+    xwayland-satellite # XWayland for X11 apps (Steam, etc.)
   ];
 
   xdg.configFile."niri/config.kdl".text = ''
@@ -94,6 +95,9 @@
     // ── Screenshots ──────────────────────────────────────────────
     screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
+    // ── XWayland (required for Steam and other X11 apps) ─────────
+    spawn-at-startup "xwayland-satellite"
+
     // ── Startup ──────────────────────────────────────────────────
     spawn-at-startup "waybar"
     spawn-at-startup "clipse" "-listen"
@@ -118,6 +122,7 @@
         // ── Window management ────────────────────────────────────
         Mod+C { close-window; }
         Mod+F { maximize-column; }
+        Mod+Shift+F { fullscreen-window; }
 
         // ── Focus (vim-style) ────────────────────────────────────
         Mod+H { focus-column-left; }

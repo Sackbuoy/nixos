@@ -14,6 +14,7 @@ in {
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../modules/system/ly.nix
+    ../../modules/system/gaming.nix
     ./networking.nix
   ];
 
@@ -237,7 +238,7 @@ in {
 
   services.tailscale.enable = true;
 
-  programs.gamemode.enable = true;
+  # Gaming configuration is in ../../modules/system/gaming.nix
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
