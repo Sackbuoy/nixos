@@ -94,7 +94,6 @@
           bun
           typescript-language-server
           angular-language-server
-          next-ls
         ];
 
         # Infrastructure & cloud tools
@@ -171,8 +170,8 @@
           yaml-language-server
           elixir-ls
           claude-code
+          opencode-claude-auth
           buf
-          localstack
           crossplane-cli
           protobuf-language-server
           clang-tools
@@ -191,6 +190,7 @@
           helix
           postgresql
           lazysql
+          dynein
         ];
 
         # Desktop applications (Linux only)
