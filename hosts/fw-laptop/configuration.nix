@@ -1,6 +1,4 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
+# Framework Laptop NixOS Configuration
 {
   pkgs,
   lib,
@@ -11,59 +9,142 @@
   disk2 = "/var/lib/plexmediaserver/disk2";
 in {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../../modules/system/ly.nix
     ./networking.nix
   ];
 
-  # hyprland "must haves"
-  security = {
-    polkit.enable = true;
-    pam.services.hyprlock = {};
-  };
+  # ============================================================================
+  # System Module Configuration (mySystem.*)
+  # ============================================================================
 
-  services.xserver.enable = true;
-  xdg = {
-    mime.defaultApplications = {
-      "text/html" = "zen.desktop";
-      "x-scheme-handler/http" = "zen.desktop";
-      "x-scheme-handler/https" = "zen.desktop";
-      "x-scheme-handler/about" = "zen.desktop";
-      "x-scheme-handler/unknown" = "zen.desktop";
+  mySystem = {
+    # Nix settings
+    nix = {
+      enableFlakes = true;
+      gc = {
+        enable = true;
+        olderThan = "7d";
+        frequency = "daily";
+      };
+      trustedUsers = ["root" "sackbuoy"];
+      allowUnfree = true;
     };
-    portal = {
+
+    # Locale
+    locale = {
+      timezone = "America/Chicago";
+      language = "en_US.UTF-8";
+    };
+
+    # Audio with Bluetooth
+    audio = {
       enable = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-hyprland
-        xdg-desktop-portal-gnome
-        xdg-desktop-portal-gtk
-      ];
-      config.common = {
-        default = "gnome";
-        "org.freedesktop.impl.portal.FileChooser" = "gtk";
+      bluetooth.enable = true;
+      jack.enable = true;
+    };
+
+    # Container runtime
+    containers = {
+      enable = true;
+      backend = "podman";
+      dockerCompat = true;
+    };
+
+    # Power management for laptop
+    power = {
+      enable = true;
+      batteryGovernor = "powersave";
+      batteryTurbo = "never";
+      chargerGovernor = "performance";
+      chargerTurbo = "auto";
+    };
+
+    # Keyboard remapping
+    keyd = {
+      enable = true;
+      capsLockBehavior = "escape-meta";
+      swapEscapeCapsLock = true;
+    };
+
+    # Desktop environment
+    desktop = {
+      enable = true;
+      defaultBrowser = "zen.desktop";
+      hyprland.enable = true;
+      niri = {
+        enable = true;
+        setAsDefault = true;
       };
     };
   };
 
-  programs.hyprland = {
-    enable = true;
-    # withUWSM  = true; # "recommended" but breaks hypr utilities
+  # ============================================================================
+  # Bootloader
+  # ============================================================================
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  # ============================================================================
+  # Display Manager
+  # ============================================================================
+
+  # Ly display manager (from existing module)
+  # Imported via modules/system/ly.nix
+
+  # ============================================================================
+  # Users
+  # ============================================================================
+
+  users.defaultUserShell = pkgs.zsh;
+
+  users.users.sackbuoy = {
+    isNormalUser = true;
+    description = "cameron";
+    shell = pkgs.zsh;
+    extraGroups = ["networkmanager" "wheel" "docker"];
   };
 
-  services.displayManager.sessionPackages = [pkgs.niri];
-  programs.niri.enable = true;
-  programs.niri.package = pkgs.niri;
+  # ============================================================================
+  # Programs
+  # ============================================================================
 
-  services.displayManager.defaultSession = "niri";
-
-  services.upower.enable = true;
-
-  services.fwupd.enable = true;
-
+  programs.zsh.enable = true;
+  programs.fish.enable = true;
+  programs.firefox.enable = true;
+  programs.gamemode.enable = true;
   programs.nix-index-database.comma.enable = true;
 
-  # In your configuration.nix
+  # ============================================================================
+  # Services
+  # ============================================================================
+
+  services.tailscale.enable = true;
+  services.openssh.enable = true;
+  services.printing.enable = false;
+  services.flatpak.enable = false;
+  services.fwupd.enable = true;
+  services.rpcbind.enable = true;
+
+  # Open WebUI for local LLM
+  services.open-webui = {
+    enable = true;
+    package = pkgs.open-webui;
+    environment = {
+      ANONYMIZED_TELEMETRY = "False";
+      DO_NOT_TRACK = "True";
+      SCARF_NO_ANALYTICS = "True";
+      OLLAMA_API_BASE_URL = "http://10.0.0.55:11434/api";
+      OLLAMA_BASE_URL = "http://10.0.0.55:11434";
+    };
+  };
+
+  # ============================================================================
+  # Systemd Services
+  # ============================================================================
+
+  # Fix network after suspend
   systemd.services.fix-network-after-suspend = {
     description = "Fix network after suspend";
     wantedBy = ["suspend.target"];
@@ -77,238 +158,65 @@ in {
     };
   };
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # ============================================================================
+  # Environment
+  # ============================================================================
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # Secret storage for Chromium-based browsers
+  environment.sessionVariables.KWALLET_PAM_LOGIN = "1";
 
-  # Set your time zone.
-  time.timeZone = "America/Chicago";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
-  };
+  # ============================================================================
+  # Fonts
+  # ============================================================================
 
   fonts.packages = [
     pkgs.maple-mono.NF
     pkgs.nerd-fonts.symbols-only
   ];
 
-  nix = {
-    # package = pkgs.nixFlakes;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-  };
+  # ============================================================================
+  # System Packages
+  # ============================================================================
 
-  # Enable CUPS to print documents.
-  services.printing.enable = false;
-
-  # anything in flatpak i want should be available
-  # in unstable, and it will run better
-  services.flatpak.enable = false;
-
-  services.power-profiles-daemon.enable = false;
-  services.auto-cpufreq.enable = true;
-  services.auto-cpufreq.settings = {
-    battery = {
-      governor = "powersave";
-      turbo = "never";
-    };
-    charger = {
-      governor = "performance";
-      turbo = "auto";
-    };
-  };
-
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-    wireplumber.extraConfig.bluetoothEnhancements = {
-      "monitor.bluez.properties" = {
-        "bluez5.enable-sbc-xq" = true;
-        "bluez5.enable-msbc" = true;
-        "bluez5.enable-hw-volume" = true;
-        "bluez5.roles" = [
-          "hsp_hs"
-          "hsp_ag"
-          "hfp_hf"
-          "hfp_ag"
-        ];
-      };
-    };
-  };
-
-  users.defaultUserShell = pkgs.zsh;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.libinput.enable = true;
-
-  virtualisation = {
-    docker.enable = false; # use podman
-    podman = {
-      enable = true;
-      dockerCompat = true;
-    };
-  };
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.sackbuoy = {
-    isNormalUser = true;
-    description = "cameron";
-    shell = pkgs.zsh;
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "docker"
-    ];
-  };
-
-  nix.settings.trusted-users = ["root" "sackbuoy"];
-
-  programs.fish = {
-    enable = true;
-  };
-
-  programs.zsh = {
-    enable = true;
-  };
-
-  # Install firefox.
-  programs.firefox.enable = true;
-
-  # enable blueman gui
-  services.blueman.enable = true;
-
-  # Secret storage for Chromium-based browsers (Brave, etc.)
-  environment.sessionVariables.KWALLET_PAM_LOGIN = "1";
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true; # install with flatpak
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim
     wget
     git
-    vim
     tmux
     ripgrep
     libgcc
     tailscale
-    hyprpanel # this doesn't belong here but its the only place it works
+    hyprpanel
     libnotify
     glib
     libcap
     lsof
-
-    # formatting
     alejandra
-
-    # kwallet
     kdePackages.kwallet
     kdePackages.kwalletmanager
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
-  services.tailscale.enable = true;
+  # ============================================================================
+  # State Version
+  # ============================================================================
 
-  programs.gamemode.enable = true;
+  system.stateVersion = "24.11";
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  # ============================================================================
+  # NFS Mounts (commented out)
+  # ============================================================================
 
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
-  # garbage collection. Deletes builds older than 30d
-  nix.gc = {
-    automatic = true;
-    dates = "daily";
-    options = "--delete-older-than 7d";
-  };
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
-
-  services.keyd = {
-    enable = true;
-    keyboards = {
-      default = {
-        ids = ["*"];
-        settings = {
-          main = {
-            capslock = "overload(meta, esc)";
-            esc = "overload(esc, capslock)";
-          };
-        };
-      };
-    };
-  };
-
-  services.rpcbind.enable = true;
-
-  services.open-webui = {
-    enable = true;
-    package = pkgs.open-webui; # Use stable version (e.g., from nixos-24.11 or later)
-    environment = {
-      ANONYMIZED_TELEMETRY = "False";
-      DO_NOT_TRACK = "True";
-      SCARF_NO_ANALYTICS = "True";
-      OLLAMA_API_BASE_URL = "http://10.0.0.55:11434/api";
-      OLLAMA_BASE_URL = "http://10.0.0.55:11434";
-    };
-  };
-
-  # Mount the NFS share
   # fileSystems = {
   #   "${disk1}" = {
   #     device = "homelab:${disk1}";
   #     fsType = "nfs";
   #     options = ["x-systemd.requires=tailscaled.service" "x-systemd.automount" "noauto" "noatime" "rw" "bg" "_netdev" "nofail"];
-  #     depends = ["tailscaled.service"];
   #   };
   #   "${disk2}" = {
   #     device = "homelab:${disk2}";
   #     fsType = "nfs";
   #     options = ["x-systemd.requires=tailscaled.service" "x-systemd.automount" "noauto" "noatime" "rw" "bg" "_netdev" "nofail"];
-  #     depends = ["tailscaled.service"];
   #   };
   # };
 }
