@@ -2,7 +2,7 @@
 {pkgs}:
 with pkgs; [
   # terraform  # Uncomment if needed
-  terraform-ls
-  opentofu
+  # terraform-ls
+  # opentofu
   tflint
 ]

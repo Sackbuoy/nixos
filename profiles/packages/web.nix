@@ -3,6 +3,6 @@
 with pkgs; [
   nodejs
   bun
-  typescript-language-server
-  angular-language-server
+  # typescript-language-server
+  # angular-language-server
 ]

@@ -7,11 +7,11 @@ with pkgs; [
   lua
 
   # Language servers
-  bash-language-server
-  lua-language-server
+  # bash-language-server
+  # lua-language-server
   yaml-language-server
-  elixir-ls
-  protobuf-language-server
+  # elixir-ls
+  # protobuf-language-server
   typos-lsp
 
   # AI/CLI tools

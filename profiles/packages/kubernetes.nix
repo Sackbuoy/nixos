@@ -8,5 +8,5 @@ with pkgs; [
   argocd
   rancher
   stern
-  helm-ls
+  # helm-ls
 ]

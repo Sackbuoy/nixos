@@ -3,13 +3,13 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-23-11.url = "github:NixOS/nixpkgs/nixos-23.11";
+    # nixpkgs-23-11.url = "github:NixOS/nixpkgs/nixos-23.11";
   };
 
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-23-11,
+    # nixpkgs-23-11,
   }: let
     systems = ["aarch64-darwin" "x86_64-linux"];
     forAllSystems = nixpkgs.lib.genAttrs systems;
@@ -46,10 +46,11 @@
         };
       };
 
-      pkgs-23-11 = import nixpkgs-23-11 {localSystem = system;};
+      # pkgs-23-11 = import nixpkgs-23-11 {localSystem = system;};
 
       # Import package sets from ./packages/
-      packages = import ./packages {inherit pkgs pkgs-23-11;};
+      # packages = import ./packages {inherit pkgs pkgs-23-11;};
+      packages = import ./packages {inherit pkgs;};
 
       # Import profile definitions from ./profiles/
       profiles = import ./profiles {inherit packages;};

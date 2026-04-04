@@ -3,5 +3,5 @@
 with pkgs; [
   zsh-vi-mode
   tmux
-  neovim
+  # neovim
 ]

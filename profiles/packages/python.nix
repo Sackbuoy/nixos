@@ -6,8 +6,8 @@ with pkgs; [
   pyright
   black
   ruff
-  pylyzer
+  # pylyzer
   uv
-  basedpyright
+  # basedpyright
   python3Packages.ipdb
 ]

@@ -1,7 +1,9 @@
 # Package sets aggregator
 # Import all package categories and expose them as an attribute set
-{pkgs, pkgs-23-11}: {
-  go = import ./go.nix {inherit pkgs pkgs-23-11;};
+# {pkgs, pkgs-23-11}: {
+{pkgs}: {
+  # go = import ./go.nix {inherit pkgs pkgs-23-11;};
+  go = import ./go.nix {inherit pkgs;};
   python = import ./python.nix {inherit pkgs;};
   web = import ./web.nix {inherit pkgs;};
   kubernetes = import ./kubernetes.nix {inherit pkgs;};
