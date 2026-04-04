@@ -8,9 +8,10 @@
     # Host-specific desktop configurations
     ./hypr
     ./niri
+    ./noctalia # Noctalia shell (replaces waybar, fuzzel for niri)
     ./wofi
-    ./fuzzel
-    ./waybar
+    # ./fuzzel # Replaced by Noctalia launcher for Niri
+    # ./waybar # Replaced by Noctalia bar for Niri
   ];
 
   # User info

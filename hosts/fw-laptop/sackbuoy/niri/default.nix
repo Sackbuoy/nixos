@@ -4,13 +4,11 @@
   ...
 }: {
   home.packages = with pkgs; [
-    # Replacements for hyprland-specific tools
-    # swaybg # wallpaper (replaces hyprpaper)
-    # swayidle # idle management (replaces hypridle)
-    # swaylock # lock screen (replaces hyprlock)
-    # wlsunset # color temperature (replaces hyprsunset)
-    grim # screenshot tool (replaces hyprshot, used alongside niri built-in)
-    wiremix # TUI audio mixer for PipeWire
+    # Screenshot tool (used by Noctalia and niri built-in)
+    grim
+    # Clipboard history support for Noctalia
+    cliphist
+    wl-clipboard
   ];
 
   xdg.configFile."niri/config.kdl".text = ''
@@ -78,16 +76,33 @@
     // ── Window decorations ───────────────────────────────────────
     prefer-no-csd
 
-    // Default corner radius for all windows (matching hyprland rounding 10)
+    // Default corner radius for all windows
     window-rule {
-        geometry-corner-radius 10 10 10 10
+        geometry-corner-radius 20 20 20 20
         clip-to-geometry true
     }
 
+    // Allow notification actions and window activation from Noctalia
+    debug {
+        honor-xdg-activation-with-invalid-serial
+    }
+
+    // Noctalia wallpaper layer rules - blurred overview wallpaper
+    layer-rule {
+        match namespace="^noctalia-overview*"
+        place-within-backdrop true
+    }
+
     // ── Window rules ─────────────────────────────────────────────
-    // Float toolbar popup apps (clipse, bluetui, nmtui, wiremix)
+    // Float toolbar popup apps (for any TUI tools if needed)
     window-rule {
         match app-id=r#"^toolbarApp$"#
+        open-floating true
+    }
+
+    // Noctalia panels and popups
+    window-rule {
+        match app-id=r#"^noctalia.*$"#
         open-floating true
     }
 
@@ -95,25 +110,26 @@
     screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
     // ── Startup ──────────────────────────────────────────────────
-    spawn-at-startup "waybar"
-    spawn-at-startup "clipse" "-listen"
+    // Noctalia shell (replaces waybar, handles wallpaper, idle, night light, etc.)
+    spawn-at-startup "noctalia-shell"
+    // Polkit agent for authentication dialogs
     spawn-at-startup "systemctl" "--user" "start" "hyprpolkitagent"
-    spawn-at-startup "hyprsunset"
-    spawn-at-startup "hyprpaper"
-    spawn-at-startup "systemctl" "start" "--user" "hypridle"
 
     // ── Keybinds ─────────────────────────────────────────────────
     binds {
         // ── Application launchers ────────────────────────────────
         Mod+Return { spawn "ghostty"; }
-        Mod+Space  { spawn "fuzzel"; }
         Mod+E      { spawn "nautilus"; }
 
-        // TUI popups (float via window rules above)
-        Mod+V { spawn "alacritty" "--class" "toolbarApp" "-e" "clipse"; }
-        Mod+B { spawn "alacritty" "--class" "toolbarApp" "-e" "bluetui"; }
-        Mod+N { spawn "alacritty" "--class" "toolbarApp" "-e" "nmtui"; }
-        Mod+A { spawn "alacritty" "--class" "toolbarApp" "-e" "wiremix" "--tab" "output"; }
+        // ── Noctalia shell controls ──────────────────────────────
+        // App launcher (replaces fuzzel)
+        Mod+Space { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+        // Control center (network, bluetooth, audio, etc.)
+        Mod+S { spawn "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
+        // Settings panel
+        Mod+Comma { spawn "noctalia-shell" "ipc" "call" "settings" "toggle"; }
+        // Clipboard history
+        Mod+V { spawn "noctalia-shell" "ipc" "call" "launcher" "openClipboard"; }
 
         // ── Window management ────────────────────────────────────
         Mod+C { close-window; }
@@ -173,18 +189,18 @@
         // ── Screen recording ─────────────────────────────────────
         Mod+R { spawn "${config.home.homeDirectory}/.bin/screenrecord"; }
 
-        // ── Lock screen ──────────────────────────────────────────
-        Ctrl+Alt+L { spawn "swaylock" "-f"; }
+        // ── Lock screen (via Noctalia) ───────────────────────────
+        Ctrl+Alt+L { spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
 
-        // ── Media keys ───────────────────────────────────────────
-        XF86AudioMute         allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
-        XF86AudioRaiseVolume  allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
-        XF86AudioLowerVolume  allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
-        XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "s" "5%+"; }
-        XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "s" "5%-"; }
-        XF86AudioPlay         allow-when-locked=true { spawn "playerctl" "play-pause"; }
-        XF86AudioNext         allow-when-locked=true { spawn "playerctl" "next"; }
-        XF86AudioPrev         allow-when-locked=true { spawn "playerctl" "previous"; }
+        // ── Media keys (via Noctalia for OSD) ────────────────────
+        XF86AudioMute         allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "volume" "muteOutput"; }
+        XF86AudioRaiseVolume  allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "volume" "increase"; }
+        XF86AudioLowerVolume  allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "volume" "decrease"; }
+        XF86MonBrightnessUp   allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "brightness" "increase"; }
+        XF86MonBrightnessDown allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "brightness" "decrease"; }
+        XF86AudioPlay         allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "media" "playPause"; }
+        XF86AudioNext         allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "media" "next"; }
+        XF86AudioPrev         allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "media" "previous"; }
 
         // ── Session ─────────────────────────────────────────────
         Mod+Shift+Q { quit; }
