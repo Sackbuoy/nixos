@@ -129,7 +129,7 @@
         // Settings panel
         Mod+Comma { spawn "noctalia-shell" "ipc" "call" "settings" "toggle"; }
         // Clipboard history
-        Mod+V { spawn "noctalia-shell" "ipc" "call" "launcher" "openClipboard"; }
+        Mod+V { spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
 
         // ── Window management ────────────────────────────────────
         Mod+C { close-window; }
