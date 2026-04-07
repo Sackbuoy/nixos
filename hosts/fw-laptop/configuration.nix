@@ -11,6 +11,7 @@ in {
   imports = [
     ./hardware-configuration.nix
     ./networking.nix
+    inputs.nixos-hardware.nixosModules.framework-13-7040-amd
   ];
 
   # ============================================================================
@@ -18,6 +19,12 @@ in {
   # ============================================================================
 
   mySystem = {
+    # Graphics/GPU
+    graphics = {
+      enable = true;
+      driver = "amdgpu";
+      enable32Bit = true;
+    };
     # Nix settings
     nix = {
       enableFlakes = true;
@@ -115,6 +122,10 @@ in {
   programs.firefox.enable = true;
   programs.gamemode.enable = true;
   programs.nix-index-database.comma.enable = true;
+  programs.steam = {
+    enable = true;
+    gamescopeSession.enable = true;
+  };
 
   # ============================================================================
   # Services
@@ -165,6 +176,9 @@ in {
   # Secret storage for Chromium-based browsers
   environment.sessionVariables.KWALLET_PAM_LOGIN = "1";
 
+  # Steam Proton compatibility tools
+  environment.sessionVariables.STEAM_EXTRA_COMPAT_TOOLS_PATHS = "/home/sackbuoy/.steam/root/compatibilitytools.d";
+
   # ============================================================================
   # Fonts
   # ============================================================================
@@ -195,6 +209,9 @@ in {
     kdePackages.kwallet
     kdePackages.kwalletmanager
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+    mangohud
+    protonup
+    xwayland-satellite
   ];
 
   # ============================================================================

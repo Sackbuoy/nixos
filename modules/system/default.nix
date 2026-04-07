@@ -10,5 +10,6 @@
     ./keyd.nix
     ./desktop
     ./ly.nix
+    ./gaming-graphics.nix
   ];
 }

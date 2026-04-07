@@ -8,7 +8,6 @@
 }: let
   # Map of hosts to their users
   hostUsers = {
-    gaming-desktop = ["sackbuoy"];
     fw-laptop = ["sackbuoy"];
     Camerons-MacBook-Pro = ["cameronkientz"];
   };
@@ -65,7 +64,6 @@
       });
 in {
   flake.nixosConfigurations = {
-    gaming-desktop = mkNixosHost "gaming-desktop" "x86_64-linux";
     fw-laptop = mkNixosHost "fw-laptop" "x86_64-linux";
   };
 
