@@ -6,7 +6,7 @@
 }: {
   imports = [
     # Host-specific desktop configurations
-    ./hypr
+    # ./hypr
     ./niri
     ./noctalia # Noctalia shell (replaces waybar, fuzzel for niri)
     ./wofi

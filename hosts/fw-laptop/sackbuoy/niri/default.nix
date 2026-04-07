@@ -73,6 +73,60 @@
         }
     }
 
+    // ── Animations ──────────────────────────────────────────────
+    animations {
+      slowdown 0.8
+
+      workspace-switch {
+        spring damping-ratio=0.7 stiffness=600 epsilon=0.0001
+      }
+
+      window-open {
+        // Same as CSS cubic-bezier(0.05, 0.7, 0.1, 1)
+        curve "cubic-bezier" 0.05 0.7 0.1 1
+      }
+
+      window-close {
+        duration-ms 150
+        curve "ease-out-quad"
+      }
+
+      horizontal-view-movement {
+        spring damping-ratio=0.7 stiffness=600 epsilon=0.0001
+      }
+
+      window-movement {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+      }
+
+      window-resize {
+        spring damping-ratio=0.7 stiffness=600 epsilon=0.0001
+      }
+
+      config-notification-open-close {
+        spring damping-ratio=0.6 stiffness=1000 epsilon=0.001
+      }
+
+      exit-confirmation-open-close {
+        spring damping-ratio=0.6 stiffness=500 epsilon=0.01
+      }
+
+      screenshot-ui-open {
+        duration-ms 200
+        curve "ease-out-quad"
+      }
+
+      overview-open-close {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+      }
+
+      // since 25.11
+      // recent-windows-close {
+      //   spring damping-ratio=1.0 stiffness=800 epsilon=0.001
+      // }
+    }
+
+
     // ── Window decorations ───────────────────────────────────────
     prefer-no-csd
 
