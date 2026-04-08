@@ -8,5 +8,6 @@ with pkgs; [
   argocd
   rancher
   stern
+  cilium-cli
   # helm-ls
 ]
