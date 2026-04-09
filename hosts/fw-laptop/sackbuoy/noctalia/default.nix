@@ -32,6 +32,7 @@
             }
             {
               id = "Clock";
+              formatHorizontal = "h:mm AP ddd, MMM dd";
             }
             {
               id = "ActiveWindow";
