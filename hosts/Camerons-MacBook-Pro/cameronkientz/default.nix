@@ -73,10 +73,19 @@
     tmux = {
       enable = true;
       enableImagePassthrough = true;
-      enableVimNavigator = false;
+      enableVimNavigator = true;
       enableSmartSplits = true;
       rightPlugins = "battery network time";
-      leftPlugins = "git";
+      leftPlugins = "git kube";
+      extraConfig = ''
+        # macOS: use Nix-managed zsh
+        set -g default-command "${pkgs.zsh}/bin/zsh"
+
+        # tmux2k display options
+        set -g @tmux2k-show-powerline true
+        set -g @tmux2k-show-flags true
+        set -g @tmux2k-military-time true
+      '';
     };
 
     # Directory navigation

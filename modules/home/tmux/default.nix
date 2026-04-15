@@ -13,7 +13,7 @@ in {
 
     enableImagePassthrough = mkOption {
       type = types.bool;
-      default = false;
+      default = true;
       description = "Enable image passthrough (for terminals like Kitty/iTerm2)";
     };
 
@@ -31,16 +31,16 @@ in {
 
     rightPlugins = mkOption {
       type = types.str;
-      default = "kube";
+      default = "battery network time";
       description = "tmux2k right side plugins";
       example = "battery network time";
     };
 
     leftPlugins = mkOption {
       type = types.str;
-      default = "gcloud git";
+      default = "git kube";
       description = "tmux2k left side plugins";
-      example = "git";
+      example = "git kube";
     };
 
     extraConfig = mkOption {
@@ -58,6 +58,8 @@ in {
         ${optionalString cfg.enableImagePassthrough ''
           # Enable image passthrough for terminal image rendering
           set -g allow-passthrough on
+          set -g visual-activity off
+          set-option -g focus-events on
         ''}
 
         ${builtins.readFile ./base.conf}
@@ -65,13 +67,6 @@ in {
         # tmux2k panel configuration
         set -g @tmux2k-right-plugins '${cfg.rightPlugins}'
         set -g @tmux2k-left-plugins '${cfg.leftPlugins}'
-
-        ${optionalString (cfg.rightPlugins == "kube") ''
-          set -g @tmux2k-kube-symbol '󱃾'
-        ''}
-        ${optionalString (builtins.match ".*gcloud.*" cfg.leftPlugins != null) ''
-          set -g @tmux2k-gcloud-symbol '󰅟'
-        ''}
 
         # Vim integration
         ${optionalString cfg.enableVimNavigator ''
