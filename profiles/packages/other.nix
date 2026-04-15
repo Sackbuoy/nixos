@@ -36,7 +36,6 @@ with pkgs; [
 
   # Other utilities
   clang-tools
-  mermaid-cli
   wget
   yazi
   insomnia
