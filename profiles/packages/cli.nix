@@ -18,6 +18,7 @@ with pkgs;
     socat
     htop
     gnupg
+    picocom
   ]
   ++ pkgs.lib.optionals pkgs.stdenv.hostPlatform.isLinux [
     gcc15

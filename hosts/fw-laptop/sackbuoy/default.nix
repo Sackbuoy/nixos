@@ -103,7 +103,7 @@
         #!/usr/bin/env bash
         output=$(pgrep wf-recorder)
         if [[ -z "$output" ]]; then
-          wf-recorder -g \"$(slurp)\" -f ${config.home.homeDirectory}/Videos/ScreenRecordings/$(date +%Y-%m-%d_%H-%m-%s).mp4
+          wf-recorder -g "$(slurp)" -f ${config.home.homeDirectory}/Videos/ScreenRecordings/$(date +%Y-%m-%d_%H-%m-%s).mp4
         else
           pkill wf-recorder
           notify-send "Recording Saved"

@@ -53,7 +53,7 @@ in {
     # Container runtime
     containers = {
       enable = true;
-      backend = "podman";
+      backend = "docker";
       dockerCompat = true;
     };
 
@@ -110,7 +110,7 @@ in {
     isNormalUser = true;
     description = "cameron";
     shell = pkgs.zsh;
-    extraGroups = ["networkmanager" "wheel" "docker"];
+    extraGroups = ["networkmanager" "wheel" "docker" "dialout"];
   };
 
   # ============================================================================
@@ -140,7 +140,7 @@ in {
 
   # Open WebUI for local LLM
   services.open-webui = {
-    enable = true;
+    enable = false;
     package = pkgs.open-webui;
     environment = {
       ANONYMIZED_TELEMETRY = "False";

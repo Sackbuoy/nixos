@@ -13,7 +13,7 @@ in {
 
     backend = mkOption {
       type = types.enum ["podman" "docker"];
-      default = "podman";
+      default = "docker";
       description = "Container backend to use";
     };
 
@@ -27,6 +27,8 @@ in {
   config = mkIf cfg.enable {
     virtualisation = {
       docker.enable = cfg.backend == "docker";
+
+      multipass.enable = false;
 
       podman = mkIf (cfg.backend == "podman") {
         enable = true;

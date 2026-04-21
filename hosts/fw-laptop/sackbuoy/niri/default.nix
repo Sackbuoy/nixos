@@ -9,6 +9,9 @@
     # Clipboard history support for Noctalia
     cliphist
     wl-clipboard
+    # Screen recording
+    slurp
+    wf-recorder
   ];
 
   xdg.configFile."niri/config.kdl".text = ''
