@@ -39,9 +39,13 @@ with pkgs; [
   wget
   yazi
   insomnia
-  helix
 
   # Fun/Learning
   typioca
   pacvim
+
+  ghc
+  cabal-install
+
+  steel
 ]
