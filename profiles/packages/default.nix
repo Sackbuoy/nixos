@@ -12,6 +12,8 @@
   cli = import ./cli.nix {inherit pkgs;};
   workflow = import ./workflow.nix {inherit pkgs;};
   nix = import ./nix.nix {inherit pkgs;};
+  zig = import ./zig.nix {inherit pkgs;};
+  haskell = import ./haskell.nix {inherit pkgs;};
   other = import ./other.nix {inherit pkgs;};
   desktop = import ./desktop.nix {inherit pkgs;};
 }

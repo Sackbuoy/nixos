@@ -44,8 +44,5 @@ with pkgs; [
   typioca
   pacvim
 
-  ghc
-  cabal-install
-
   steel
 ]

@@ -9,4 +9,6 @@ with packages;
   ++ nix
   ++ python
   ++ web
+  ++ zig
+  ++ haskell
   ++ other

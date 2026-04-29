@@ -9,4 +9,6 @@ with packages;
   ++ workflow
   ++ nix
   ++ other
+  ++ zig
+  ++ haskell
   ++ desktop
