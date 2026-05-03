@@ -45,4 +45,7 @@ with pkgs; [
   pacvim
 
   steel
+
+  contact
+  python312Packages.meshtastic
 ]
