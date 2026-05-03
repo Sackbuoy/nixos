@@ -17,7 +17,6 @@ with pkgs; [
   # AI/CLI tools
   claude-code
   opencode-claude-auth
-  opencode
   gemini-cli
 
   # Protobuf & API
