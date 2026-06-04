@@ -2,6 +2,7 @@
 {packages}:
 with packages;
   go
+  ++ ansible
   ++ python
   ++ kubernetes
   ++ web

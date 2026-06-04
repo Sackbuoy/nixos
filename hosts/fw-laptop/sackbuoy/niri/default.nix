@@ -191,6 +191,7 @@
         // ── Window management ────────────────────────────────────
         Mod+C { close-window; }
         Mod+F { maximize-column; }
+        Mod+Shift+F { toggle-windowed-fullscreen; }
 
         // ── Focus (vim-style) ────────────────────────────────────
         Mod+H { focus-column-left; }
