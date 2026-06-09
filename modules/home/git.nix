@@ -117,7 +117,7 @@ in {
           init.defaultBranch = "main";
 
           # Merge/diff settings
-          merge.conflictstyle = "diff3";
+          merge.conflictstyle = "zdiff3";
           diff.colorMoved = "default";
         }
 
