@@ -1,0 +1,214 @@
+# Amethyst config mirroring Niri setup
+# See: https://github.com/ianyh/Amethyst/blob/v0.22.1/docs/configuration-files.md
+#
+# Niri uses a scrollable column model; Amethyst uses traditional tiling.
+# "tall" is the closest equivalent to Niri's default column layout.
+# mod1 = command + shift  (mirrors Niri's Super/Mod key)
+# mod2 = command + shift + ctrl  (mirrors Niri's Mod+Ctrl combos)
+
+# ── Layouts ───────────────────────────────────────────────────────────────────
+# tall = main pane on left with stack on right (closest to Niri's column tiling)
+# fullscreen = mirrors Niri's Mod+F maximize
+# wide = horizontal split variant
+# column = each window gets equal column (mirrors Niri's multi-column feel)
+layouts:
+  - fullscreen
+  - bsp
+
+# ── Modifiers ─────────────────────────────────────────────────────────────────
+# mod1: Super equivalent (command + shift)
+mod1:
+  - command
+  - shift
+
+# mod2: Super+Ctrl equivalent (command + shift + ctrl) — used for monitor/screen ops
+mod2:
+  - command
+  - shift
+  - control
+
+# ── Window behavior ───────────────────────────────────────────────────────────
+# Mirrors Niri gaps: 2px
+window-margins: true
+smart-window-margins: false
+window-margin-size: 2
+
+# Matches Niri's focus-follows-mouse (max-scroll-amount="0%")
+focus-follows-mouse: false
+mouse-follows-focus: true
+
+# Allow mouse to swap/resize windows like Niri drag behavior
+mouse-swaps-windows: true
+mouse-resizes-windows: true
+
+# New windows go to end (Niri appends to the right in scroll model)
+new-windows-to-main: false
+
+# Follow thrown windows (mirrors Niri's Alt+Shift+N behavior)
+follow-space-thrown-windows: true
+
+# Resize step: 10% matches Niri's set-column-width "+/-10%"
+window-resize-step: 10
+
+# Float small utility windows (matches Niri's toolbarApp floating rule)
+float-small-windows: true
+
+# No screen padding (Niri uses gaps only, no outer padding)
+screen-padding-left: 0
+screen-padding-right: 0
+screen-padding-top: 0
+screen-padding-bottom: 0
+
+# Don't ignore menu bar (macOS-specific; no equivalent in Niri/Linux)
+ignore-menu-bar: false
+
+# Hide layout HUD on space change to reduce noise
+enables-layout-hud: true
+enables-layout-hud-on-space-change: false
+
+# Restore layouts across launches
+restore-layouts-on-launch: true
+
+# ── Keybindings ───────────────────────────────────────────────────────────────
+# Niri: Mod+H → focus-column-left    → focus-ccw (counter-clockwise in tiling)
+focus-ccw:
+  mod: mod1
+  key: h
+
+# Niri: Mod+L → focus-column-right   → focus-cw
+focus-cw:
+  mod: mod1
+  key: l
+
+# Niri: Mod+J → focus-window-down    → (no direct equivalent; reuse j/k for ccw/cw alt)
+# Using j/k as secondary focus cycling (same window list direction)
+# Note: Amethyst doesn't distinguish horizontal vs vertical focus separately
+
+# Niri: Mod+Shift+H → move-column-left  → swap-ccw
+swap-ccw:
+  mod: mod2
+  key: h
+
+# Niri: Mod+Shift+L → move-column-right → swap-cw
+swap-cw:
+  mod: mod2
+  key: l
+
+# Niri: Mod+Shift+K → move-window-up → swap-main (promote to main pane)
+swap-main:
+  mod: mod1
+  key: enter
+
+# Niri: Ctrl+Shift+H → focus-monitor-left → focus-screen-ccw
+focus-screen-ccw:
+  mod: mod2
+  key: left
+
+# Niri: Ctrl+Shift+L → focus-monitor-right → focus-screen-cw
+focus-screen-cw:
+  mod: mod2
+  key: right
+
+# Niri: Ctrl+Shift+Mod+H → move-column-to-monitor-left → swap-screen-ccw
+swap-screen-ccw:
+  mod: mod2
+  key: j
+
+# Niri: Ctrl+Shift+Mod+L → move-column-to-monitor-right → swap-screen-cw
+swap-screen-cw:
+  mod: mod2
+  key: k
+
+# Niri: Mod+Minus → set-column-width "-10%" → shrink-main
+shrink-main:
+  mod: mod1
+  key: '-'
+
+# Niri: Mod+Equal → set-column-width "+10%" → expand-main
+expand-main:
+  mod: mod1
+  key: '='
+
+# Increase/decrease windows in main pane
+increase-main:
+  mod: mod1
+  key: ','
+
+decrease-main:
+  mod: mod1
+  key: '.'
+
+# Niri: Alt+1–9 → focus-workspace / throw-space (throw-space-left/right available)
+throw-space-left:
+  mod: mod2
+  key: left
+
+throw-space-right:
+  mod: mod2
+  key: right
+
+# Focus main window (no direct Niri equivalent but useful)
+focus-main:
+  mod: mod1
+  key: m
+
+# Niri: Mod+F → maximize-column → select-fullscreen-layout
+select-fullscreen-layout:
+  mod: mod1
+  key: f
+
+# Layout cycling (Niri has no direct equivalent but useful)
+cycle-layout:
+  mod: mod1
+  key: space
+
+cycle-layout-backward:
+  mod: mod2
+  key: space
+
+# Layout shortcuts
+select-tall-layout:
+  mod: mod1
+  key: a
+
+select-wide-layout:
+  mod: mod1
+  key: s
+
+select-column-layout:
+  mod: mod1
+  key: d
+
+# Toggle float (mirrors Niri's open-floating window rules concept)
+toggle-float:
+  mod: mod1
+  key: t
+
+# Reevaluate (useful after app restores)
+reevaluate-windows:
+  mod: mod1
+  key: z
+
+# Relaunch
+relaunch-amethyst:
+  mod: mod2
+  key: z
+
+# Display current layout
+display-current-layout:
+  mod: mod1
+  key: i
+
+# Toggle focus-follows-mouse (mirrors Niri's focus-follows-mouse toggle)
+toggle-focus-follows-mouse:
+  mod: mod2
+  key: x
+
+# ── Floating app rules ────────────────────────────────────────────────────────
+# Mirrors Niri window-rule open-floating for toolbarApp / utility popups.
+# Add bundle IDs here for apps that should always float.
+# Example: com.apple.SystemPreferences, net.ankiweb.dtop, etc.
+floating:
+  - com.apple.Calculator
+  - com.apple.Stickies
+floating-is-blacklist: true
