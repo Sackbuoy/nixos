@@ -141,11 +141,11 @@ decrease-main:
 # Niri: Alt+1–9 → focus-workspace / throw-space (throw-space-left/right available)
 throw-space-left:
   mod: mod2
-  key: left
+  key: h
 
 throw-space-right:
   mod: mod2
-  key: right
+  key: l
 
 # Focus main window (no direct Niri equivalent but useful)
 focus-main:
