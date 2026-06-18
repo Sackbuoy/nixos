@@ -163,6 +163,11 @@
         open-floating true
     }
 
+    window-rule {
+        match app-id="zen$" title="^Picture-in-Picture$"
+        open-floating true
+    }
+
     // ── Screenshots ──────────────────────────────────────────────
     screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
