@@ -15,6 +15,12 @@
   ];
 
   xdg.configFile."niri/config.kdl".text = ''
+    switch-events {
+      lid-close {
+          spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock"
+      }
+    }
+
     // ── Input ────────────────────────────────────────────────────
     input {
         keyboard {
