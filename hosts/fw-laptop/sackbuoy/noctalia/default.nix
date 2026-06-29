@@ -79,7 +79,6 @@
         };
       };
 
-      # Disable dock as requested
       dock = {
         enabled = false;
       };
