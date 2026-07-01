@@ -119,9 +119,6 @@ in {
           # Merge/diff settings
           merge.conflictstyle = "diff3";
           diff.colorMoved = "default";
-
-          # Ensure origin fetches all branches (overrides single-branch clones)
-          remote.origin.fetch = "+refs/heads/*:refs/remotes/origin/*";
         }
 
         # Delta settings
