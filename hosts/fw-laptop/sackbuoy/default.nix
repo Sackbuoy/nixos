@@ -6,12 +6,12 @@
 }: {
   imports = [
     # Host-specific desktop configurations
-    # ./hypr
-    ./niri
-    ./noctalia # Noctalia shell (replaces waybar, fuzzel for niri)
-    ./wofi
-    # ./fuzzel # Replaced by Noctalia launcher for Niri
-    # ./waybar # Replaced by Noctalia bar for Niri
+    ./hypr
+    # ./niri
+    ./noctalia # Noctalia shell (replaces waybar, fuzzel, hyprpanel, etc.)
+    # ./wofi # Replaced by Noctalia launcher
+    # ./fuzzel # Replaced by Noctalia launcher
+    # ./waybar # Replaced by Noctalia bar
   ];
 
   # User info

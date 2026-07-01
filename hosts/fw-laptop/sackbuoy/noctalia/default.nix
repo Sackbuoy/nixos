@@ -1,5 +1,5 @@
-# Noctalia Shell configuration for Niri
-# A sleek and minimal desktop shell for Wayland
+# Noctalia Shell configuration
+# A sleek and minimal desktop shell for Wayland (works with Hyprland and Niri)
 {
   pkgs,
   inputs,

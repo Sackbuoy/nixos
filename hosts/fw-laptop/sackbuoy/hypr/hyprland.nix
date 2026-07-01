@@ -3,29 +3,15 @@
   focusMonitorScript = import ./scripts/focus-monitor.nix {inherit pkgs;};
   focusWsOnCurrentMonScript = import ./scripts/focus-workspace-on-current-monitor.nix {inherit pkgs;};
 in {
-  programs.kitty.enable = true;
-
   home.packages = with pkgs; [
-    hyprlock
-    hypridle
-    hyprpaper
-    hyprsunset
-    hyprpicker
-    wofi
     nautilus
-    waybar
-    kitty
-    brightnessctl
-    hyprshot
     hyprpolkitagent
     libsForQt5.qt5.qtwayland # needed for some apps to load right
-    playerctl
     wf-recorder
     slurp
     wl-clipboard
-    bluetui
-    clipse
-    wiremix
+    hyprshot
+    grim
   ];
 
   wayland.windowManager.hyprland = {
@@ -36,9 +22,8 @@ in {
     ];
     settings = {
       "$mainMod" = "SUPER";
-      "$terminal" = "alacritty";
+      "$terminal" = "ghostty";
       "$fileManager" = "nautilus";
-      "$menu" = "wofi --show drun";
       "$homeMonRight" = "Dell Inc. DELL P2425H BJX1B64";
       "$homeMonLeft" = "Dell Inc. DELL P2419HC 6C9ZJ73";
       "$frameworkDisplay" = "BOE NE135A1M-NY1";
@@ -49,7 +34,7 @@ in {
       # different port -> which is why im using descriptions
       # I use the built in display as 0x0,
       monitor = [
-        "desc:$frameworkDisplay, 2880x1920@60, 0x0, 2" # built in display(framework)
+        "desc:$frameworkDisplay, 2880x1920@120, 0x0, 2" # built in display(framework)
         "desc:$homeMonRight, 1920x1080, -1920x0, 1" # Right
         "desc:$homeMonLeft, 1920x1080, -3840x0, 1" # Left
 
@@ -67,11 +52,7 @@ in {
       "exec-once" = [
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "systemctl start --user hyprpanel"
-        "systemctl start --user hypridle"
-        "hyprpaper"
-        "clipse -listen"
-        "hyprsunset --temperature 5000"
+        "noctalia-shell"
         "systemctl --user start hyprpolkitagent"
         "${assignWorkspacesScript}/bin/assign-workspaces"
         "hyprctl dispatch workspace 3; sleep 1"
@@ -114,6 +95,9 @@ in {
         # rules for the popups from toolbar
         "float, class:(toolbarApp)"
         "size 622 652, class:(toolbarApp)"
+        # noctalia floating windows
+        "float, class:(noctalia.*)"
+        "float, class:^(noctalia-overview.*)$"
       ];
 
       bind = [
@@ -121,40 +105,44 @@ in {
         ", monitoradded, exec, ${assignWorkspacesScript}/bin/assign-workspaces"
         ", monitorremoved, exec, ${assignWorkspacesScript}/bin/assign-workspaces"
 
-        # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
         "$mainMod, RETURN, exec, $terminal"
         "$mainMod, C, killactive"
         "$mainMod, M, exit"
         "$mainMod, E, exec, $fileManager"
-        "$mainMod, SPACE, exec, $menu"
+
+        # Noctalia launcher (replaces wofi)
+        "$mainMod, SPACE, exec, noctalia-shell ipc call launcher toggle"
+
+        # Noctalia control center
+        "$mainMod, S, exec, noctalia-shell ipc call controlCenter toggle"
+
+        # Noctalia settings
+        "$mainMod, COMMA, exec, noctalia-shell ipc call settings toggle"
+
+        # Noctalia clipboard (replaces clipse)
+        "$mainMod, V, exec, noctalia-shell ipc call launcher clipboard"
+
         "$mainMod, J, togglesplit" # dwindle
 
         "CTRL SHIFT, l, exec, ${focusMonitorScript}/bin/focus-monitor right"
         "CTRL SHIFT, h, exec, ${focusMonitorScript}/bin/focus-monitor left"
 
-        "CTRL ALT, l, exec, (pidof hyprlock || hyprlock) && ${assignWorkspacesScript}/bin/assign-workspaces"
+        # Lock screen via noctalia (replaces hyprlock)
+        "CTRL ALT, l, exec, noctalia-shell ipc call lockScreen lock"
         "$mainMod, A, exec, ${assignWorkspacesScript}/bin/assign-workspaces"
 
         "$mainMod, z, togglefloating"
         "$mainMod, f, fullscreen"
+        "$mainMod SHIFT, f, fullscreen, 1" # windowed fullscreen
 
-        # screenshots
+        # screenshots (grim/hyprshot)
         "$mainMod, P, exec, hyprshot -m region --clipboard-only"
         "$mainMod SHIFT, P, exec, hyprshot -m region -o /home/sackbuoy/Pictures/Screenshots"
 
         # screen recording
         "$mainMod, R, exec, /home/sackbuoy/.bin/screenrecord"
 
-        # need to add the --class in the toolbar launcher config
-        # to make these adhere to the windowrules
-        # clipboard manager
-        "$mainMod, V, exec, alacritty --class toolbarApp -e clipse"
-
-        "$mainMod, B, exec, alacritty --class toolbarApp -e bluetui"
-        "$mainMod, N, exec, alacritty --class toolbarApp -e nmtui"
-        "$mainMod, A, exec, alacritty --class toolbarApp -e wiremix"
-
-        # Move focus with mainMod + arrow keys
+        # Move focus with mainMod + hjkl
         "$mainMod, h, movefocus, l"
         "$mainMod, l, movefocus, r"
         "$mainMod, k, movefocus, u"
@@ -166,7 +154,7 @@ in {
         "$mainMod SHIFT, k, movewindow, u"
         "$mainMod SHIFT, j, movewindow, d"
 
-        # Switch workspaces with mainMod + [0-9]
+        # Switch workspaces with ALT + [0-9]
         "ALT, 1, workspace, 1"
         "ALT, 2, workspace, 2"
         "ALT, 3, workspace, 3"
@@ -181,7 +169,7 @@ in {
         "ALT, l, exec, ${focusWsOnCurrentMonScript}/bin/fwcm right"
         "ALT, h, exec, ${focusWsOnCurrentMonScript}/bin/fwcm left"
 
-        # Move active window to a workspace with mainMod + SHIFT + [0-9]
+        # Move active window to a workspace with ALT + SHIFT + [0-9]
         "ALT SHIFT, 1, movetoworkspace, 1"
         "ALT SHIFT, 2, movetoworkspace, 2"
         "ALT SHIFT, 3, movetoworkspace, 3"
@@ -195,22 +183,28 @@ in {
 
         "ALT SHIFT, l, movetoworkspace, +1"
         "ALT SHIFT, h, movetoworkspace, -1"
+
+        "$mainMod SHIFT, Q, exit,"
+        "$mainMod SHIFT, SLASH, exec, hyprctl dispatch submap reset" # fallback
       ];
 
       bindl = [
-        ", switch:on:Lid Switch, exec, pidof hyprlock || hyprlock"
+        # Lid close -> noctalia lock (replaces hyprlock)
+        ", switch:on:Lid Switch, exec, noctalia-shell ipc call lockScreen lock"
         ", switch:off:Lid Switch, exec, hyprctl dispatch dpms on"
-        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        ", XF86AudioPlay, exec, playerctl play-pause"
-        ", XF86AudioNext, exec, playerctl next"
-        ", XF86AudioPrev, exec, playerctl previous"
+        # Media keys -> noctalia IPC (replaces playerctl/wpctl direct calls)
+        ", XF86AudioMute, exec, noctalia-shell ipc call audio toggleMute"
+        ", XF86AudioPlay, exec, noctalia-shell ipc call media playPause"
+        ", XF86AudioNext, exec, noctalia-shell ipc call media next"
+        ", XF86AudioPrev, exec, noctalia-shell ipc call media previous"
       ];
 
       bindle = [
-        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        ", XF86MonBrightnessUp, exec, brightnessctl s 5%+"
-        ", XF86MonBrightnessDown, exec, brightnessctl s 5%-"
+        # Volume/brightness -> noctalia IPC (replaces wpctl/brightnessctl)
+        ", XF86AudioRaiseVolume, exec, noctalia-shell ipc call audio volumeUp"
+        ", XF86AudioLowerVolume, exec, noctalia-shell ipc call audio volumeDown"
+        ", XF86MonBrightnessUp, exec, noctalia-shell ipc call brightness up"
+        ", XF86MonBrightnessDown, exec, noctalia-shell ipc call brightness down"
       ];
 
       # mouse binds
