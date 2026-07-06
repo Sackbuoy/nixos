@@ -49,7 +49,7 @@
   programs.nix-index-database.comma.enable = true;
 
   services.aerospace = {
-    enable = true;
+    enable = false;
     settings = {
       # See https://nikitabobko.github.io/AeroSpace/guide for config options
       workspace-to-monitor-force-assignment = {
