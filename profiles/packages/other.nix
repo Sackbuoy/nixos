@@ -45,6 +45,5 @@ with pkgs; [
 
   steel
 
-  contact
-  python312Packages.meshtastic
+  slides
 ]

@@ -13,3 +13,4 @@ with packages;
   ++ zig
   ++ haskell
   ++ desktop
+  ++ meshtastic
