@@ -11,7 +11,7 @@
     wl-clipboard
     # Screen recording
     slurp
-    wf-recorder
+    (wf-recorder.override {ffmpeg = ffmpeg_8;})
   ];
 
   xdg.configFile."niri/config.kdl".text = ''

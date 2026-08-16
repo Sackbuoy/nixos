@@ -198,7 +198,7 @@
     ripgrep
     libgcc
     tailscale
-    hyprpanel
+    wayle
     libnotify
     glib
     libcap
@@ -208,7 +208,7 @@
     kdePackages.kwalletmanager
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     mangohud
-    protonup
+    protonup-ng
     xwayland-satellite
   ];
 

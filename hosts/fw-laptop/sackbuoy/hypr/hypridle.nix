@@ -6,9 +6,10 @@ in {
     settings = {
       general = {
         lock_cmd = "pidof hyprlock || hyprlock";
-        unlock_cmd = "${assignWorkspacesScript}/bin/assign-workspaces && systemctl --user start hyprpanel";
-        on_lock_cmd = "systemctl --user stop hyprpanel";
-        on_unlock_cmd = "systemctl --user start hyprpanel";
+        # hyrpanel has been replaced by wayle
+        # unlock_cmd = "${assignWorkspacesScript}/bin/assign-workspaces && systemctl --user start hyprpanel";
+        # on_lock_cmd = "systemctl --user stop hyprpanel";
+        # on_unlock_cmd = "systemctl --user start hyprpanel";
       };
 
       listener = [

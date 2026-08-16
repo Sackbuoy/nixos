@@ -28,8 +28,6 @@ in {
     virtualisation = {
       docker.enable = cfg.backend == "docker";
 
-      multipass.enable = false;
-
       podman = mkIf (cfg.backend == "podman") {
         enable = true;
         dockerCompat = cfg.dockerCompat;

@@ -6,8 +6,9 @@ in {
   home.packages = with pkgs; [
     nautilus
     hyprpolkitagent
-    libsForQt5.qt5.qtwayland # needed for some apps to load right
-    wf-recorder
+    # removed this since it caused build issues and im not using hyprland anyway
+    # libsForQt5.qt5.qtwayland # needed for some apps to load right
+    (wf-recorder.override {ffmpeg = ffmpeg_8;})
     slurp
     wl-clipboard
     hyprshot
