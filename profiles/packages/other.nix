@@ -46,8 +46,6 @@ with pkgs; [
   steel
 
   slides
-  contact
-  python312Packages.meshtastic
 
   wireshark
 

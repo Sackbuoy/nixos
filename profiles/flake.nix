@@ -37,6 +37,7 @@
               "slack"
               "teams-for-linux"
               "discord"
+              "discord-unwrapped"
               "spotify"
               "zoom"
               "ticktick"
