@@ -46,4 +46,16 @@ with pkgs; [
   steel
 
   slides
+  contact
+  python312Packages.meshtastic
+
+  wireshark
+
+  nmap
+  metasploit
+  hashcat
+
+  wireguard-tools
+  wireguard-go
+  wireguard-ui
 ]

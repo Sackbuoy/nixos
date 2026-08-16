@@ -28,6 +28,10 @@ in {
     hardware.graphics = {
       enable = true;
       enable32Bit = cfg.enable32Bit;
+      extraPackages = with pkgs; [
+        rocmPackages.clr
+        rocmPackages.clr.icd
+      ];
     };
     services.xserver.videoDrivers = [cfg.driver];
   };
