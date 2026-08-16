@@ -72,6 +72,7 @@
 
   # Cursor theme
   home.pointerCursor = {
+    enable = true;
     name = "Adwaita";
     package = pkgs.adwaita-icon-theme;
     size = 24;
@@ -123,6 +124,7 @@
 
   # Firefox
   programs.firefox.enable = true;
+  programs.firefox.configPath = "${config.xdg.configHome}/mozilla/firefox";
 
   # Direnv (currently disabled)
   programs.direnv = {

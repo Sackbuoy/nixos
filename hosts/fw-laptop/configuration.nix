@@ -117,7 +117,6 @@
 
   programs.zsh.enable = true;
   programs.fish.enable = true;
-  programs.firefox.enable = true;
   programs.gamemode.enable = true;
   programs.nix-index-database.comma.enable = true;
   programs.steam = {

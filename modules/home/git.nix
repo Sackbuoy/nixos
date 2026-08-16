@@ -84,27 +84,33 @@ in {
   };
 
   config = mkIf cfg.enable {
+    programs.delta = mkIf cfg.enableDelta {
+      enable = true;
+      enableGitIntegration = true;
+    };
+
     programs.git = {
       enable = true;
-      userName = cfg.userName;
-      userEmail = cfg.userEmail;
 
-      delta.enable = cfg.enableDelta;
       lfs.enable = cfg.enableLfs;
-
-      aliases = {
-        co = "checkout";
-      };
 
       includes = cfg.conditionalIncludes;
 
-      extraConfig = mkMerge [
+      settings = mkMerge [
         # SSH URL rewriting
         {
           url = {
             "ssh://git@github.com" = {
               insteadOf = "https://github.com";
             };
+          };
+
+          aliases = {
+            co = "checkout";
+          };
+          user = {
+            name = cfg.userName;
+            email = cfg.userEmail;
           };
 
           # Large file support
@@ -120,14 +126,6 @@ in {
           merge.conflictstyle = "zdiff3";
           diff.colorMoved = "default";
         }
-
-        # Delta settings
-        (mkIf cfg.enableDelta {
-          delta = {
-            navigate = true;
-            side-by-side = true;
-          };
-        })
 
         # Signing configuration
         (mkIf cfg.signing.enable {
