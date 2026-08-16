@@ -4,13 +4,11 @@
   lib,
   inputs,
   ...
-}: let
-  disk1 = "/var/lib/plexmediaserver/disk1";
-  disk2 = "/var/lib/plexmediaserver/disk2";
-in {
+}: {
   imports = [
     ./hardware-configuration.nix
     ./networking.nix
+    ./nfs.nix
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
   ];
 
@@ -219,21 +217,4 @@ in {
   # ============================================================================
 
   system.stateVersion = "24.11";
-
-  # ============================================================================
-  # NFS Mounts (commented out)
-  # ============================================================================
-
-  # fileSystems = {
-  #   "${disk1}" = {
-  #     device = "homelab:${disk1}";
-  #     fsType = "nfs";
-  #     options = ["x-systemd.requires=tailscaled.service" "x-systemd.automount" "noauto" "noatime" "rw" "bg" "_netdev" "nofail"];
-  #   };
-  #   "${disk2}" = {
-  #     device = "homelab:${disk2}";
-  #     fsType = "nfs";
-  #     options = ["x-systemd.requires=tailscaled.service" "x-systemd.automount" "noauto" "noatime" "rw" "bg" "_netdev" "nofail"];
-  #   };
-  # };
 }
