@@ -7,7 +7,7 @@ with pkgs; [
   lua
 
   # Language servers
-  # bash-language-server
+  bash-language-server
   # lua-language-server
   yaml-language-server
   # elixir-ls
