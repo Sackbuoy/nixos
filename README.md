@@ -22,9 +22,30 @@ nmcli d wifi connect <WiFiSSID> password <WiFiPassword> iface <WifiInterface>
     - for tmux2k plugin, i use my own custom scripts for gcloud and kube
       just add them to the scripts dir of the plugin and update tmux2k.sh to      accomodate them
 3. create ~/.bin/ for custom binaries
-4. create boot partition with label NIXBOOT
-5. create root partition with label NIXROOT
-6. anything installed via flatpak is managed outside this repo
+4. create NIXBOOT and NIXROOT partitions:
+    - identify your disk: `lsblk` (e.g. `/dev/sdX` or `/dev/nvme0n1`)
+    - partition the disk:
+      ```
+      parted /dev/sdX -- mklabel gpt
+      parted /dev/sdX -- mkpart NIXBOOT fat32 1MiB 513MiB
+      parted /dev/sdX -- set 1 esp on
+      parted /dev/sdX -- mkpart NIXROOT ext4 513MiB 100%
+      ```
+    - format the partitions:
+      ```
+      mkfs.fat -F32 -n NIXBOOT /dev/sdX1
+      mkfs.ext4 -L NIXROOT /dev/sdX2
+      ```
+      (NVMe: partitions are `/dev/nvme0n1p1` and `/dev/nvme0n1p2`)
+    - mount for installation:
+      ```
+      mount /dev/disk/by-label/NIXROOT /mnt
+      mkdir -p /mnt/boot
+      mount /dev/disk/by-label/NIXBOOT /mnt/boot
+      ```
+    - generate hardware config: `nixos-generate-config --root /mnt`
+    - copy the output into `hosts/<hostname>/hardware-configuration.nix`
+5. anything installed via flatpak is managed outside this repo
 
 # installing profiles:
 `cd` to the directory containing the profile flake.nix

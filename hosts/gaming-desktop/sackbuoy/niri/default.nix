@@ -1,0 +1,243 @@
+{
+  pkgs,
+  config,
+  ...
+}: {
+  home.packages = with pkgs; [
+    # Screenshot tool (used by Noctalia and niri built-in)
+    grim
+    # Clipboard history support for Noctalia
+    cliphist
+    wl-clipboard
+    # Screen recording
+    slurp
+    (wf-recorder.override {ffmpeg = ffmpeg_8;})
+  ];
+
+  xdg.configFile."niri/config.kdl".text = ''
+    // ── Input ────────────────────────────────────────────────────
+    input {
+        keyboard {
+            xkb {
+                layout "us"
+            }
+        }
+
+        mouse {
+            accel-speed -0.3
+        }
+
+        focus-follows-mouse max-scroll-amount="0%"
+    }
+
+    // ── Outputs (monitor arrangement) ───────────────────────────
+    // Update these to match your actual monitor connector names.
+    // Run `niri msg outputs` to discover connector names and resolutions.
+
+    // Primary monitor
+    output "DP-1" {
+        mode "2560x1440@144.000"
+        position x=0 y=0
+    }
+
+    // Secondary monitor (uncomment and adjust as needed)
+    // output "HDMI-A-1" {
+    //     mode "1920x1080@60.000"
+    //     position x=-1920 y=0
+    // }
+
+
+    // ── Layout ───────────────────────────────────────────────────
+    layout {
+        gaps 2
+
+        border {
+            width 1
+            active-color "#33ccffee"
+            inactive-color "#595959aa"
+        }
+
+        focus-ring {
+            off
+        }
+    }
+
+    // ── Animations ──────────────────────────────────────────────
+    animations {
+      slowdown 0.8
+
+      workspace-switch {
+        spring damping-ratio=0.7 stiffness=600 epsilon=0.0001
+      }
+
+      window-open {
+        curve "cubic-bezier" 0.05 0.7 0.1 1
+      }
+
+      window-close {
+        duration-ms 150
+        curve "ease-out-quad"
+      }
+
+      horizontal-view-movement {
+        spring damping-ratio=0.7 stiffness=600 epsilon=0.0001
+      }
+
+      window-movement {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+      }
+
+      window-resize {
+        spring damping-ratio=0.7 stiffness=600 epsilon=0.0001
+      }
+
+      config-notification-open-close {
+        spring damping-ratio=0.6 stiffness=1000 epsilon=0.001
+      }
+
+      exit-confirmation-open-close {
+        spring damping-ratio=0.6 stiffness=500 epsilon=0.01
+      }
+
+      screenshot-ui-open {
+        duration-ms 200
+        curve "ease-out-quad"
+      }
+
+      overview-open-close {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+      }
+    }
+
+
+    // ── Window decorations ───────────────────────────────────────
+    prefer-no-csd
+
+    window-rule {
+        geometry-corner-radius 20 20 20 20
+        clip-to-geometry true
+    }
+
+    debug {
+        honor-xdg-activation-with-invalid-serial
+    }
+
+    layer-rule {
+        match namespace="^noctalia-overview*"
+        place-within-backdrop true
+    }
+
+    // ── Window rules ─────────────────────────────────────────────
+    window-rule {
+        match app-id=r#"^toolbarApp$"#
+        open-floating true
+    }
+
+    window-rule {
+        match app-id=r#"^noctalia.*$"#
+        open-floating true
+    }
+
+    window-rule {
+        match app-id="zen$" title="^Picture-in-Picture$"
+        open-floating true
+    }
+
+    // ── Screenshots ──────────────────────────────────────────────
+    screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+    // ── Startup ──────────────────────────────────────────────────
+    spawn-at-startup "noctalia-shell"
+    spawn-at-startup "systemctl" "--user" "start" "hyprpolkitagent"
+
+    // ── Keybinds ─────────────────────────────────────────────────
+    binds {
+        // ── Application launchers ────────────────────────────────
+        Mod+Return { spawn "ghostty"; }
+        Mod+E      { spawn "nautilus"; }
+
+        // ── Noctalia shell controls ──────────────────────────────
+        Mod+Space { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+        Mod+S { spawn "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
+        Mod+Comma { spawn "noctalia-shell" "ipc" "call" "settings" "toggle"; }
+        Mod+V { spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
+
+        // ── Window management ────────────────────────────────────
+        Mod+C { close-window; }
+        Mod+F { maximize-column; }
+        Mod+Shift+F { toggle-windowed-fullscreen; }
+
+        // ── Focus (vim-style) ────────────────────────────────────
+        Mod+H { focus-column-left; }
+        Mod+L { focus-column-right; }
+        Mod+K { focus-window-or-workspace-up; }
+        Mod+J { focus-window-or-workspace-down; }
+
+        // ── Move windows ─────────────────────────────────────────
+        Mod+Shift+H { move-column-left; }
+        Mod+Shift+L { move-column-right; }
+        Mod+Shift+K { move-window-up-or-to-workspace-up; }
+        Mod+Shift+J { move-window-down-or-to-workspace-down; }
+
+        // ── Monitor focus ───────────────────────────────────────
+        Ctrl+Shift+H { focus-monitor-left; }
+        Ctrl+Shift+L { focus-monitor-right; }
+
+        // ── Move window to monitor ──────────────────────────────
+        Ctrl+Shift+Mod+H { move-column-to-monitor-left; }
+        Ctrl+Shift+Mod+L { move-column-to-monitor-right; }
+
+        // ── Column sizing ────────────────────────────────────────
+        Mod+Minus       { set-column-width "-10%"; }
+        Mod+Equal       { set-column-width "+10%"; }
+        Mod+Shift+Minus { set-window-height "-10%"; }
+        Mod+Shift+Equal { set-window-height "+10%"; }
+
+        // ── Workspaces ───────────────────────────────────────────
+        Alt+1 { focus-workspace 1; }
+        Alt+2 { focus-workspace 2; }
+        Alt+3 { focus-workspace 3; }
+        Alt+4 { focus-workspace 4; }
+        Alt+5 { focus-workspace 5; }
+        Alt+6 { focus-workspace 6; }
+        Alt+7 { focus-workspace 7; }
+        Alt+8 { focus-workspace 8; }
+        Alt+9 { focus-workspace 9; }
+
+        Alt+Shift+1 { move-window-to-workspace 1; }
+        Alt+Shift+2 { move-window-to-workspace 2; }
+        Alt+Shift+3 { move-window-to-workspace 3; }
+        Alt+Shift+4 { move-window-to-workspace 4; }
+        Alt+Shift+5 { move-window-to-workspace 5; }
+        Alt+Shift+6 { move-window-to-workspace 6; }
+        Alt+Shift+7 { move-window-to-workspace 7; }
+        Alt+Shift+8 { move-window-to-workspace 8; }
+        Alt+Shift+9 { move-window-to-workspace 9; }
+
+        // ── Screenshots ──────────────────────────────────────────
+        Mod+P { screenshot; }
+
+        // ── Screen recording ─────────────────────────────────────
+        Mod+R { spawn "${config.home.homeDirectory}/.bin/screenrecord"; }
+
+        // ── Lock screen (via Noctalia) ───────────────────────────
+        Ctrl+Alt+L { spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
+
+        // ── Media keys (via Noctalia for OSD) ────────────────────
+        XF86AudioMute         allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "volume" "muteOutput"; }
+        XF86AudioRaiseVolume  allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "volume" "increase"; }
+        XF86AudioLowerVolume  allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "volume" "decrease"; }
+        XF86MonBrightnessUp   allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "brightness" "increase"; }
+        XF86MonBrightnessDown allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "brightness" "decrease"; }
+        XF86AudioPlay         allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "media" "playPause"; }
+        XF86AudioNext         allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "media" "next"; }
+        XF86AudioPrev         allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "media" "previous"; }
+
+        // ── Session ─────────────────────────────────────────────
+        Mod+Shift+Q { quit; }
+
+        // ── Helpful extras ───────────────────────────────────────
+        Mod+Shift+Slash { show-hotkey-overlay; }
+    }
+  '';
+}
