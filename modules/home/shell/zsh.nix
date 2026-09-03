@@ -99,7 +99,7 @@ in {
         setopt autopushd
 
         # Custom completions directory
-        fpath=(~/.bin/completions $fpath)
+        export fpath=(~/.bin/completions $fpath)
 
         # Initialize completions (must be after fpath modifications)
         autoload -U compinit && compinit
