@@ -31,6 +31,8 @@
 
           # Claude API key
           source ~/.creds/claude
+
+          export GITLAB_TOKEN=$(cat ~/.creds/gitlab-pat.txt)
         '';
       };
     };
