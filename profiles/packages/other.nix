@@ -3,7 +3,7 @@
 with pkgs; [
   # Languages
   rustup
-  elixir
+  beamPackages.elixir
   lua
 
   # Language servers
@@ -17,7 +17,6 @@ with pkgs; [
   # AI/CLI tools
   claude-code
   opencode-claude-auth
-  gemini-cli
 
   # Protobuf & API
   buf
@@ -56,4 +55,11 @@ with pkgs; [
   wireguard-tools
   wireguard-go
   wireguard-ui
+
+  mermaid-cli
+  nodejs
+
+  otel-cli
+
+  cliamp
 ]
