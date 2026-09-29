@@ -106,6 +106,7 @@
     description = "cameron";
     shell = pkgs.zsh;
     extraGroups = ["networkmanager" "wheel" "docker" "dialout" "input"];
+    initialPassword = "changeme"; # change immediately after first login
   };
 
   # ============================================================================

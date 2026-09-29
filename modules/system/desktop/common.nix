@@ -31,6 +31,8 @@ in {
     # Power management
     services.upower.enable = true;
 
+    environment.systemPackages = [pkgs.vlc];
+
     # XDG portal configuration
     xdg = {
       mime.defaultApplications = {
@@ -39,6 +41,11 @@ in {
         "x-scheme-handler/https" = cfg.defaultBrowser;
         "x-scheme-handler/about" = cfg.defaultBrowser;
         "x-scheme-handler/unknown" = cfg.defaultBrowser;
+
+        "video/mp4" = "vlc.desktop";
+        "video/x-matroska" = "vlc.desktop";
+        "video/webm" = "vlc.desktop";
+        "video/x-msvideo" = "vlc.desktop";
       };
 
       portal = {

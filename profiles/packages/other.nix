@@ -56,10 +56,16 @@ with pkgs; [
   wireguard-go
   wireguard-ui
 
-  mermaid-cli
-  nodejs
-
   otel-cli
 
   cliamp
+
+  motrix
+
+  ffmpeg
+  handbrake
+
+  cryptsetup
+
+  k9s
 ]

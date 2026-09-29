@@ -11,5 +11,4 @@ with packages;
   ++ nix
   ++ other
   ++ zig
-  ++ haskell
   ++ desktop
