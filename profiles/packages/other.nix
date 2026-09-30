@@ -60,12 +60,7 @@ with pkgs; [
 
   cliamp
 
-  motrix
-
-  ffmpeg
-  handbrake
-
-  cryptsetup
-
   k9s
+  opentelemetry-collector-contrib
+  flux
 ]

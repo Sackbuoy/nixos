@@ -1,10 +1,9 @@
 # Desktop applications (Linux only)
-{pkgs}:
-let
+{pkgs}: let
   discord-wrapped = pkgs.symlinkJoin {
     name = "discord-wrapped";
-    paths = [ pkgs.discord ];
-    buildInputs = [ pkgs.makeWrapper ];
+    paths = [pkgs.discord];
+    buildInputs = [pkgs.makeWrapper];
     postBuild = ''
       wrapProgram $out/bin/discord \
         --add-flags "--force-device-scale-factor=1"
@@ -13,17 +12,21 @@ let
     '';
   };
 in
-pkgs.lib.optionals pkgs.stdenv.hostPlatform.isLinux (
-  with pkgs; [
-    signal-desktop
-    protonmail-desktop
-    electron-mail
-    spotify-player
-    discord-wrapped
-    zoom-us
-    slack
-    spotify
-    brave
-    prismlauncher
-  ]
-)
+  pkgs.lib.optionals pkgs.stdenv.hostPlatform.isLinux (
+    with pkgs; [
+      signal-desktop
+      protonmail-desktop
+      electron-mail
+      spotify-player
+      discord-wrapped
+      zoom-us
+      slack
+      spotify
+      brave
+      prismlauncher
+      motrix
+      ffmpeg
+      handbrake
+      cryptsetup
+    ]
+  )
