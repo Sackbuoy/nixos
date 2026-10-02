@@ -1,5 +1,12 @@
 # Package sets aggregator
 # Import all package categories and expose them as an attribute set
+#
+# BOUNDARY RULE:
+#   This flake (profiles/) owns: language runtimes, dev/cloud CLI tools, desktop apps
+#   nvim/flake.nix owns:        neovim, all LSP servers, formatters, linters, editor tools
+#
+# When adding a new tool, ask: "Do I need this outside of neovim?"
+#   YES → put it here    NO → put it in nvim/flake.nix
 # {pkgs, pkgs-23-11}: {
 {pkgs}: {
   # go = import ./go.nix {inherit pkgs pkgs-23-11;};

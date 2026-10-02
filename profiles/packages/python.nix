@@ -3,7 +3,7 @@
 with pkgs; [
   python313
   ty
-  pyright
+  # pyright  # use basedpyright in nvim/flake.nix instead
   black
   ruff
   # pylyzer

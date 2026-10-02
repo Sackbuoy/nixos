@@ -6,10 +6,10 @@ with pkgs; [
   beamPackages.elixir
   lua
 
-  # Language servers
-  bash-language-server
-  # lua-language-server
-  yaml-language-server
+  # Language servers (note: most LSPs live in nvim/flake.nix)
+  # bash-language-server  # in nvim flake
+  # lua-language-server   # in nvim flake
+  yaml-language-server    # useful in CLI context (e.g. CI scripts), also in nvim flake if needed
   # elixir-ls
   # protobuf-language-server
   typos-lsp
@@ -19,7 +19,7 @@ with pkgs; [
   opencode-claude-auth
 
   # Protobuf & API
-  buf
+  # buf  # in nvim flake
   crossplane-cli
   protobuf_33
 
