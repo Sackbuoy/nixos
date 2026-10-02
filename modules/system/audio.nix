@@ -65,8 +65,5 @@ in {
         };
       };
     };
-
-    # Bluetooth GUI
-    services.blueman.enable = cfg.bluetooth.enable;
   };
 }
