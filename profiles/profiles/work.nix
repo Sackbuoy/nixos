@@ -11,4 +11,5 @@ with packages;
   ++ web
   ++ zig
   ++ haskell
+  ++ rust
   ++ other

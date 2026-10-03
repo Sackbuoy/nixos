@@ -2,7 +2,7 @@
 {pkgs}:
 with pkgs; [
   # Languages
-  rustup
+  # rustup moved to rust.nix
   beamPackages.elixir
   lua
 
