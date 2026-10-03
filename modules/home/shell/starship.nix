@@ -22,6 +22,13 @@ in {
           style_user = "bright-white bold";
           style_root = "bright-red bold";
         };
+        nix_shell = {
+          disabled = false;
+          impure_msg = "❄️";
+          pure_msg = "[pure shell](bold green)";
+          unknown_msg = "[unknown shell](bold yellow)";
+          format = "[$state](bold blue) ";
+        };
       };
     };
   };

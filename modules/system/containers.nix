@@ -32,6 +32,11 @@ in {
         enable = true;
         dockerCompat = cfg.dockerCompat;
       };
+
+      incus = {
+        enable = true;
+        preseed = {};
+      };
     };
   };
 }

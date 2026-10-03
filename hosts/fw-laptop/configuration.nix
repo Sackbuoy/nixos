@@ -108,7 +108,7 @@
     isNormalUser = true;
     description = "cameron";
     shell = pkgs.zsh;
-    extraGroups = ["networkmanager" "wheel" "docker" "dialout"];
+    extraGroups = ["networkmanager" "wheel" "docker" "dialout" "incus-admin"];
   };
 
   # ============================================================================
