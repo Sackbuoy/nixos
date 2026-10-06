@@ -102,22 +102,6 @@
         alt-shift-8 = "move-node-to-workspace 8";
         alt-shift-9 = "move-node-to-workspace 9";
         alt-shift-backtick = "move-node-to-workspace scratch";
-
-        # # Structured Keybinds
-        # # Focus:
-        # cmd-ctrl-l = "focus-monitor right";
-        # cmd-ctrl-h = "focus-monitor left";
-        # cmd-l = "workspace next --wrap-around";
-        # cmd-h = "workspace prev --wrap-around";
-        # alt-l = "focus --boundaries-action wrap-around-the-workspace right";
-        # alt-h = "focus --boundaries-action wrap-around-the-workspace left";
-        # # Moves
-        # cmd-shift-l = "move-workspace-to-monitor right";
-        # cmd-shift-h = "move-workspace-to-monitor left";
-        # alt-shift-l = "move-node-to-workspace right";
-        # alt-shift-h = "move-node-to-workspace left";
-        # alt-ctrl-l = "move-node-to-monitor right";
-        # alt-ctrl-h = "move-node-to-monitor left";
       };
     };
   };

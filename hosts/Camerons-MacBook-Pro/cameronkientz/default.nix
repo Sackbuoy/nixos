@@ -33,6 +33,7 @@
           source ~/.creds/claude
 
           export GITLAB_TOKEN=$(cat ~/.creds/gitlab-pat.txt)
+          eval "$(pay-respects zsh --alias)"
         '';
       };
     };
@@ -103,6 +104,7 @@
     git-lfs
     bat
     eza
+    pay-respects
   ];
 
   # Session variables
