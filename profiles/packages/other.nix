@@ -63,4 +63,6 @@ with pkgs; [
   k9s
   opentelemetry-collector-contrib
   flux
+
+  haskellPackages.runghc
 ]
