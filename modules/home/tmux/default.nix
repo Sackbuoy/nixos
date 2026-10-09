@@ -82,6 +82,10 @@ in {
           set -g @plugin 'mrjones2014/smart-splits.nvim'
         ''}
 
+        # Window navigation: Ctrl+Alt+h / Ctrl+Alt+l (no prefix)
+        bind -n C-M-h previous-window
+        bind -n C-M-l next-window
+
         # Easy config reload
         bind-key R source-file ~/.config/tmux/tmux.conf \; display-message "tmux.conf reloaded."
 

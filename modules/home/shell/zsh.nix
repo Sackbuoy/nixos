@@ -58,6 +58,19 @@ in {
       historySubstringSearch.enable = true;
       enableCompletion = false; # Manual control for compinit ordering
 
+      history = {
+        size = 1000000;
+        save = 1000000;
+        extended = true; # record timestamps
+        share = false; # per-shell history so tmux panes don't interleave
+        append = true; # still write each shell's history on exit
+        ignoreDups = true;
+        ignoreAllDups = true;
+        expireDuplicatesFirst = true;
+        ignoreSpace = true; # leading space = don't record (handy for secrets)
+        ignorePatterns = ["clear" "ls" "ls *" "pwd" "exit"];
+      };
+
       initContent = ''
         ${optionalString cfg.enableTmuxAutostart ''
           if [ "$TMUX" = "" ]; then tmux; fi
@@ -65,7 +78,17 @@ in {
 
         # Vi mode keybindings
         bindkey -v
-        bindkey '^R' history-incremental-search-backward
+
+        # Make vi-mode yank/delete/paste use the macOS system clipboard
+        zvm_config() {
+          ZVM_SYSTEM_CLIPBOARD_ENABLED=true
+        }
+
+        # zsh-vi-mode re-binds keys after init, so bind fuzzy history search afterwards
+        zvm_after_init_commands+=(
+          "bindkey -M viins '^R' fzf-history-widget"
+          "bindkey -M vicmd '^R' fzf-history-widget"
+        )
 
         # Add ~/.bin to PATH
         export PATH=${config.home.homeDirectory}/.bin:$PATH
@@ -125,6 +148,12 @@ in {
           file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
         }
       ];
+    };
+
+    # Fuzzy finder (Ctrl-R history, Ctrl-T files, Alt-C cd)
+    programs.fzf = {
+      enable = true;
+      enableZshIntegration = true;
     };
 
     # Bash fallback for nix-shell compatibility
