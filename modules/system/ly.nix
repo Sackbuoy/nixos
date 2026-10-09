@@ -5,7 +5,7 @@
       animation = "matrix";
       # hide_borders = true;
       # clear_password = true;
-      # bigclock = "en";
+      bigclock = "en";
     };
   };
   # services.displayManager.cosmic-greeter.enable = true;

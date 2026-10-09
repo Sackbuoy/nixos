@@ -114,7 +114,7 @@
     prefer-no-csd
 
     window-rule {
-        geometry-corner-radius 20 20 20 20
+        geometry-corner-radius 12 12 12 12
         clip-to-geometry true
     }
 
@@ -153,7 +153,7 @@
     // ── Keybinds ─────────────────────────────────────────────────
     binds {
         // ── Application launchers ────────────────────────────────
-        Mod+Return { spawn "ghostty"; }
+        Mod+Return { spawn "foot"; }
         Mod+E      { spawn "nautilus"; }
 
         // ── Noctalia shell controls ──────────────────────────────

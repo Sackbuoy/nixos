@@ -47,8 +47,9 @@
     };
 
     # Terminals
-    terminal.alacritty.enable = true;
-    terminal.ghostty.enable = true;
+    terminal.alacritty.enable = false;
+    terminal.ghostty.enable = false;
+    terminal.foot.enable = true;
 
     # Tmux with vim integration
     tmux = {
