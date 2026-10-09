@@ -34,6 +34,7 @@ in {
       };
 
       incus = {
+        ui.enable = true;
         enable = true;
         preseed = {};
       };
