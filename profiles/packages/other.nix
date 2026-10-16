@@ -64,5 +64,8 @@ with pkgs; [
   opentelemetry-collector-contrib
   flux
 
-  haskellPackages.runghc
+  bottom
+
+  crane
+  fluxcd
 ]
