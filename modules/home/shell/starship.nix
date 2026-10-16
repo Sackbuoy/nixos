@@ -29,6 +29,9 @@ in {
           unknown_msg = "[unknown shell](bold yellow)";
           format = "[$state](bold blue) ";
         };
+        git_status = {
+          stashed = "";
+        };
       };
     };
   };
