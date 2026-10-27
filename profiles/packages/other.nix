@@ -62,10 +62,12 @@ with pkgs; [
 
   k9s
   opentelemetry-collector-contrib
-  flux
-
   bottom
 
   crane
   fluxcd
+
+  haskellPackages.runghc
+  fluxcd
+  feh
 ]

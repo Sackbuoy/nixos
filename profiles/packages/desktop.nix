@@ -28,5 +28,8 @@ in
       ffmpeg
       handbrake
       cryptsetup
+      nautilus
+      proton-vpn
+      mpv
     ]
   )
