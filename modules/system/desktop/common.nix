@@ -16,6 +16,12 @@ in {
       default = "zen.desktop";
       description = "Default browser desktop file";
     };
+
+    defaultEmailClient = mkOption {
+      type = types.str;
+      default = "proton-mail.desktop";
+      description = "Default email client file";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -42,10 +48,13 @@ in {
         "x-scheme-handler/about" = cfg.defaultBrowser;
         "x-scheme-handler/unknown" = cfg.defaultBrowser;
 
-        "video/mp4" = "vlc.desktop";
-        "video/x-matroska" = "vlc.desktop";
-        "video/webm" = "vlc.desktop";
-        "video/x-msvideo" = "vlc.desktop";
+        "x-scheme-handler/mailto" = cfg.defaultEmailClient;
+        "x-scheme-handler/proton-inbox" = cfg.defaultEmailClient;
+
+        "video/mp4" = "mpv.desktop";
+        "video/x-matroska" = "mpv.desktop";
+        "video/webm" = "mpv.desktop";
+        "video/x-msvideo" = "mpv.desktop";
       };
 
       portal = {

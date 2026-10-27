@@ -75,6 +75,7 @@
     desktop = {
       enable = true;
       defaultBrowser = "zen.desktop";
+      defaultEmailClient = "proton-mail.desktop";
       hyprland.enable = true;
       niri = {
         enable = true;

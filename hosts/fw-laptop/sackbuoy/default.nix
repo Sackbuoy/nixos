@@ -84,22 +84,6 @@
 
   # Host-specific files
   home.file = {
-    # Proton Mail desktop file workaround
-    "${config.home.homeDirectory}/.local/share/applications/proton-mail.desktop" = {
-      text = ''
-        [Desktop Entry]
-        Name=Proton Mail
-        Comment=Proton official desktop application for Proton Mail and Proton Calendar
-        GenericName=Proton Mail
-        Exec=proton-mail %U
-        Icon=proton-mail
-        Type=Application
-        StartupNotify=true
-        Categories=Network;Email;
-        MimeType=x-scheme-handler/mailto;
-      '';
-    };
-
     # Screen recording script (Linux-specific)
     "${config.home.homeDirectory}/.bin/screenrecord" = {
       text = ''
