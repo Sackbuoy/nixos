@@ -29,7 +29,6 @@
         enableKubectlCompletion = true;
         extraInitContent = ''
           export NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz:$NIX_PATH
-          eval "$(direnv hook zsh)"
         '';
       };
     };
@@ -111,11 +110,4 @@
   # Firefox
   programs.firefox.enable = true;
   programs.firefox.configPath = "${config.xdg.configHome}/mozilla/firefox";
-
-  # Direnv (currently disabled)
-  programs.direnv = {
-    enable = false;
-    enableZshIntegration = true;
-    nix-direnv.enable = false;
-  };
 }

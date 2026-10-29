@@ -105,11 +105,4 @@
   # Firefox
   programs.firefox.enable = true;
   programs.firefox.configPath = "${config.xdg.configHome}/mozilla/firefox";
-
-  # Direnv (currently disabled)
-  programs.direnv = {
-    enable = false;
-    enableZshIntegration = true;
-    nix-direnv.enable = false;
-  };
 }
