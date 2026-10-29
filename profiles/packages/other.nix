@@ -70,4 +70,8 @@ with pkgs; [
   haskellPackages.runghc
   fluxcd
   feh
+
+  gdb
+  helix
+  lldb
 ]
