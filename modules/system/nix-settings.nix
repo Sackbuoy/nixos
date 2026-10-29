@@ -50,9 +50,6 @@ in {
   };
 
   config = {
-    environment.systemPackages = [pkgs.devbox];
-    programs.direnv.enable = true;
-
     nix = mkMerge [
       (mkIf cfg.enableFlakes {
         extraOptions = ''
