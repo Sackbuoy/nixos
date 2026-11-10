@@ -76,4 +76,5 @@ with pkgs; [
   lldb
 
   parted
+  nix-output-monitor
 ]
