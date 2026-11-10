@@ -27,6 +27,10 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    bootvine = {
+      url = "git+https://codeberg.org/wvhulle/bootvine";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 

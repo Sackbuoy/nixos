@@ -45,6 +45,7 @@
           ../hosts/${hostName}/configuration.nix
           # Include all NixOS modules for mySystem.* options
           config.flake.nixosModules.default
+          inputs.bootvine.nixosModules.default
           inputs.nix-index-database.nixosModules.default
           inputs.home-manager.nixosModules.home-manager
           (homeManagerConfig hostName)

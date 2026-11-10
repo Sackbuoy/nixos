@@ -91,6 +91,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.initrd.systemd.enable = true;
 
   # ============================================================================
   # Display Manager
@@ -135,6 +136,7 @@
   services.flatpak.enable = false;
   services.fwupd.enable = true;
   services.rpcbind.enable = true;
+  services.bootvine.enable = true;
 
   # Open WebUI for local LLM
   services.open-webui = {
