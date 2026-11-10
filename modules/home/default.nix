@@ -4,6 +4,7 @@
   imports = [
     ./shell
     ./git.nix
+    ./herdr
     ./terminal
     ./tmux
     ./zoxide.nix

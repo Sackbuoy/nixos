@@ -69,6 +69,9 @@
       ];
     };
 
+    # Herdr agent harness
+    herdr.enable = true;
+
     # Terminals
     terminal.alacritty.enable = true;
 

@@ -73,7 +73,7 @@ in {
 
       initContent = ''
         ${optionalString cfg.enableTmuxAutostart ''
-          if [ "$TMUX" = "" ]; then tmux; fi
+          if [ -z "$TMUX" ] && [ "$TERM_PROGRAM" != "herdr" ]; then tmux; fi
         ''}
 
         # Vi mode keybindings

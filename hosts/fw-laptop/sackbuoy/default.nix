@@ -50,6 +50,9 @@
     terminal.ghostty.enable = false;
     terminal.foot.enable = true;
 
+    # Herdr agent harness
+    herdr.enable = true;
+
     # Tmux with vim integration
     tmux = {
       enable = true;
