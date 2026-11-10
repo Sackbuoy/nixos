@@ -74,4 +74,6 @@ with pkgs; [
   gdb
   helix
   lldb
+
+  parted
 ]
