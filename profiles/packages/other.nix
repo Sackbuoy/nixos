@@ -75,6 +75,5 @@ with pkgs; [
   helix
   lldb
 
-  parted
   nix-output-monitor
 ]

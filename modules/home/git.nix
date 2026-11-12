@@ -125,6 +125,12 @@ in {
           # Merge/diff settings
           merge.conflictstyle = "zdiff3";
           diff.colorMoved = "default";
+
+          # Reuse recorded conflict resolutions
+          rerere = {
+            enabled = true;
+            autoupdate = true;
+          };
         }
 
         # Signing configuration
