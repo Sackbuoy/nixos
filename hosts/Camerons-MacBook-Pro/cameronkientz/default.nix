@@ -73,7 +73,7 @@
     herdr.enable = true;
 
     # Terminals
-    terminal.alacritty.enable = true;
+    terminal.ghostty.enable = true;
 
     # Tmux with macOS-specific settings
     tmux = {

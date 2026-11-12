@@ -61,7 +61,9 @@
           ../hosts/${hostName}/configuration.nix
           inputs.nix-index-database.darwinModules.default
           inputs.home-manager.darwinModules.home-manager
+          inputs.mac-app-util.darwinModules.default
           (homeManagerConfig hostName)
+          {home-manager.sharedModules = [inputs.mac-app-util.homeManagerModules.default];}
         ];
       });
 in {
