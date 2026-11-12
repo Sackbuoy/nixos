@@ -44,15 +44,15 @@ in {
     };
 
     windowNavPrevSeq = mkOption {
-      type = types.str;
-      default = "\\e[104;13u";
-      description = "Escape sequence for previous-window (default: Ctrl+Super/Cmd+h, CSI-u)";
+      type = types.nullOr types.str;
+      default = null;
+      description = "Escape sequence for previous-window (CSI-u). If null, falls back to bind -n C-M-h.";
     };
 
     windowNavNextSeq = mkOption {
-      type = types.str;
-      default = "\\e[108;13u";
-      description = "Escape sequence for next-window (default: Ctrl+Super/Cmd+l, CSI-u)";
+      type = types.nullOr types.str;
+      default = null;
+      description = "Escape sequence for next-window (CSI-u). If null, falls back to bind -n C-M-l.";
     };
 
     extraConfig = mkOption {
@@ -94,11 +94,16 @@ in {
           set -g @plugin 'mrjones2014/smart-splits.nvim'
         ''}
 
-        # Window navigation: Ctrl+Super/Cmd+h/l (CSI-u, no prefix)
-        set -s user-keys[0] "${cfg.windowNavPrevSeq}"
-        set -s user-keys[1] "${cfg.windowNavNextSeq}"
-        bind -n User0 previous-window
-        bind -n User1 next-window
+        # Window navigation
+        ${if cfg.windowNavPrevSeq != null then ''
+          set -s user-keys[0] "${cfg.windowNavPrevSeq}"
+          set -s user-keys[1] "${cfg.windowNavNextSeq}"
+          bind -n User0 previous-window
+          bind -n User1 next-window
+        '' else ''
+          bind -n C-M-h previous-window
+          bind -n C-M-l next-window
+        ''}
 
         # Easy config reload
         bind-key R source-file ~/.config/tmux/tmux.conf \; display-message "tmux.conf reloaded."

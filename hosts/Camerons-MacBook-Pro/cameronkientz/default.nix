@@ -83,6 +83,8 @@
       enableSmartSplits = true;
       rightPlugins = "battery network time";
       leftPlugins = "git kube";
+      windowNavPrevSeq = "\\e[104;13u";
+      windowNavNextSeq = "\\e[108;13u";
       extraConfig = ''
         # macOS: use Nix-managed zsh
         set -g default-command "${pkgs.zsh}/bin/zsh"
