@@ -43,6 +43,18 @@ in {
       example = "git kube";
     };
 
+    windowNavPrevSeq = mkOption {
+      type = types.str;
+      default = "\\e[104;13u";
+      description = "Escape sequence for previous-window (default: Ctrl+Super/Cmd+h, CSI-u)";
+    };
+
+    windowNavNextSeq = mkOption {
+      type = types.str;
+      default = "\\e[108;13u";
+      description = "Escape sequence for next-window (default: Ctrl+Super/Cmd+l, CSI-u)";
+    };
+
     extraConfig = mkOption {
       type = types.lines;
       default = "";
@@ -82,9 +94,11 @@ in {
           set -g @plugin 'mrjones2014/smart-splits.nvim'
         ''}
 
-        # Window navigation: Ctrl+Alt+h / Ctrl+Alt+l (no prefix)
-        bind -n C-M-h previous-window
-        bind -n C-M-l next-window
+        # Window navigation: Ctrl+Super/Cmd+h/l (CSI-u, no prefix)
+        set -s user-keys[0] "${cfg.windowNavPrevSeq}"
+        set -s user-keys[1] "${cfg.windowNavNextSeq}"
+        bind -n User0 previous-window
+        bind -n User1 next-window
 
         # Easy config reload
         bind-key R source-file ~/.config/tmux/tmux.conf \; display-message "tmux.conf reloaded."
